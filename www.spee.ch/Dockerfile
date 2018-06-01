@@ -15,7 +15,9 @@ RUN npm update && \
 ## Install container support files
 RUN source <(curl -s https://raw.githubusercontent.com/chamunks/docker-support/master/bin/install)
 ADD ./docker-entrypoint.sh /bin/docker-entrypoint
+ADD ./healthcheck.sh /bin/healthcheck
 
+HEALTHCHECK CMD healthcheck
 EXPOSE 3000
 USER speech
 WORKDIR /app/
