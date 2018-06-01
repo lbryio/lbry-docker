@@ -10,7 +10,7 @@ RUN npm update && \
     apk update && apk --no-cache add git && \
     adduser speech -h /app/ -s /bin/ash -D && \
     chown -Rv speech /app && \
-    git clone https://github.com/lbryio/www.spee.ch.git /src/spee.ch/
+    git clone https://github.com/lbryio/www.spee.ch.git /usr/local/src/www.spee.ch/
 
 EXPOSE 3000
 
