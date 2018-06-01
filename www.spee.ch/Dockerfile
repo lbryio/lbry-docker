@@ -5,7 +5,6 @@ MAINTAINER chamunks [at] gmail [dot] com
 # 8.11.2-alpine, 8.11-alpine, 8-alpine, carbon-alpine (8/alpine/Dockerfile)
 FROM node:8-alpine
 
-
 ## Install base packages and clone repo to src directory.
 RUN npm update && \
     apk update && apk --no-cache add git curl wget && \
