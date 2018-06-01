@@ -1,0 +1,17 @@
+## To-Do:
+## * [] setup webhooks in gitlab on projects that build containers for this.
+## * [] Get the thing tested & perfected.
+## * [] Healthchecks on all containers ideally without needing a custom container.
+version: '3.4'
+services:
+
+#############
+## Lbrynet ##
+#############
+  spee.ch:
+    build: .
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./www.spee.ch/data:/data
