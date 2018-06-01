@@ -7,7 +7,7 @@ FROM node:8-alpine
 MAINTAINER chamunks [at] gmail [dot] com
 
 RUN npm update && \
-    apk update && apk --no-cache add git && \
+    apk update && apk --no-cache add git curl wget && \
     adduser speech -h /app/ -s /bin/ash -D && \
     chown -Rv speech /app && \
     git clone https://github.com/lbryio/www.spee.ch.git /usr/local/src/www.spee.ch/
