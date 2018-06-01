@@ -20,7 +20,7 @@ if [ ! -e '/app/config/siteConfig.json' ]; then
   if [ "$(ls -A /app)" ]; then
     echof warn "/app is not Empty. It contains:" 1>&2
     ls -A 1>&2
-    echof info "Making an attempt to nicely merge files using."
+    echof info "Making an attempt to nicely merge files using:"
     echof run "mv -fnu /usr/local/src/www.spee.ch/* /app/"
     mv -fnu /usr/local/src/www.spee.ch/* /app/
   else
@@ -28,13 +28,13 @@ if [ ! -e '/app/config/siteConfig.json' ]; then
     mv /usr/local/src/www.spee.ch/* /app/
   fi
   echo "Spee.ch installed into /app"
-  # change required permissions incl. for multi-lingual sites
-  test_for_dir /app/cli 775 "speech:speech"
-  test_for_dir /app/config 775 "speech:speech"
-  test_for_dir /app/lib 775 "speech:speech"
-  test_for_dir /app/public 775 "speech:speech"
-  test_for_dir /app/src 775 "speech:speech"
-  test_for_dir /app/utils 775 "speech:speech"
+  ## Finally reassert permissions in case there is user added drift.
+  rddo "test_for_dir" '775 "speech:speech"'
+  rfdo "test_for_file" '665 "speech:speech"'
+
+  ## Define any exceptions here.
+  # test_for_dir /app/config 775 "speech:speech"
+  # test_for_file /app/config/siteConfig.json 665 "speech:speech"
   echof info "Copied Spee.ch and set permissions"
 fi
 
