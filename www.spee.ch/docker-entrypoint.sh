@@ -32,7 +32,7 @@ if [ ! -e '/app/config/siteConfig.json' ]; then
   rddo "test_for_dir" '775 "speech:speech"'
   rfdo "test_for_file" '665 "speech:speech"'
 
-  ## Define any exceptions here.
+  ## Define any permission exceptions here.
   # test_for_dir /app/config 775 "speech:speech"
   # test_for_file /app/config/siteConfig.json 665 "speech:speech"
   echof info "Copied Spee.ch and set permissions"
