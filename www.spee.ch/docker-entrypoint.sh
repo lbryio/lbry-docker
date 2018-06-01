@@ -6,7 +6,7 @@
 # default to run whatever the user wanted like "/bin/ash"
 ## If user runs no need to run any more of the entrypoint script.
 if [[ -z "$@" ]]; then
-  echof info "User did not attempt input."
+  echof info "User did not attempt input. Now executing docker-entrypoint."
 else
   exec "$@"
   exit 1
