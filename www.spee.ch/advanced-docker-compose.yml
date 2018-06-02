@@ -1,7 +1,10 @@
 ## To-Do:
-## * [] setup webhooks in gitlab on projects that build containers for this.
-## * [] Get the thing tested & perfected.
-## * [] Healthchecks on all containers ideally without needing a custom container.
+# This docker-compose.yml file will be for spinning up a basic instance.
+# You likely won't want to run this in production but its to get it up and going.
+# If you want to run this in production to-do:
+# * [ ] Front end reverse proxy like caddy, nginx or traefik.
+# * [ ] Security assessment and adjustments to suit your environment.
+
 version: '3.4'
 services:
 
@@ -9,9 +12,69 @@ services:
 ## Speech ##
 ############
   spee.ch:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
-    ports:
-      - 3000:3000
+    expose:
+      - 3000
     volumes:
-      - ./www.spee.ch/data:/data
+      - ../data/spee.ch:/data
+    networks:
+      green:
+        ipv4_address: 10.5.0.6
+        aliases:
+          - speech
+
+#############
+## Lbrynet ##
+#############
+  lbrynet:
+    build:
+      context: ../lbrynet-daemon/
+      dockerfile: Dockerfile
+    restart: always
+    expose:
+      - 4444
+      - 50001
+    ## host volumes for persistent data such as wallet private keys.
+    volumes:
+      - ../data/lbrynet:/data
+    networks:
+      green:
+        ipv4_address: 10.5.0.7
+        aliases:
+          - lbrynet
+
+#############
+## MariaDB ##
+#############
+## https://hub.docker.com/r/_/mariadb/
+  mysql:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_SERVER: 10.5.0.8
+      MYSQL_USER: replaceme
+      MYSQL_PASSWORD: REPLACEME
+      MYSQL_DATABASE: speech
+      MYSQL_ROOT_PASSWORD: REPLACEME
+    expose:
+      - 3306
+    volumes:
+      - ../data/db:/var/lib/mysql
+    networks:
+      green:
+        ipv4_address: 10.5.0.8
+        aliases:
+          - mysql
+
+#########################
+## Network Definitions ##
+#########################
+networks:
+  green:
+    driver: bridge
+    ipam:
+        config:
+          - subnet: 10.5.0.0/16
