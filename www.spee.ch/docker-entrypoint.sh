@@ -33,18 +33,21 @@ function final_permset() {
 if [ "$(ls -A /app)" ]; then
   echof warn "/app is not Empty. It contains:" 1>&2
   ls -A 1>&2
+  ## If siteConfig.json isn't installed add it and configure or ignore and proceed.
   if [ ! -e '/app/config/siteConfig.json' ]; then
     echof warn "Spee.ch doesn't appear to have a configuration."
     echof blank "Don't worry we can install it for you."
     configure_speech
   else
-    ##
+    ## If the file exists skip configuration and proceed.
     echof info "Spee.ch config already installed skipping configuration step."
     final_permset
   fi
+  ## Install all other files after installing siteConfig.json
   echof info "Making an attempt to nicely merge files using:"
   echof run "mv -fnu /usr/local/src/www.spee.ch/* /app/"
   mv -fnu /usr/local/src/www.spee.ch/* /app/
+  final_permset
 else
   echof info "Speech wasn't installed, installing fresh copy now."
   configure_speech
