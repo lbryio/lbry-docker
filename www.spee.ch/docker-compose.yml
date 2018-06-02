@@ -1,9 +1,12 @@
 ## To-Do:
 # This docker-compose.yml file will be for spinning up a basic instance.
 # You likely won't want to run this in production but its to get it up and going.
+# If you want to run this in production to-do:
+# * [ ] Front end reverse proxy like caddy, nginx or traefik.
+# * [ ] Security assessment and adjustments to suit your environment.
+
 version: '3.4'
 services:
-
 ############
 ## Speech ##
 ############
@@ -59,8 +62,8 @@ services:
       - 3306
     ports:
       - 3306:3306
-    # volumes:
-    #   - ../data/db:/var/lib/mysql
+    volumes:
+      - ../data/db:/var/lib/mysql
     networks:
       green:
         ipv4_address: 10.5.0.8
