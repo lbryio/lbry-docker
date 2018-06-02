@@ -20,6 +20,13 @@ services:
       - 3000
     volumes:
       - ../data/spee.ch:/data
+    labels:
+      # https://docs.traefik.io/user-guide/docker-and-lets-encrypt/
+      - "traefik.backend=speech"
+      - "traefik.docker.network=green"
+      - "traefik.frontend.rule=Host:YOURDOMAINHERE"
+      - "traefik.expose=true"
+      - "traefik.port=3000"
     networks:
       green:
         ipv4_address: 10.5.0.6
@@ -40,6 +47,8 @@ services:
     ## host volumes for persistent data such as wallet private keys.
     volumes:
       - ../data/lbrynet:/data
+    labels:
+      test: traefik.enable=false
     networks:
       green:
         ipv4_address: 10.5.0.7
@@ -63,6 +72,8 @@ services:
       - 3306
     volumes:
       - ../data/db:/var/lib/mysql
+    labels:
+      test: traefik.enable=false
     networks:
       green:
         ipv4_address: 10.5.0.8
