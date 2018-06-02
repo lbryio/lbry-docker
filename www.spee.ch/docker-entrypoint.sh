@@ -1,6 +1,6 @@
 #!/bin/ash
-set -euo pipefail
-## This compose file will take a copy of the configuration and install any
+set -euxo pipefail
+## This docker-entrypoint will take a copy of the configuration and install any
 ## envvars and then copy any required files into the /app/ directory next to any
 ## custom files added by the user.
 
