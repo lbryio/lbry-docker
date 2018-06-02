@@ -10,7 +10,9 @@ RUN npm update && \
     apk update && apk --no-cache add git curl wget && \
     adduser speech -h /app/ -s /bin/ash -D && \
     chown -Rv speech /app && \
-    git clone https://github.com/lbryio/www.spee.ch.git /usr/local/src/www.spee.ch/
+    git clone https://github.com/lbryio/www.spee.ch.git /usr/local/src/www.spee.ch/ && \
+    cd /usr/local/src/www.spee.ch/ && \
+    npm install && cat /usr/local/src/www.spee.ch/config/siteConfig.json
 
 ## Install container support files
 RUN curl -s https://raw.githubusercontent.com/chamunks/docker-support/master/install | /bin/sh && \
