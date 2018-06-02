@@ -1,9 +1,9 @@
-MAINTAINER chamunks [at] gmail [dot] com
 ## Base Image
 ## Using the smallest container available
 ## https://hub.docker.com/_/node/
 # 8.11.2-alpine, 8.11-alpine, 8-alpine, carbon-alpine (8/alpine/Dockerfile)
 FROM node:8-alpine
+MAINTAINER chamunks [at] gmail [dot] com
 
 ## Install base packages and clone repo to src directory.
 RUN npm update && \
@@ -13,7 +13,8 @@ RUN npm update && \
     git clone https://github.com/lbryio/www.spee.ch.git /usr/local/src/www.spee.ch/
 
 ## Install container support files
-RUN source <(curl -s https://raw.githubusercontent.com/chamunks/docker-support/master/bin/install)
+RUN curl -s https://raw.githubusercontent.com/chamunks/docker-support/master/install | /bin/sh && \
+    echo $PATH
 ADD ./docker-entrypoint.sh /bin/docker-entrypoint
 ADD ./healthcheck.sh /bin/healthcheck
 
