@@ -1,10 +1,4 @@
-## To-Do:
-# This docker-compose.yml file will be for spinning up a basic instance.
-# You likely won't want to run this in production but its to get it up and going.
-# If you want to run this in production to-do:
-# * [ ] Front end reverse proxy like caddy, nginx or traefik.
-# * [ ] Security assessment and adjustments to suit your environment.
-
+## YMMV and this is not supported but should be a few steps away from deployable.
 version: '3.4'
 services:
 
@@ -15,7 +9,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    restart: always
+    # restart: always
     expose:
       - 3000
     volumes:
@@ -40,7 +34,7 @@ services:
     build:
       context: ../lbrynet-daemon/
       dockerfile: Dockerfile
-    restart: always
+    # restart: always
     expose:
       - 4444
       - 50001
@@ -61,7 +55,7 @@ services:
 ## https://hub.docker.com/r/_/mariadb/
   mysql:
     image: mariadb
-    restart: always
+    # restart: always
     environment:
       MYSQL_SERVER: 10.5.0.8
       MYSQL_USER: replaceme
@@ -79,6 +73,29 @@ services:
         ipv4_address: 10.5.0.8
         aliases:
           - mysql
+
+#######################
+## Adminer container ##
+#######################
+  adminer:
+    image: adminer
+    # restart: always
+    links:
+      - "mysql:database"
+    depends_on:
+      - mysql
+    labels:
+      # https://docs.traefik.io/user-guide/docker-and-lets-encrypt/
+      - "traefik.backend=adminer"
+      - "traefik.docker.network=green"
+      - "traefik.frontend.rule=Host:adminer.YOURDOMAINHERE"
+      - "traefik.expose=true"
+      - "traefik.port=8080"
+    # healthcheck:
+    #   test: ["CMD", "curl", "--fail", "http://localhost:8080/", "||", "exit", "1"]
+    networks:
+      green:
+        ipv4_address: 10.5.0.9
 
 #########################
 ## Network Definitions ##
