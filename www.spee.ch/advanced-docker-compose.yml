@@ -99,12 +99,11 @@ services:
         aliases:
           - adminer
 
-#####################
-## Proxy container ##
-#####################
-#####################
+#######################
+## Traefik container ##
+#######################
 ## https://www.digitalocean.com/community/tutorials/how-to-use-traefik-as-a-reverse-proxy-for-docker-containers-on-ubuntu-16-04
-  proxy:
+  traefik:
     image: traefik:alpine
     # command: --api --docker --docker.domain=docker.localhost --logLevel=DEBUG
     command: --api  --docker --logLevel=ERROR
