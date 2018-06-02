@@ -8,12 +8,14 @@ services:
 ## Speech ##
 ############
   spee.ch:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
     ports:
       - 3000:3000
     volumes:
-      - ./www.spee.ch/data:/data
+      - ../data/spee.ch:/data
     networks:
       green:
         ipv4_address: 10.5.0.6
@@ -24,14 +26,16 @@ services:
 ## Lbrynet ##
 #############
   lbrynet:
-    build: ../lbrynet-daemon/.
+    build:
+      context: ../lbrynet-daemon/
+      dockerfile: Dockerfile
     restart: always
     ports:
       - 4444:4444
       - 50001:50001
     ## host volumes for persistent data such as wallet private keys.
     volumes:
-      - ../lbrynet-daemon/docker/data/:/data
+      - ../data/lbrynet:/data
     networks:
       green:
         ipv4_address: 10.5.0.7
@@ -56,7 +60,7 @@ services:
     ports:
       - 3306:3306
     # volumes:
-    #   - ./data/db:/var/lib/mysql
+    #   - ../data/db:/var/lib/mysql
     networks:
       green:
         ipv4_address: 10.5.0.8
