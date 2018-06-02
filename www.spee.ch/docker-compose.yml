@@ -10,7 +10,7 @@ services:
 ############
 ## Speech ##
 ############
-  spee.ch:
+  speech:
     build:
       context: .
       dockerfile: Dockerfile
