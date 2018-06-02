@@ -96,6 +96,8 @@ services:
     networks:
       green:
         ipv4_address: 10.5.0.9
+        aliases:
+          - adminer
 
 #########################
 ## Network Definitions ##
