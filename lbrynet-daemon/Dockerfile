@@ -18,9 +18,6 @@ RUN mv /data/lbrynet-* /bin/ && \
 
 ## Daemon port [Intended for internal use]
 EXPOSE 4444
-## Peer port
-## Intended for external use, in other words publishing to host might be required.
-EXPOSE 3333
 ## Wallet port [Intended for internal use]
 EXPOSE 50001
 
