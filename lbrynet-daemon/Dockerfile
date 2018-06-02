@@ -3,14 +3,14 @@ FROM ubuntu:18.04
 MAINTAINER chamunks [at] gmail [dot] com
 
 RUN apt-get update && apt-get -y install unzip
-# RUN mkdir -pv /app && chown 1000:1000 /app
+# RUN mkdir -pv /data && chown 1000:1000 /data
 RUN adduser lbrynet --gecos GECOS --shell /bin/bash/ --disabled-password --home /data/
 
 ## Add lbrynet
 ADD https://lbry.io/get/lbrynet.linux.zip /data/lbrynet.linux.zip
 RUN unzip /data/lbrynet.linux.zip -d /data/ && \
     rm /data/lbrynet.linux.zip && \
-    chown -Rv lbrynet:lbrynet /app
+    chown -Rv lbrynet:lbrynet /data
 
 ## Install into PATH
 RUN mv /data/lbrynet-* /bin/ && \
