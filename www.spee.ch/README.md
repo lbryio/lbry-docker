@@ -1,7 +1,5 @@
-# Readme Table of Contents
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Readme Table of Contents](#readme-table-of-contents)
 - [Container Base](#container-base)
 	- [Goals](#goals)
 			- [Fresh install on creation](#fresh-install-on-creation)
