@@ -13,8 +13,7 @@ RUN unzip /data/lbrynet.linux.zip -d /data/ && \
     chown -Rv lbrynet:lbrynet /data
 
 ## Install into PATH
-RUN mv /data/lbrynet-* /bin/ && \
-    ls -lAh /bin/
+RUN mv /data/lbrynet-* /bin/
 
 ## Daemon port [Intended for internal use]
 EXPOSE 4444
