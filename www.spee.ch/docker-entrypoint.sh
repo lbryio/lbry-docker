@@ -31,6 +31,7 @@ function set_conf() {
       sed -i 's/"username": "root"/"username": "'$MYSQL_ENV_MYSQL_USER'"/' /app/config/mysqlConfig.json
     ;;
     $MYSQL_ENV_MYSQL_PASSWORD )
+      ## This echo should be sanitized of any secrets before this is finished.
       echof info "Setting '$MYSQL_ENV_MYSQL_PASSWORD' $1 in /app/config/mysqlConfig.json"
       sed -i 's/"password": ""/"password": "'$MYSQL_ENV_MYSQL_PASSWORD'"/' /app/config/mysqlConfig.json
       ;;
