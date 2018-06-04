@@ -13,9 +13,67 @@ else
   exit 1
 fi
 
+declare -a envvars=(
+  "$MYSQL_ENV_MYSQL_USER"
+  "$MYSQL_ENV_MYSQL_PASSWORD"
+  "$MYSQL_ENV_MYSQL_DATABASE"
+  "$MYSQL_ENV_MYSQL_ADDRESS"
+  "$GOOGLE_ANALYTICS_UID"
+  "$SITE_TITLE"
+  "$SITE_ADDRESS"
+  "$SITE_DESCRIPTION"
+)
+
+function set_conf() {
+  case $1 in
+    $MYSQL_ENV_MYSQL_USER )
+      echof info "Setting '$MYSQL_ENV_MYSQL_USER' $1 in /app/config/mysqlConfig.json"
+      sed -i 's/"username": "root"/"username": "'$MYSQL_ENV_MYSQL_USER'"/' /app/config/mysqlConfig.json
+    ;;
+    $MYSQL_ENV_MYSQL_PASSWORD )
+      echof info "Setting '$MYSQL_ENV_MYSQL_PASSWORD' $1 in /app/config/mysqlConfig.json"
+      sed -i 's/"password": ""/"password": "'$MYSQL_ENV_MYSQL_PASSWORD'"/' /app/config/mysqlConfig.json
+      ;;
+    $MYSQL_ENV_MYSQL_DATABASE )
+      echof info "Setting '$MYSQL_ENV_MYSQL_DATABASE' $1 in /app/config/mysqlConfig.json"
+      sed -i 's/"database": "lbry"/"database": "'$MYSQL_ENV_MYSQL_DATABASE'"/' /app/config/mysqlConfig.json
+    ;;
+    $MYSQL_SERVER_ADDRESS )
+      echof warn "This variable is not currently available."
+    ;;
+    $SITE_ADDRESS )
+      echof info "Setting '$SITE_ADDRESS' $1 in /app/config/siteConfig.json"
+      sed -i 's/"host": "https://www.example.com"/"host": "https://'$SITE_ADDRESS'"/' /app/config/siteConfig.json
+    ;;
+    $GOOGLE_ANALYTICS_UID )
+      echof info "Setting '$GOOGLE_ANALYTICS_UID' $1 in /app/config/siteConfig.json"
+      sed -i 's/"googleId": null/"googleId": '$GOOGLE_ANALYTICS_UID'/' /app/config/siteConfig.json
+    ;;
+    $SITE_TITLE )
+      echof info "Setting '$SITE_TITLE' $1 in /app/config/siteConfig.json"
+      sed -i 's/"title": "My Site"/"title": "'$SITE_TITLE'"/' /app/config/siteConfig.json
+    ;;
+    $SITE_DESCRIPTION )
+      echof info "Setting '$SITE_DESCRIPTION' $1 in /app/config/siteConfig.json"
+      sed -i 's/"description": "A decentralized hosting platform built on LBRY"/"Description": "'$SITE_DESCRIPTION'"/' /app/config/siteConfig.json
+    ;;
+  esac
+}
+
 function configure_speech() {
   # install configuration changes here.
-  echof info "At some point there will be code here."
+  echof info "Installing configuration files into /app/config/."
+  mkdir -p /app/config/
+  cp /usr/local/src/www.spee.ch/cli/defaults/mysqlConfig.json > /app/config/mysqlConfig.json
+  cp /usr/local/src/www.spee.ch/cli/defaults/siteConfig.json > /app/config/siteConfig.json
+  echof info "Installing any environment variables that have been set."
+  for i in "${envvars[@]}"; do
+    if [[ -z "$i" ]]; then
+      echof info "$i was not set, moving on."
+    else
+      set_conf $i
+    fi
+  done
 }
 
 function final_permset() {
@@ -28,6 +86,9 @@ function final_permset() {
   echof info "Copied Spee.ch and set permissions"
 }
 
+###################################
+## Actual installation function. ##
+###################################
 # if Spee.ch is not yet installed, copy it into web root.
 # This could be updated to be part of an upgrade mechanism.
 if [ "$(ls -A /app)" ]; then
