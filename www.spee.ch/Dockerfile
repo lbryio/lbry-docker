@@ -15,8 +15,7 @@ RUN apk update && apk --no-cache add git curl wget python build-base && \
     npm install
 
 ## Install container support files
-RUN curl -s https://raw.githubusercontent.com/chamunks/docker-support/master/install | /bin/sh && \
-    echo $PATH
+RUN curl -s https://raw.githubusercontent.com/chamunks/docker-support/master/install | /bin/sh
 ADD ./docker-entrypoint.sh /bin/docker-entrypoint
 ADD ./healthcheck.sh /bin/healthcheck
 
