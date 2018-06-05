@@ -127,7 +127,7 @@ function final_permset() {
   # ## Define any permission exceptions here.
   # # test_for_dir /app/config 775 "speech:speech"
   # # test_for_file /app/config/siteConfig.json 665 "speech:speech"
-  # echof info "Copied Spee.ch and set permissions"
+  echof info "Copied Spee.ch and set permissions"
 }
 
 ###################################
@@ -162,5 +162,5 @@ else
 fi
 
 ## Superfluous permissions assertion maybe axe this later.
-echof run 'test_for_dir /app/config/siteConfig.json 775 "speech:speech"'
-test_for_file /app/config/siteConfig.json 775 "speech:speech"
+# echof run 'test_for_dir /app/config/siteConfig.json 775 "speech:speech"'
+# test_for_file /app/config/siteConfig.json 775 "speech:speech"
