@@ -17,6 +17,10 @@
 #### Fresh install on creation
 The end goal will be to iterate through all of the directories you have in any volumes you include and then copy anything else into the service directory omitting any files which you've changed.
 
+Configuration should be absolutely bare minimal and doable via the docker environment variables.  This makes it so that you can launch this project in any environment you like Kubernetes, Amazon Elastic Container Service, RancherOS, Docker Swarm, Docker-Compose.
+
+An advanced container example using docker-compose which contains the full stack including https handling via a reverse proxy.  This should automagically by default include automagic LetsEncrypt provisioning and renewal so long as you've set your own DNS records correctly to point where this container will be hosted.
+
 #### Your changes take priority
 This means any content that you've included in the /app/ path should be ignored when the container is instantiated.  So generally only include files that you plan to have changed.  Eventually I may add something a bit smarter and do a hash check & compare to be a bit smarter but for now simpler is better.
 
