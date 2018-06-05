@@ -121,13 +121,13 @@ function configure_speech() {
 }
 
 function final_permset() {
-  ## Finally reassert permissions in case there is user added drift.
-  rddo /app "test_for_dir" '775 "speech:speech"'
-  rfdo /app "test_for_file" '665 "speech:speech"'
-  ## Define any permission exceptions here.
-  # test_for_dir /app/config 775 "speech:speech"
-  # test_for_file /app/config/siteConfig.json 665 "speech:speech"
-  echof info "Copied Spee.ch and set permissions"
+  # ## Finally reassert permissions in case there is user added drift.
+  # rddo /app "test_for_dir" '775 "speech:speech"'
+  # rfdo /app "test_for_file" '665 "speech:speech"'
+  # ## Define any permission exceptions here.
+  # # test_for_dir /app/config 775 "speech:speech"
+  # # test_for_file /app/config/siteConfig.json 665 "speech:speech"
+  # echof info "Copied Spee.ch and set permissions"
 }
 
 ###################################
@@ -156,8 +156,8 @@ if [ "$(ls -A /app)" ]; then
 else
   echof info "Speech not installed, installing fresh copy now."
   configure_speech
-  echof run "cp -rv /usr/local/src/www.spee.ch/* /app/"
-  cp -rv /usr/local/src/www.spee.ch/* /app/
+  echof run "cp -r /usr/local/src/www.spee.ch/* /app/"
+  cp -r /usr/local/src/www.spee.ch/* /app/
   final_permset
 fi
 
