@@ -1,6 +1,7 @@
 #!/bin/bash
-set -euo pipefail
+set -eo pipefail
 ## Add -x to set if you want really explicit feedback.
+## -u breaks unbound variables
 ## This docker-entrypoint will take a copy of the configuration and install any
 ## ENVVARS and then copy any required files into the /app/ directory next to any
 ## custom files added by the user.
@@ -24,16 +25,14 @@ ENVVARS=("MYSQL_ENV_MYSQL_USER"
   "SITE_ADDRESS"
   "SITE_DESCRIPTION"
 )
-MYSQL_ENV_MYSQL_USER=alphauser
-MYSQL_ENV_MYSQL_PASSWORD=alphapassword
-MYSQL_ENV_MYSQL_DATABASE=alphadatabase
-MYSQL_ENV_MYSQL_ADDRESS=alphaaddress
-GOOGLE_ANALYTICS_UID=alphauid
-SITE_TITLE=AlphaTitle
-SITE_ADDRESS=alpha.address.com
+# MYSQL_ENV_MYSQL_USER=alphauser
+# MYSQL_ENV_MYSQL_PASSWORD=alphapassword
+# MYSQL_ENV_MYSQL_DATABASE=alphadatabase
+# MYSQL_ENV_MYSQL_ADDRESS=alphaaddress
+# GOOGLE_ANALYTICS_UID=alphauid
+# SITE_TITLE=AlphaTitle
+# SITE_ADDRESS=alpha.address.com
 SITE_DESCRIPTION=alpha.description
-echof info "$MYSQL_ENV_MYSQL_USER"
-echof info "Established "'$'${ENVVARS[*]}
 
 function set_conf() {
   case $1 in
@@ -157,8 +156,8 @@ if [ "$(ls -A /app)" ]; then
 else
   echof info "Speech not installed, installing fresh copy now."
   configure_speech
-  echof run "mv /usr/local/src/www.spee.ch/* /app/"
-  mv /usr/local/src/www.spee.ch/* /app/
+  echof run "cp -rv /usr/local/src/www.spee.ch/* /app/"
+  cp -rv /usr/local/src/www.spee.ch/* /app/
   final_permset
 fi
 
