@@ -75,7 +75,7 @@ function set_conf() {
         echof info "User did not attempt to configure $SITE_ADDRESS"
       else
         echof info "Setting '$SITE_ADDRESS' $SITE_ADDRESS in /app/config/siteConfig.json"
-        sed -i 's/"host": "https://www.example.com"/"host": "https://"$SITE_ADDRESS/' /app/config/siteConfig.json
+        sed -i 's,"host": "https://www.example.com","host": "https://"$SITE_ADDRESS,' /app/config/siteConfig.json
       fi
     ;;
     GOOGLE_ANALYTICS_UID )
