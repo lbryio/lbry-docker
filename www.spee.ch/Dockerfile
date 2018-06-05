@@ -6,9 +6,10 @@ FROM node:8-alpine
 MAINTAINER chamunks [at] gmail [dot] com
 
 ## Install base packages and clone repo to src directory.
-RUN apk update && apk --no-cache add git curl wget python build-base && \
+RUN apk update && apk --no-cache add git curl wget python build-base bash && \
     npm update && npm i npm@latest -g && \
-    adduser speech -h /app/ -s /bin/ash -D && \
+    npm install -g node-gyp && \
+    adduser speech -h /app/ -s /bin/bash -D && \
     chown -Rv speech /app && \
     git clone https://github.com/lbryio/www.spee.ch.git /usr/local/src/www.spee.ch/ && \
     cd /usr/local/src/www.spee.ch/ && \

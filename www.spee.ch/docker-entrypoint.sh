@@ -1,7 +1,8 @@
-#!/bin/sh
-set -euxo pipefail
+#!/bin/bash
+set -euo pipefail
+## Add -x to set if you want really explicit feedback.
 ## This docker-entrypoint will take a copy of the configuration and install any
-## envvars and then copy any required files into the /app/ directory next to any
+## ENVVARS and then copy any required files into the /app/ directory next to any
 ## custom files added by the user.
 
 # default to run whatever the user wanted like "/bin/ash"
@@ -14,41 +15,92 @@ else
   exit 1
 fi
 
-envvars=("$MYSQL_ENV_MYSQL_USER" "$MYSQL_ENV_MYSQL_PASSWORD" "$MYSQL_ENV_MYSQL_DATABASE" "$MYSQL_ENV_MYSQL_ADDRESS" "$GOOGLE_ANALYTICS_UID" "$SITE_TITLE" "$SITE_ADDRESS" "$SITE_DESCRIPTION")
+ENVVARS=("MYSQL_ENV_MYSQL_USER"
+  "MYSQL_ENV_MYSQL_PASSWORD"
+  "MYSQL_ENV_MYSQL_DATABASE"
+  "MYSQL_ENV_MYSQL_ADDRESS"
+  "GOOGLE_ANALYTICS_UID"
+  "SITE_TITLE"
+  "SITE_ADDRESS"
+  "SITE_DESCRIPTION"
+)
+MYSQL_ENV_MYSQL_USER=alphauser
+MYSQL_ENV_MYSQL_PASSWORD=alphapassword
+MYSQL_ENV_MYSQL_DATABASE=alphadatabase
+MYSQL_ENV_MYSQL_ADDRESS=alphaaddress
+GOOGLE_ANALYTICS_UID=alphauid
+SITE_TITLE=AlphaTitle
+SITE_ADDRESS=alpha.address.com
+SITE_DESCRIPTION=alpha.description
+echof info "$MYSQL_ENV_MYSQL_USER"
+echof info "Established "'$'${ENVVARS[*]}
 
 function set_conf() {
   case $1 in
-    $MYSQL_ENV_MYSQL_USER )
-      echof info "Setting '$MYSQL_ENV_MYSQL_USER' $1 in /app/config/mysqlConfig.json"
-      sed -i 's/"username": "root"/"username": "'$MYSQL_ENV_MYSQL_USER'"/' /app/config/mysqlConfig.json
+    MYSQL_ENV_MYSQL_USER )
+      if [[ -z "$MYSQL_ENV_MYSQL_USER" ]]; then
+        echof info "User did not attempt to configure $MYSQL_ENV_MYSQL_USER"
+      else
+        echof info "Configuring $MYSQL_ENV_MYSQL_USER."
+        echof info "Setting '$MYSQL_ENV_MYSQL_USER' $MYSQL_ENV_MYSQL_USER in /app/config/mysqlConfig.json"
+        sed -i 's/"username": "root"/"username": "'$MYSQL_ENV_MYSQL_USER'"/' /app/config/mysqlConfig.json
+      fi
     ;;
-    $MYSQL_ENV_MYSQL_PASSWORD )
-      ## This echo should be sanitized of any secrets before this is finished.
-      echof info "Setting '$MYSQL_ENV_MYSQL_PASSWORD' $1 in /app/config/mysqlConfig.json"
-      sed -i 's/"password": ""/"password": "'$MYSQL_ENV_MYSQL_PASSWORD'"/' /app/config/mysqlConfig.json
+    MYSQL_ENV_MYSQL_PASSWORD )
+      if [[ -z "$MYSQL_ENV_MYSQL_PASSWORD" ]]; then
+        echof info "User did not attempt to configure $MYSQL_ENV_MYSQL_PASSWORD"
+      else
+        ## This echo should be sanitized of any secrets before this is finished.
+        echof info "Setting '$MYSQL_ENV_MYSQL_PASSWORD' $MYSQL_ENV_MYSQL_PASSWORD in /app/config/mysqlConfig.json"
+        sed -i 's/"password": ""/"password": "'$MYSQL_ENV_MYSQL_PASSWORD'"/' /app/config/mysqlConfig.json
+      fi
       ;;
-    $MYSQL_ENV_MYSQL_DATABASE )
-      echof info "Setting '$MYSQL_ENV_MYSQL_DATABASE' $1 in /app/config/mysqlConfig.json"
-      sed -i 's/"database": "lbry"/"database": "'$MYSQL_ENV_MYSQL_DATABASE'"/' /app/config/mysqlConfig.json
+    MYSQL_ENV_MYSQL_DATABASE )
+      if [[ -z "$MYSQL_ENV_MYSQL_DATABASE" ]]; then
+        echof info "User did not attempt to configure $MYSQL_ENV_MYSQL_DATABASE"
+      else
+        echof info "Setting '$MYSQL_ENV_MYSQL_DATABASE' $MYSQL_ENV_MYSQL_DATABASE in /app/config/mysqlConfig.json"
+        sed -i 's/"database": "lbry"/"database": "'$MYSQL_ENV_MYSQL_DATABASE'"/' /app/config/mysqlConfig.json
+      fi
     ;;
-    $MYSQL_SERVER_ADDRESS )
-      echof warn "This variable is not currently available."
+    MYSQL_SERVER_ADDRESS )
+      if [[ -z "$MYSQL_SERVER_ADDRESS" ]]; then
+        echof info "User did not attempt to configure $MYSQL_SERVER_ADDRESS"
+      else
+        echof warn "This variable is not currently available."
+      fi
     ;;
-    $SITE_ADDRESS )
-      echof info "Setting '$SITE_ADDRESS' $1 in /app/config/siteConfig.json"
-      sed -i 's/"host": "https://www.example.com"/"host": "https://'$SITE_ADDRESS'"/' /app/config/siteConfig.json
+    SITE_ADDRESS )
+      if [[ -z "$SITE_ADDRESS" ]]; then
+        echof info "User did not attempt to configure $SITE_ADDRESS"
+      else
+        echof info "Setting '$SITE_ADDRESS' $SITE_ADDRESS in /app/config/siteConfig.json"
+        sed -i 's/"host": "https://www.example.com"/"host": "https://"$SITE_ADDRESS/' /app/config/siteConfig.json
+      fi
     ;;
-    $GOOGLE_ANALYTICS_UID )
-      echof info "Setting '$GOOGLE_ANALYTICS_UID' $1 in /app/config/siteConfig.json"
-      sed -i 's/"googleId": null/"googleId": '$GOOGLE_ANALYTICS_UID'/' /app/config/siteConfig.json
+    GOOGLE_ANALYTICS_UID )
+      if [[ -z "$GOOGLE_ANALYTICS_UID" ]]; then
+        echof info "User did not attempt to configure $GOOGLE_ANALYTICS_UID"
+      else
+        echof info "Setting '$GOOGLE_ANALYTICS_UID' $GOOGLE_ANALYTICS_UID in /app/config/siteConfig.json"
+        sed -i 's/"googleId": null/"googleId": '$GOOGLE_ANALYTICS_UID'/' /app/config/siteConfig.json
+      fi
     ;;
-    $SITE_TITLE )
-      echof info "Setting '$SITE_TITLE' $1 in /app/config/siteConfig.json"
-      sed -i 's/"title": "My Site"/"title": "'$SITE_TITLE'"/' /app/config/siteConfig.json
+    SITE_TITLE )
+      if [[ -z "$SITE_TITLE" ]]; then
+        echof info "User did not attempt to configure $SITE_TITLE"
+      else
+        echof info "Setting '$SITE_TITLE' $SITE_TITLE in /app/config/siteConfig.json"
+        sed -i 's/"title": "My Site"/"title": "'$SITE_TITLE'"/' /app/config/siteConfig.json
+      fi
     ;;
-    $SITE_DESCRIPTION )
-      echof info "Setting '$SITE_DESCRIPTION' $1 in /app/config/siteConfig.json"
-      sed -i 's/"description": "A decentralized hosting platform built on LBRY"/"Description": "'$SITE_DESCRIPTION'"/' /app/config/siteConfig.json
+    SITE_DESCRIPTION )
+      if [[ -z "$SITE_DESCRIPTION" ]]; then
+        echof info "User did not attempt to configure $SITE_DESCRIPTION"
+      else
+        echof info "Setting '$SITE_DESCRIPTION' $SITE_DESCRIPTION in /app/config/siteConfig.json"
+        sed -i 's/"description": "A decentralized hosting platform built on LBRY"/"Description": "'$SITE_DESCRIPTION'"/' /app/config/siteConfig.json
+      fi
     ;;
   esac
 }
@@ -57,10 +109,10 @@ function configure_speech() {
   # install configuration changes here.
   echof info "Installing configuration files into /app/config/."
   mkdir -p /app/config/
-  cp /usr/local/src/www.spee.ch/cli/defaults/mysqlConfig.json > /app/config/mysqlConfig.json
-  cp /usr/local/src/www.spee.ch/cli/defaults/siteConfig.json > /app/config/siteConfig.json
+  cp /usr/local/src/www.spee.ch/cli/defaults/mysqlConfig.json /app/config/mysqlConfig.json
+  cp /usr/local/src/www.spee.ch/cli/defaults/siteConfig.json /app/config/siteConfig.json
   echof info "Installing any environment variables that have been set."
-  for i in "${envvars[@]}"; do
+  for i in "${ENVVARS[@]}"; do
     if [[ -z "$i" ]]; then
       echof info "$i was not set, moving on."
     else
@@ -90,7 +142,7 @@ if [ "$(ls -A /app)" ]; then
   ## If siteConfig.json isn't installed add it and configure or ignore and proceed.
   if [ ! -e '/app/config/siteConfig.json' ]; then
     echof warn "Spee.ch doesn't appear to have a configuration."
-    echof blank "Don't worry we can install it for you."
+    echof blank "Installing config"
     configure_speech
   else
     ## If the file exists skip configuration and proceed.
@@ -103,7 +155,7 @@ if [ "$(ls -A /app)" ]; then
   mv -fnu /usr/local/src/www.spee.ch/* /app/
   final_permset
 else
-  echof info "Speech wasn't installed, installing fresh copy now."
+  echof info "Speech not installed, installing fresh copy now."
   configure_speech
   echof run "mv /usr/local/src/www.spee.ch/* /app/"
   mv /usr/local/src/www.spee.ch/* /app/
