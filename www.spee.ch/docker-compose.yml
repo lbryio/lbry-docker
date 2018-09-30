@@ -1,9 +1,7 @@
-## To-Do:
-# This docker-compose.yml file will be for spinning up a basic instance.
-# You likely won't want to run this in production but its to get it up and going.
-# If you want to run this in production to-do:
-# * [ ] Front end reverse proxy like caddy, nginx or traefik.
-# * [ ] Security assessment and adjustments to suit your environment.
+## This docker-compose.yml file should serve as an example to help you test out spee.ch
+## If this works fine in your environment you may potentially run from this file but it may change in the future.
+## Ideally if you need to modify the settings in this file you could create a docker-compose.override.yml containing only values you wish to override from this one.
+## Documentation on compose overrides: https://docs.docker.com/compose/extends/
 
 version: '3.4'
 services:
@@ -18,7 +16,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ../data/spee.ch:/data
+      - ./data/speech:/data
     networks:
       green:
         ipv4_address: 10.5.0.6
@@ -33,12 +31,20 @@ services:
       context: ../lbrynet-daemon/
       dockerfile: Dockerfile
     restart: always
+    environment:
+      ## These variables are stored in the .env file next to this docker-compose.yml file.
+      ## I will include a default .env file and .gitignore the ".env" pattern so you should be able to just git pull in the future if you need to.
+      MYSQL_SERVER: ${MYSQL_SERVER}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - 4444:4444
       - 50001:50001
     ## host volumes for persistent data such as wallet private keys.
     volumes:
-      - ../data/lbrynet:/data
+      - ./data/lbrynet:/data
     networks:
       green:
         ipv4_address: 10.5.0.7
@@ -53,17 +59,19 @@ services:
     image: mariadb
     restart: always
     environment:
-      MYSQL_SERVER: 10.5.0.8
-      MYSQL_USER: replaceme
-      MYSQL_PASSWORD: REPLACEME
-      MYSQL_DATABASE: speech
-      MYSQL_ROOT_PASSWORD: REPLACEME
-    expose:
-      - 3306
+      ## These variables are stored in the .env file next to this docker-compose.yml file.
+      ## I will include a default .env file and .gitignore the ".env" pattern so you should be able to just git pull in the future if you need to.
+      MYSQL_SERVER: ${MYSQL_SERVER}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    # expose:
+    #   - 3306
     ports:
       - 3306:3306
     volumes:
-      - ../data/db:/var/lib/mysql
+      - ./data/db:/var/lib/mysql
     networks:
       green:
         ipv4_address: 10.5.0.8
