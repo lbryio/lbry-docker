@@ -1,3 +1,6 @@
+## This docker-compose should just get the lbrynet-daemon running and it's ports published to the host.
+## Just git clone this entire git repo to your local and docker-compose up -d from inside of the lbrynet-daemon directory.
+## At least until lbryio hosts this officially on their account with Docker Hub
 ## To-Do:
 ## * [] setup webhooks in gitlab on projects that build containers for this.
 ## * [] Get the thing tested & perfected.
@@ -16,4 +19,4 @@ services:
       - 50001:50001
     ## host volumes for persistent data such as wallet private keys.
     volumes:
-      - ./docker/data/:/data
+      - ./data/:/data
