@@ -5,8 +5,8 @@ I'll document a bit of this later but for now you may look over ```docker-compos
 #### Invocation
 This will get you a running copy of the lbrynet-daemon running inside of a docker container with default settings.
 ```
-git clone https://github.com/chamunks/lbry-docker.git ./lbry
-cd ./lbry
+git clone https://github.com/chamunks/lbry-docker.git
+cd ./lbry-docker/lbrynet-daemon/
 docker-compose up -d
 ```
 
