@@ -108,8 +108,8 @@ function configure_speech() {
   # install configuration changes here.
   echof info "Installing configuration files into /app/config/."
   mkdir -p /app/config/
-  cp /usr/local/src/www.spee.ch/cli/defaults/mysqlConfig.json /app/config/mysqlConfig.json
-  cp /usr/local/src/www.spee.ch/cli/defaults/siteConfig.json /app/config/siteConfig.json
+  cp /usr/local/src/spee.ch/cli/defaults/mysqlConfig.json /app/config/mysqlConfig.json
+  cp /usr/local/src/spee.ch/cli/defaults/siteConfig.json /app/config/siteConfig.json
   echof info "Installing any environment variables that have been set."
   for i in "${ENVVARS[@]}"; do
     if [[ -z "$i" ]]; then
@@ -150,14 +150,14 @@ if [ "$(ls -A /app)" ]; then
   fi
   ## Install all other files after installing siteConfig.json
   echof info "Making an attempt to nicely merge files using:"
-  echof run "mv -fnu /usr/local/src/www.spee.ch/* /app/"
-  mv -fnu /usr/local/src/www.spee.ch/* /app/
+  echof run "mv -fnu /usr/local/src/spee.ch/* /app/"
+  mv -fnu /usr/local/src/spee.ch/* /app/
   final_permset
 else
   echof info "Speech not installed, installing fresh copy now."
   configure_speech
-  echof run "cp -r /usr/local/src/www.spee.ch/* /app/"
-  cp -r /usr/local/src/www.spee.ch/* /app/
+  echof run "cp -r /usr/local/src/spee.ch/* /app/"
+  cp -r /usr/local/src/spee.ch/* /app/
   final_permset
 fi
 
