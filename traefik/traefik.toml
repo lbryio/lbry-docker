@@ -1,0 +1,40 @@
+debug = true
+
+logLevel = "ERROR"
+defaultEntryPoints = ["https","http"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+    entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+  [entryPoints.https.tls]
+
+[retry]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+## Edit the domain string with your domain that you want to provision web apps to.
+domain = "${DOMAIN}"
+watch = true
+exposedbydefault = false
+
+[acme]
+## Edit the email string with where you want to receive TLS Cert notifications.
+email = "admin@${DOMAIN}"
+storage = "/opt/traefik/acme.json"
+entryPoint = "https"
+OnHostRule = true
+[acme.httpChallenge]
+entryPoint = "http"
+
+# Ping definition for enabling healthcheck
+[ping]
+  # Name of the related entry point
+  #
+  # Optional
+  # Default: "traefik"
+  #
+  entryPoint = "traefik"
