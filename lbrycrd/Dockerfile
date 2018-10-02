@@ -22,7 +22,7 @@ ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
 USER lbrycrdd
 
-RUN mkdir -p /data/lbrycrdd
+RUN mkdir -p /data/
 
 VOLUME /data/
 VOLUME /etc/lbrycrdd/
