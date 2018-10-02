@@ -15,8 +15,8 @@ RUN wget -O /usr/bin/lbrycrd-linux.zip https://github.com/lbryio/lbrycrd/release
     unzip lbrycrd-linux.zip && \
     rm lbrycrd-linux.zip
 
-ADD start.sh /usr/bin/start
-ADD docker-entrypoint.sh /usr/bin/docker-entrypoint
+ADD start.sh /usr/local/bin/start
+ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
 USER lbrycrdd
 
