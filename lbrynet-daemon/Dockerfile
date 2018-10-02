@@ -1,4 +1,4 @@
-## This base image building latest lbrynet-daemon
+## This base image is for running the latest lbrynet-daemon release.
 FROM ubuntu:18.04
 MAINTAINER chamunks [at] gmail [dot] com
 
