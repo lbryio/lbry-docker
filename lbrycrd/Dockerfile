@@ -4,9 +4,9 @@ FROM ubuntu:18.04
 MAINTAINER chamunks [at] gmail [dot] com
 
 RUN adduser lbrycrdd --gecos GECOS --shell /bin/bash/ --disabled-password --home /data/ && \
-    apt update && \
-    apt -y install unzip wget && \
-    apt autoclean -y && \
+    apt-get update && \
+    apt-get -y install unzip wget && \
+    apt-get autoclean -y && \
     rm -rf /var/lib/apt/lists/*
 
 
