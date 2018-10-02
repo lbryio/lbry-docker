@@ -13,7 +13,8 @@ RUN adduser lbrycrdd --gecos GECOS --shell /bin/bash/ --disabled-password --home
 RUN wget -O /usr/bin/lbrycrd-linux.zip https://github.com/lbryio/lbrycrd/releases/download/v0.12.2.2/lbrycrd-linux.zip && \
     cd /usr/bin/ && \
     unzip lbrycrd-linux.zip && \
-    rm lbrycrd-linux.zip
+    rm lbrycrd-linux.zip && \
+    chmod +x lbrycrdd lbrycrd-cli lbrycrd-tx
 
 ADD start.sh /usr/local/bin/start
 ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
