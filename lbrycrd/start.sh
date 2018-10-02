@@ -9,7 +9,7 @@ chmod -R 755 /etc/lbrycrdd
 rm -f /var/run/lbrycrdd.pid
 
 ## For now keeping this simple. Potentially eventually add all command args as envvars for the Dockerfile or use safe way to add args via docker-compose.yml
-~/lbrycrdd \
+lbrycrdd \
   -conf=${CONF_PATH:-/etc/lbrycrdd/lbrycrdd.conf} \
   -data=${DATA_DIR:-/data/} \
   -port=${PORT:-9246} \
