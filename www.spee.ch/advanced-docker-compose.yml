@@ -103,8 +103,8 @@ services:
 ## Traefik container ##
 #######################
 ## https://www.digitalocean.com/community/tutorials/how-to-use-traefik-as-a-reverse-proxy-for-docker-containers-on-ubuntu-16-04
-  traefik:
-    image: traefik:alpine
+  lbrynet
+    image: lbrynetalpine
     # command: --api --docker --docker.domain=docker.localhost --logLevel=DEBUG
     command: --api  --docker --logLevel=ERROR
     depends_on:
