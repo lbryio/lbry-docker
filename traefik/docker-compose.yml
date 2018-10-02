@@ -15,7 +15,7 @@ services:
     command: --api --docker --docker.domain=docker.localhost --logLevel=DEBUG
     networks:
       lbrynet
-        ipv4_address: 10.5.0.100
+        ipv4_address: 10.6.0.100
     ports:
       - target: 80
         published: 80
