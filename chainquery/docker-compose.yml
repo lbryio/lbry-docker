@@ -5,20 +5,19 @@ networks:
     external: true
 
 services:
-#############
-## Lbrynet ##
-#############
-  lbrynet:
+################
+## Chainquery ##
+################
+  chainquery:
     build: .
     restart: always
     networks:
       lbrynet
-        ipv4_address: 10.10.0.3
+        ipv4_address: 10.10.0.1
     labels:
       - "traefik.expose=false"
-    ports:
-      - 4444:4444
-      - 50001:50001
+    expose:
+      - ####
     ## host volumes for persistent data such as wallet private keys.
     volumes:
       - ./data/:/data

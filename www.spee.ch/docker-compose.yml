@@ -19,7 +19,7 @@ services:
       - ./data/speech:/data
     networks:
       green:
-        ipv4_address: 10.6.0.6
+        ipv4_address: 10.10.0.6
         aliases:
           - speech
 
@@ -47,7 +47,7 @@ services:
       - ./data/lbrynet:/data
     networks:
       green:
-        ipv4_address: 10.6.0.7
+        ipv4_address: 10.10.0.7
         aliases:
           - lbrynet
 
@@ -74,7 +74,7 @@ services:
       - ./data/db:/var/lib/mysql
     networks:
       green:
-        ipv4_address: 10.6.0.8
+        ipv4_address: 10.10.0.8
         aliases:
           - mysql
 
@@ -86,4 +86,4 @@ networks:
     driver: bridge
     ipam:
         config:
-          - subnet: 10.6.0.0/16
+          - subnet: 10.10.0.0/16
