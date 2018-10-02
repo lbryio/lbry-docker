@@ -1,5 +1,8 @@
 #!/bin/bash
+
 ## Ensure perms are correct prior to running main binary
+mkdir -p /data/lbrycrdd
+mkdir -p /etc/lbrycrdd
 chown -R 1000:1000 /data
 chmod -R 755 /data
 chown -R 1000:1000 /etc/lbrycrdd

@@ -3,12 +3,11 @@
 FROM ubuntu:18.04
 MAINTAINER chamunks [at] gmail [dot] com
 
-RUN adduser lbrycrdd --gecos GECOS --shell /bin/bash/ --disabled-password --home /data/ && \
+RUN adduser lbrycrdd --gecos GECOS --shell /bin/bash --disabled-password --home /data/ && \
     apt-get update && \
     apt-get -y install unzip wget && \
     apt-get autoclean -y && \
     rm -rf /var/lib/apt/lists/*
-
 
 RUN wget -O /usr/bin/lbrycrd-linux.zip https://github.com/lbryio/lbrycrd/releases/download/v0.12.2.2/lbrycrd-linux.zip && \
     cd /usr/bin/ && \
@@ -21,6 +20,9 @@ ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
 USER lbrycrdd
 
+RUN mkdir -p /data/lbrycrdd && \
+    mkdir -p /etc/lbrycrdd
+
 VOLUME /data/
 VOLUME /etc/lbrycrdd/
 
@@ -28,6 +30,6 @@ VOLUME /etc/lbrycrdd/
 EXPOSE 9245 9246
 
 ## For now this is a placeholder that executes /bin/bash on `docker exec`
-ENTRYPOINT ["docker-entrypoint"]
+# ENTRYPOINT ["docker-entrypoint"]
 
 CMD ["start"]
