@@ -7,7 +7,9 @@ RUN adduser lbrycrdd --gecos GECOS --shell /bin/bash --disabled-password --home 
     apt-get update && \
     apt-get -y install unzip wget && \
     apt-get autoclean -y && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir -p /etc/lbrycrdd && \
+    chown -R 1000:1000 /etc/lbrycrdd
 
 RUN wget -O /usr/bin/lbrycrd-linux.zip https://github.com/lbryio/lbrycrd/releases/download/v0.12.2.2/lbrycrd-linux.zip && \
     cd /usr/bin/ && \
@@ -20,8 +22,7 @@ ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
 USER lbrycrdd
 
-RUN mkdir -p /data/lbrycrdd && \
-    mkdir -p /etc/lbrycrdd
+RUN mkdir -p /data/lbrycrdd
 
 VOLUME /data/
 VOLUME /etc/lbrycrdd/
