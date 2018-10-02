@@ -1,0 +1,25 @@
+version: '3.4'
+
+networks:
+  traefik:
+    external: true
+
+services:
+#############
+## Lbrycrd ##
+#############
+  lbrycrd:
+    build: .
+    restart: always
+    networks:
+      traefik:
+        ipv4_address: 10.5.0.1
+    labels:
+      - "traefik.expose=false"
+    expose:
+      - 9245
+      - 9246
+    ## host volumes for persistent data such as wallet private keys.
+    volumes:
+      - ./data/:/data
+      - ./config:/etc/lbrycrdd
