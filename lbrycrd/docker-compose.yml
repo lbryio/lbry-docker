@@ -13,7 +13,7 @@ services:
     restart: always
     networks:
       lbrynet:
-        ipv4_address: 10.10.0.1
+        ipv4_address: 10.10.0.3
     labels:
       - "traefik.expose=false"
     expose:
