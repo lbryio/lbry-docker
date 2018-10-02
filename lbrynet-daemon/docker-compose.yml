@@ -1,19 +1,21 @@
-## This docker-compose should just get the lbrynet-daemon running and it's ports published to the host.
-## Just git clone this entire git repo to your local and docker-compose up -d from inside of the lbrynet-daemon directory.
-## At least until lbryio hosts this officially on their account with Docker Hub
-## To-Do:
-## * [] setup webhooks in gitlab on projects that build containers for this.
-## * [] Get the thing tested & perfected.
-## * [] Healthchecks on all containers ideally without needing a custom container.
 version: '3.4'
-services:
 
+networks:
+  traefik:
+    external: true
+
+services:
 #############
 ## Lbrynet ##
 #############
   lbrynet:
     build: .
     restart: always
+    networks:
+      traefik:
+        ipv4_address: 10.5.0.3
+    labels:
+      - "traefik.expose=false"
     ports:
       - 4444:4444
       - 50001:50001
