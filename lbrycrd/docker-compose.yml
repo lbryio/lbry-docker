@@ -16,6 +16,7 @@ services:
         ipv4_address: 10.10.0.3
     labels:
       - "traefik.expose=false"
+    user: "${UID:-1000}:${GID:-1000}"
     expose:
       - 9245
       - 9246
