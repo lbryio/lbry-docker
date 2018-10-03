@@ -1,7 +1,7 @@
 version: '3.4'
 
 networks:
-  lbrynet
+  lbrynet:
     external: true
 
 services:
@@ -13,7 +13,7 @@ services:
     restart: always
     networks:
       lbrynet
-        ipv4_address: 10.10.0.3
+        ipv4_address: 10.10.0.4
     labels:
       - "traefik.expose=false"
     ports:
