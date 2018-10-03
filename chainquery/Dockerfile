@@ -15,7 +15,7 @@ RUN adduser chainquery --gecos GECOS --shell /bin/bash --disabled-password --hom
 RUN wget -O /usr/bin/chainquery.zip https://github.com/lbryio/chainquery/releases/download/v1.1.2/chainquery_1.1.2_Linux_x86_64.zip && \
     cd /usr/bin/ && \
     unzip chainquery.zip && \
-    rm chainquery.zip LICENSES README.md
+    rm chainquery.zip
 
 USER chainquery
 
