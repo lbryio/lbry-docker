@@ -17,7 +17,7 @@ RUN wget -O /usr/bin/chainquery.zip https://github.com/lbryio/chainquery/release
     unzip chainquery.zip && \
     rm chainquery.zip
 
-USER lbrycrdd
+USER chainquery
 
 ## Expose Chainquery API port
 EXPOSE 6300 3306
