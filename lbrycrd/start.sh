@@ -16,5 +16,5 @@ lbrycrdd \
   -printtoconsole \
   -rpcport=${RPC_PORT:-9245} \
   -rpcpassword=${RPC_PASSWORD:-changeme} \
-  -rpcallowip=${RPC_ALLOW_IP:-10.10.0.2} \
-  -rpcuser=${RPC_USER:-lbryrpc}
+  -rpcuser=${RPC_USER:-lbryrpc} \
+  -rpcallowip=${RPC_ALLOW_IP:-10.10.0.2}
