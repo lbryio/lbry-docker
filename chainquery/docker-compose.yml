@@ -17,7 +17,8 @@ services:
     labels:
       - "traefik.expose=false"
     expose:
-      - ####
+      - 6300 
+      - 3306
     ## host volumes for persistent data such as wallet private keys.
     volumes:
       - ./data/:/data
