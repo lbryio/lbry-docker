@@ -26,6 +26,11 @@ services:
   mysql:
     image: mariadb
     restart: always
+    networks:
+      lbrynet:
+        ipv4_address: 10.10.0.10
+        aliases:
+          - mysql
     environment:
       ## These variables are stored in the .env file next to this docker-compose.yml file.
       ## I will include a default .env file and .gitignore the ".env" pattern so you should be able to just git pull in the future if you need to.
@@ -38,8 +43,3 @@ services:
       - 3306
     volumes:
       - ./data/db:/var/lib/mysql
-    networks:
-      green:
-        ipv4_address: 10.10.0.10
-        aliases:
-          - mysql
