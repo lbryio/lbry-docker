@@ -2,7 +2,7 @@
 FROM ubuntu:18.04
 MAINTAINER chamunks [at] gmail [dot] com
 
-ADD chainqueryconfig.toml ~/chainqueryconfig.toml
+ADD chainqueryconfig.toml /data/chainqueryconfig.toml
 ADD start.sh /usr/local/bin/start
 ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
@@ -15,7 +15,7 @@ RUN adduser chainquery --gecos GECOS --shell /bin/bash --disabled-password --hom
 RUN wget -O /usr/bin/chainquery.zip https://github.com/lbryio/chainquery/releases/download/v1.1.2/chainquery_1.1.2_Linux_x86_64.zip && \
     cd /usr/bin/ && \
     unzip chainquery.zip && \
-    rm chainquery.zip
+    rm chainquery.zip LICENSES README.md
 
 USER chainquery
 
