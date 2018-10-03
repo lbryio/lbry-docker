@@ -3,8 +3,10 @@ FROM ubuntu:18.04
 MAINTAINER chamunks [at] gmail [dot] com
 
 ADD chainqueryconfig.toml ~/chainqueryconfig.toml
+ADD start.sh /usr/local/bin/start
+ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
-RUN RUN adduser chainquery --gecos GECOS --shell /bin/bash --disabled-password --home /data/ && \
+RUN adduser chainquery --gecos GECOS --shell /bin/bash --disabled-password --home /data/ && \
     apt-get update && \
     apt-get -y install unzip wget && \
     apt-get autoclean -y && \
@@ -14,9 +16,6 @@ RUN wget -O /usr/bin/chainquery.zip https://github.com/lbryio/chainquery/release
     cd /usr/bin/ && \
     unzip chainquery.zip && \
     rm chainquery.zip
-
-ADD start.sh /usr/local/bin/start
-ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
 USER lbrycrdd
 
