@@ -10,7 +10,7 @@ services:
 #############
 ## https://hub.docker.com/r/_/mariadb/
   mysql:
-    image: mysql:5.7
+    image: mysql
     restart: always
     networks:
       lbrynet:
