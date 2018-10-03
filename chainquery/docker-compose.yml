@@ -5,20 +5,6 @@ networks:
     external: true
 
 services:
-################
-## Chainquery ##
-################
-  chainquery:
-    build: .
-    restart: always
-    networks:
-      lbrynet:
-        ipv4_address: 10.10.0.2
-    labels:
-      - "traefik.expose=false"
-    expose:
-      - 6300
-      - 3306
 #############
 ## MariaDB ##
 #############
@@ -43,3 +29,20 @@ services:
       - 3306
     volumes:
       - ./data/db:/var/lib/mysql
+
+################
+## Chainquery ##
+################
+  chainquery:
+    build: .
+    restart: always
+    networks:
+      lbrynet:
+        ipv4_address: 10.10.0.2
+    labels:
+      - "traefik.expose=false"
+    expose:
+      - 6300
+      - 3306
+    depends_on:
+      - mysql
