@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/bin/bash
 
 # default to run whatever the user wanted like "/bin/bash"
 ## If user runs no need to run any more of the entrypoint script.
