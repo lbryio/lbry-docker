@@ -8,7 +8,7 @@ lbrycrdurl="rpc://lbryrpc:changeme@10.10.0.3:9245"
 mysqldsn="changeme:changeme@tcp(10.10.0.10:3306)/chainquery"
 
 #API MySQL DSN is required for chainquery to expose a SQL query service
-apimysqldsn="changeme:changeme@tcp(0.0.0.0:3306)/chainquery"
+# apimysqldsn="changeme:changeme@tcp(0.0.0.0:3306)/chainquery"
 
 #API Host and Port is required for the API Server to bind and listen on.
 apihostport="0.0.0.0:6300"
