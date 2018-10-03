@@ -37,7 +37,7 @@ services:
       MYSQL_SERVER: ${MYSQL_SERVER:-10.10.0.10}
       MYSQL_USER: ${MYSQL_USER:-changeme}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-changeme}
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-changeme}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-chainquery}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-changeme}
     expose:
       - 3306
