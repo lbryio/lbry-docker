@@ -1,5 +1,5 @@
 ## This base image is for running latest chainquery
-FROM ##
+FROM ubuntu:18.04
 MAINTAINER chamunks [at] gmail [dot] com
 
 ADD chainqueryconfig.toml ~/chainqueryconfig.toml
