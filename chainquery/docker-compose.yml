@@ -31,11 +31,11 @@ services:
     environment:
       ## These variables are stored in the .env file next to this docker-compose.yml file.
       ## I will include a default .env file and .gitignore the ".env" pattern so you should be able to just git pull in the future if you need to.
-      MYSQL_SERVER: ${MYSQL_SERVER}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_SERVER: ${MYSQL_SERVER:-10.10.0.10}
+      MYSQL_USER: ${MYSQL_USER:-changeme}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-changeme}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-changeme}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-changeme}
     expose:
       - 3306
     volumes:
