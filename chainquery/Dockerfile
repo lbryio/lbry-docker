@@ -16,7 +16,6 @@ RUN wget -O /usr/bin/chainquery.zip https://github.com/lbryio/chainquery/release
     cd /usr/bin/ && \
     unzip chainquery.zip && \
     rm chainquery.zip && \
-    mkdir -v /data && \
     chown -R 1000:1000 /data && \
     chmod -R 755 /data
 
