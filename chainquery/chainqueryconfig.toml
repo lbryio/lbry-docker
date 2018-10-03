@@ -1,17 +1,17 @@
 #Debug mode outputs specific information to the console
-DEFAULT-debugmode=false
+debugmode=false
 
 #LBRYcrd URL is required for chainquery to query the blockchain
-DEFAULT-lbrycrdurl="rpc://lbryrpc:changeme@10.10.0.3:9245"
+lbrycrdurl="rpc://lbryrpc:changeme@10.10.0.3:9245"
 
 #MySQL DSN is required for chainquery to store information.
-DEFAULT-mysqldsn="changeme:changeme@tcp(10.10.0.10:3306)/chainquery"
+mysqldsn="changeme:changeme@tcp(10.10.0.10:3306)/chainquery"
 
 #API MySQL DSN is required for chainquery to expose a SQL query service
-DEFAULT-apimysqldsn="changeme:changeme@tcp(0.0.0.0:3306)/chainquery"
+apimysqldsn="changeme:changeme@tcp(0.0.0.0:3306)/chainquery"
 
 #API Host and Port is required for the API Server to bind and listen on.
-DEFAULT-apihostport="0.0.0.0:6300"
+apihostport="0.0.0.0:6300"
 
 #Profile mode enables and disables the reporting of a profile for chainquery
 #DEFAULT-profilemode=false
