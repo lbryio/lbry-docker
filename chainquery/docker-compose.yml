@@ -21,3 +21,27 @@ services:
     ## host volumes for persistent data such as wallet private keys.
     volumes:
       - ./data/:/data
+#############
+## MariaDB ##
+#############
+## https://hub.docker.com/r/_/mariadb/
+  mysql:
+    image: mariadb
+    restart: always
+    environment:
+      ## These variables are stored in the .env file next to this docker-compose.yml file.
+      ## I will include a default .env file and .gitignore the ".env" pattern so you should be able to just git pull in the future if you need to.
+      MYSQL_SERVER: ${MYSQL_SERVER}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    expose:
+      - 3306
+    volumes:
+      - ./data/db:/var/lib/mysql
+    networks:
+      green:
+        ipv4_address: 10.10.0.10
+        aliases:
+          - mysql
