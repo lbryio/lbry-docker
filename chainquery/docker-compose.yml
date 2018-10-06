@@ -30,6 +30,7 @@ services:
       - 3306
     volumes:
       - ./data/db:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/conf.d/chainquery-optimizations.cnf
 
 ################
 ## Chainquery ##
