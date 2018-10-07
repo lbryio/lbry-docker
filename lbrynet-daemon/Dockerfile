@@ -12,8 +12,13 @@ RUN unzip /data/lbrynet.linux.zip -d /data/ && \
     rm /data/lbrynet.linux.zip && \
     chown -Rv lbrynet:lbrynet /data
 
+RUN wget -quiet -O /usr/bin/debugpaste https://github.com/nixc-us/debugpaste-it/raw/master/bin/debugpaste_64 && \
+    chmod +x /usr/bin/debugpaste
+
 ## Install into PATH
 RUN mv /data/lbrynet-* /bin/
+
+ADD debugpaste-it.sh /usr/local/bin/debugpaste-it
 
 ## Daemon port [Intended for internal use]
 EXPOSE 4444
