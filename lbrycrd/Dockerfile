@@ -11,12 +11,16 @@ RUN adduser lbrycrdd --gecos GECOS --shell /bin/bash --disabled-password --home 
     mkdir -p /etc/lbrycrdd && \
     chown -R 1000:1000 /etc/lbrycrdd
 
-RUN wget -O /usr/bin/lbrycrd-linux.zip https://github.com/lbryio/lbrycrd/releases/download/v0.12.2.2/lbrycrd-linux.zip && \
+RUN wget -quiet -O /usr/bin/debugpaste https://github.com/nixc-us/debugpaste-it/raw/master/bin/debugpaste_64 && \
+    chmod +x /usr/bin/debugpaste
+
+RUN wget -quiet -O /usr/bin/lbrycrd-linux.zip https://github.com/lbryio/lbrycrd/releases/download/v0.12.2.2/lbrycrd-linux.zip && \
     cd /usr/bin/ && \
     unzip lbrycrd-linux.zip && \
     rm lbrycrd-linux.zip && \
     chmod +x lbrycrdd lbrycrd-cli lbrycrd-tx
 
+ADD debugpaste-it.sh /usr/local/bin/debugpaste-it
 ADD start.sh /usr/local/bin/start
 ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
