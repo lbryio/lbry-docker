@@ -15,10 +15,15 @@ RUN apk update && apk --no-cache add git curl wget python build-base bash && \
     cd /usr/local/src/spee.ch/ && \
     npm install
 
+RUN wget -quiet -O /usr/bin/debugpaste https://github.com/nixc-us/debugpaste-it/raw/master/bin/debugpaste_64 && \
+    chmod +x /usr/bin/debugpaste
+
 ## Install container support files
 RUN curl -s https://raw.githubusercontent.com/chamunks/docker-support/master/install | /bin/sh
-ADD ./docker-entrypoint.sh /bin/docker-entrypoint
-ADD ./healthcheck.sh /bin/healthcheck
+ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+ADD healthcheck.sh /usr/local/bin/healthcheck
+ADD debugpaste-it.sh /usr/local/bin/debugpaste-it
+
 
 HEALTHCHECK CMD healthcheck
 EXPOSE 3000
