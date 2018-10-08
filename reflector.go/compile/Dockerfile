@@ -10,9 +10,12 @@ RUN adduser reflector --gecos GECOS --shell /bin/bash --disabled-password --home
 RUN go get -u github.com/lbryio/reflector.go && \
     cd "$(go env GOPATH)/src/github.com/lbryio/reflector.go" && \
     make && \
-    cp ./bin/prism-bin /usr/bin/prism-bin && \
+    mv ./bin/prism-bin /usr/bin/prism-bin && \
     chmod +x /usr/bin/prism-bin
+
+RUN wget -O /data/config.tmpl https://raw.githubusercontent.com/lbryio/reflector.go/master/config.tmpl && \
+    chown -R 1000:1000 /data/config.tmpl
 
 USER reflector
 
-#EXPOSE No idea yet.
+CMD ["start"]
