@@ -1,6 +1,9 @@
 #!/bin/bash
 #!/bin/sh
 
+## Launch service will tell prism-bin what mode to run in.
+LAUNCHMODE="${MODE:-$1}"
+
 ## This variable will be what can override default launch args.  I may modify this as I learn more about prism-bin
 LAUNCHARGS="${CUSTOM_ARGS:-$2}"
 
@@ -73,18 +76,21 @@ function config_modify() {
 }
 config_modify
 
-case $1 in
+## Actual launch invoked here
+case $MODE in
   cluster )
-    prism-bin cluster ${LAUNCHARGS:-default_args}
+    prism-bin cluster ${LAUNCHARGS:-'-v --conf /data/config.tmpl'}
     ;;
   dht )
-    prism-bin dht ${LAUNCHARGS:-default_args}
+    ## Env vars NODEID DHTPORT
+    ## Figure out what port we want to run --rpcPort on by default
+    ## Figure out if we need seed strings and set default(s)
+    prism-bin dht ${LAUNCHARGS:-'-v --conf /data/config.tmpl --nodeID $NODEID --port "${DHTPORT:-4567}"'}
     ;;
   peer )
-    prism-bin peer ${LAUNCHARGS:-default_args}
+    prism-bin peer ${LAUNCHARGS:-'-v --conf /data/config.tmpl'}
     ;;
   reflector )
-    prism-bin reflector ${LAUNCHARGS:-default_args}
+    prism-bin reflector ${LAUNCHARGS:-'-v --conf /data/config.tmpl'}
     ;;
 esac
-prism-bin
