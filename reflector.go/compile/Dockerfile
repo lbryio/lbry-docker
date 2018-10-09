@@ -8,7 +8,7 @@ ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN adduser reflector --gecos GECOS --shell /bin/bash --disabled-password --home /data/
 
 RUN go get -u github.com/lbryio/reflector.go && \
-    cd "$(go env GOPATH)/src/github.com/lbryio/reflector.go" && \
+    cd "/go/src/github.com/lbryio/reflector.go" && \
     make && \
     mv ./bin/prism-bin /usr/bin/prism-bin && \
     chmod +x /usr/bin/prism-bin
