@@ -14,7 +14,7 @@ services:
     image: traefik:alpine
     command: --api --docker --docker.domain=docker.localhost --logLevel=DEBUG
     networks:
-      lbrynet
+      lbrynet:
         ipv4_address: 10.10.0.100
     ports:
       - target: 80
