@@ -1,7 +1,7 @@
 version: '3.4'
 
 networks:
-  lbrynet:
+  traefik:
     external: true
 
 services:
@@ -14,8 +14,8 @@ services:
     image: traefik:alpine
     command: --api --docker --docker.domain=docker.localhost --logLevel=DEBUG
     networks:
-      lbrynet:
-        ipv4_address: 10.10.0.100
+      traefik:
+        ipv4_address: 10.5.1.100
     ports:
       - target: 80
         published: 80

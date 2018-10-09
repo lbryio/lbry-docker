@@ -1,7 +1,7 @@
 version: '3.4'
 
 networks:
-  lbrynet:
+  traefik:
     external: true
 
 services:
@@ -14,14 +14,14 @@ services:
     image: mysql:5.7.23
     restart: always
     networks:
-      lbrynet:
-        ipv4_address: 10.10.0.10
+      traefik:
+        ipv4_address: 10.5.1.10
         aliases:
           - mysql
     environment:
       ## These variables are stored in the .env file next to this docker-compose.yml file.
       ## I will include a default .env file and .gitignore the ".env" pattern so you should be able to just git pull in the future if you need to.
-      MYSQL_SERVER: ${MYSQL_SERVER:-10.10.0.10}
+      MYSQL_SERVER: ${MYSQL_SERVER:-10.5.1.10}
       MYSQL_USER: ${MYSQL_USER:-changeme}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-changeme}
       MYSQL_DATABASE: ${MYSQL_DATABASE:-chainquery}
@@ -52,8 +52,8 @@ services:
     # healthcheck:
     #   test: ["CMD", "curl", "--fail", "http://localhost:8080/", "||", "exit", "1"]
     networks:
-      lbrynet:
-        ipv4_address: 10.10.0.19
+      traefik:
+        ipv4_address: 10.5.1.19
         aliases:
           - adminer
 
@@ -64,8 +64,8 @@ services:
     build: .
     restart: always
     networks:
-      lbrynet:
-        ipv4_address: 10.10.0.2
+      traefik:
+        ipv4_address: 10.5.1.2
     labels:
       - "traefik.expose=false"
     expose:

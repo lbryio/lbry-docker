@@ -19,14 +19,14 @@ services:
       - ./data/speech:/data
     networks:
       green:
-        ipv4_address: 10.10.0.6
+        ipv4_address: 10.5.1.6
         aliases:
           - speech
 
 #############
 ## Lbrynet ##
 #############
-  lbrynet:
+  traefik:
     build:
       context: ../lbrynet-daemon/
       dockerfile: Dockerfile
@@ -44,10 +44,10 @@ services:
       - 50001:50001
     ## host volumes for persistent data such as wallet private keys.
     volumes:
-      - ./data/lbrynet:/data
+      - ./data/traefik:/data
     networks:
       green:
-        ipv4_address: 10.10.0.7
+        ipv4_address: 10.5.1.7
         aliases:
           - lbrynet
 
@@ -74,7 +74,7 @@ services:
       - ./data/db:/var/lib/mysql
     networks:
       green:
-        ipv4_address: 10.10.0.8
+        ipv4_address: 10.5.1.8
         aliases:
           - mysql
 
@@ -86,4 +86,4 @@ networks:
     driver: bridge
     ipam:
         config:
-          - subnet: 10.10.0.0/16
+          - subnet: 10.5.1.0/16

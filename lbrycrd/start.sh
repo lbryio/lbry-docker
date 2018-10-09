@@ -24,7 +24,7 @@
 # #   -rpcport=${RPC_PORT:-9245} \
 # #   -rpcpassword=${RPC_PASSWORD:-changeme} \
 # #   -rpcuser=${RPC_USER:-lbryrpc} \
-# #   -rpcallowip=${RPC_ALLOW_IP:-10.10.0.2} \
+# #   -rpcallowip=${RPC_ALLOW_IP:-10.5.1.2} \
 # #   -reindex \
 # #   -txindex
 #
@@ -38,7 +38,7 @@
 #   -rpcport=${RPC_PORT:-9245} \
 #   -rpcpassword=${RPC_PASSWORD:-changeme} \
 #   -rpcuser=${RPC_USER:-lbryrpc} \
-#   -rpcallowip=${RPC_ALLOW_IP:-10.10.0.2} \
+#   -rpcallowip=${RPC_ALLOW_IP:-10.5.1.2} \
 #   -txindex
 #!/bin/bash
 
@@ -52,7 +52,7 @@ mkdir -p ~/.lbrycrd
 
 ## Set config params
 echo -e "rpcuser=lbryrpc\nrpcpassword=${RPC_PASSWORD:-changeme}" > ~/.lbrycrd/lbrycrd.conf
-echo -e "rpcallowip=${RPC_ALLOW_IP:-10.10.0.2}" >> ~/.lbrycrd/lbrycrd.conf
+echo -e "rpcallowip=${RPC_ALLOW_IP:-10.5.1.2}" >> ~/.lbrycrd/lbrycrd.conf
 echo -e "rpcuser=${RPC_USER:-lbryrpc}" >> ~/.lbrycrd/lbrycrd.conf
 
 ## For now keeping this simple. Potentially eventually add all command args as envvars for the Dockerfile or use safe way to add args via docker-compose.yml
@@ -70,4 +70,4 @@ lbrycrdd \
 #  -rpcport=${RPC_PORT:-9245} \
 #  -rpcpassword=${RPC_PASSWORD:-changeme} \
 #  -rpcuser=${RPC_USER:-lbryrpc} \
-#  -rpcallowip=${RPC_ALLOW_IP:-10.10.0.2}
+#  -rpcallowip=${RPC_ALLOW_IP:-10.5.1.2}
