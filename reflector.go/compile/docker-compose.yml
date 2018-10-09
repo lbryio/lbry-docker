@@ -41,15 +41,15 @@ services:
       lbrynet:
         ipv4_address: 10.10.0.20
     environment:
-      - AWS_ID: ${AWS_ID:-default}
-      - AWS_SECRET: ${AWS_SECRET:-default}
-      - BUCKET_REGION: ${BUCKET_REGION:-default}
-      - BUCKET_NAME: ${BUCKET_NAME:-default}
-      - DB_USER: ${MYSQL_USER:-changeme}
-      - DB_PASSWORD: ${MYSQL_PASSWORD:-changeme}
-      - DB_HOSTIP: ${MYSQL_SERVER:-10.10.0.11}
-      - DB_PORT: ${DB_PORT:-3306}
-      - DB_NAME: ${MYSQL_DATABASE:-reflector}
+      AWS_ID: ${AWS_ID:-default}
+      AWS_SECRET: ${AWS_SECRET:-default}
+      BUCKET_REGION: ${BUCKET_REGION:-default}
+      BUCKET_NAME: ${BUCKET_NAME:-default}
+      DB_USER: ${MYSQL_USER:-changeme}
+      DB_PASSWORD: ${MYSQL_PASSWORD:-changeme}
+      DB_HOSTIP: ${MYSQL_SERVER:-10.10.0.11}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_NAME: ${MYSQL_DATABASE:-reflector}
     labels:
       - "traefik.expose=false"
     depends_on:
