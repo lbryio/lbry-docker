@@ -11,7 +11,7 @@ services:
 ## MariaDB is currently not supported and neither is later versions of MySQL this may change.
 ## https://hub.docker.com/r/_/mariadb/
   mysql:
-    image: mysql.5.7.23
+    image: mysql:5.7.23
     restart: always
     networks:
       lbrynet:
