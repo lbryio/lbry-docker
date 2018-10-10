@@ -8,7 +8,7 @@ services:
 #############
 ## Lbrynet ##
 #############
-  traefik:
+  lbrynet:
     build: .
     restart: always
     networks:
