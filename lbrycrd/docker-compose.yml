@@ -17,6 +17,8 @@ services:
     labels:
       - "traefik.expose=false"
     user: "${UID:-1000}:${GID:-1000}"
+    environment:
+      RUN_MODE: chainquery
     expose:
       - 9245
       - 9246

@@ -20,13 +20,31 @@ echo -e "rpcuser=lbryrpc\nrpcpassword=${RPC_PASSWORD:-changeme}" > ~/.lbrycrd/lb
 echo -e "rpcallowip=${RPC_ALLOW_IP:-10.5.1.3}" >> ~/.lbrycrd/lbrycrd.conf
 echo -e "rpcuser=${RPC_USER:-lbryrpc}" >> ~/.lbrycrd/lbrycrd.conf
 
-## For now keeping this simple. Potentially eventually add all command args as envvars for the Dockerfile or use safe way to add args via docker-compose.yml
-lbrycrdd \
-  -server \
-  -txindex \
-  -reindex \
-  -conf=$HOME/.lbrycrd/lbrycrd.conf \
-  -printtoconsole
+## Control this invocation through envvar.
+case ${$RUN_MODE:-default} in
+  default )
+    lbrycrdd \
+      -server \
+      -conf=$HOME/.lbrycrd/lbrycrd.conf \
+      -printtoconsole
+    ;;
+  reindex )
+    lbrycrdd \
+      -server \
+      -txindex \
+      -reindex \
+      -conf=$HOME/.lbrycrd/lbrycrd.conf \
+      -printtoconsole
+    ;;
+  chainquery )
+    lbrycrdd \
+      -server \
+      -txindex \
+      -conf=$HOME/.lbrycrd/lbrycrd.conf \
+      -printtoconsole
+    ;;
+esac
+
 
 ## We were unsure if these function as intended so they were disabled for the time being.
 #  -port=${PORT:-9246} \
