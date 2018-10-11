@@ -21,7 +21,7 @@ echo -e "rpcallowip=${RPC_ALLOW_IP:-10.5.1.3}" >> ~/.lbrycrd/lbrycrd.conf
 echo -e "rpcuser=${RPC_USER:-lbryrpc}" >> ~/.lbrycrd/lbrycrd.conf
 
 ## Control this invocation through envvar.
-case ${$RUN_MODE:-default} in
+case ${RUN_MODE:-default} in
   default )
     lbrycrdd \
       -server \
