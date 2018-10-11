@@ -2,7 +2,7 @@
 debugmode=false
 
 #LBRYcrd URL is required for chainquery to query the blockchain
-lbrycrdurl="rpc://lbryrpc:changeme@10.5.1.3:9245"
+lbrycrdurl="rpc://lbryrpc:changeme@10.5.1.2:9245"
 
 #MySQL DSN is required for chainquery to store information.
 mysqldsn="changeme:changeme@tcp(10.5.1.10:3306)/chainquery"
