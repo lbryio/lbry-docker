@@ -13,7 +13,7 @@ services:
     restart: always
     networks:
       traefik:
-        ipv4_address: 10.5.1.3
+        ipv4_address: 10.5.1.2
     labels:
       - "traefik.expose=false"
     user: "${UID:-1000}:${GID:-1000}"
