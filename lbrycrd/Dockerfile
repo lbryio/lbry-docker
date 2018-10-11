@@ -1,4 +1,4 @@
----quiet## This base image is for running latest lbrycrdd
+## This base image is for running latest lbrycrdd
 # For some reason I may switch this image over to Alpine when I can RCA why it won't start.
 FROM ubuntu:18.04
 MAINTAINER chamunks [at] gmail [dot] com
