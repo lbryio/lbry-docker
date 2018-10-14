@@ -1,10 +1,10 @@
 ## This base image is for running latest chainquery
 FROM ubuntu:18.04
-MAINTAINER chamunks [at] gmail [dot] com
+LABEL MAINTAINER="chamunks [at] gmail [dot] com"
 
-ADD chainqueryconfig.toml /data/chainqueryconfig.toml
-ADD start.sh /usr/local/bin/start
-ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+COPY chainqueryconfig.toml /data/chainqueryconfig.toml
+COPY start.sh /usr/local/bin/start
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
 RUN adduser chainquery --gecos GECOS --shell /bin/bash --disabled-password --home /data/ && \
     apt-get update && \

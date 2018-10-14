@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ## Launch service will tell prism-bin what mode to run in.
 LAUNCHMODE="${MODE:-$1}"

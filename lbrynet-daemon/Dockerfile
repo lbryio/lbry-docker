@@ -1,6 +1,6 @@
 ## This base image is for running the latest lbrynet-daemon release.
 FROM ubuntu:18.04
-MAINTAINER chamunks [at] gmail [dot] com
+LABEL MAINTAINER="chamunks [at] gmail [dot] com"
 
 RUN apt-get update && apt-get -y install unzip
 # RUN mkdir -pv /data && chown 1000:1000 /data
@@ -18,7 +18,7 @@ RUN wget -quiet -O /usr/bin/debugpaste https://github.com/nixc-us/debugpaste-it/
 ## Install into PATH
 RUN mv /data/lbrynet-* /bin/
 
-ADD debugpaste-it.sh /usr/local/bin/debugpaste-it
+COPY debugpaste-it.sh /usr/local/bin/debugpaste-it
 
 ## Daemon port [Intended for internal use]
 EXPOSE 4444

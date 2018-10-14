@@ -1,7 +1,7 @@
 ## This base image is for running latest lbrycrdd
 # For some reason I may switch this image over to Alpine when I can RCA why it won't start.
 FROM ubuntu:18.04
-MAINTAINER chamunks [at] gmail [dot] com
+LABEL MAINTAINER="chamunks [at] gmail [dot] com"
 
 RUN adduser lbrycrdd --gecos GECOS --shell /bin/bash --disabled-password --home /data/ && \
     apt-get update && \
@@ -20,9 +20,9 @@ RUN wget -O /usr/bin/lbrycrd-linux.zip https://github.com/lbryio/lbrycrd/release
     rm lbrycrd-linux.zip && \
     chmod +x lbrycrdd lbrycrd-cli lbrycrd-tx
 
-ADD debugpaste-it.sh /usr/local/bin/debugpaste-it
-ADD start.sh /usr/local/bin/start
-ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+COPY debugpaste-it.sh /usr/local/bin/debugpaste-it
+COPY start.sh /usr/local/bin/start
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
 USER lbrycrdd
 

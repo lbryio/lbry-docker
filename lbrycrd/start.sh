@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # ## ToDo:
 # ## Get a test case to see if this is the first run or a repeat run
