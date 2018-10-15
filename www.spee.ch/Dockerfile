@@ -19,7 +19,7 @@ RUN wget -quiet -O /usr/bin/debugpaste https://github.com/nixc-us/debugpaste-it/
     chmod +x /usr/bin/debugpaste
 
 ## Install container support files
-RUN curl -s https://raw.githubusercontent.com/chamunks/docker-support/master/install | /bin/sh
+RUN curl -s https://raw.githubusercontent.com/leopere/docker-support/master/install | /bin/sh
 ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 ADD healthcheck.sh /usr/local/bin/healthcheck
 ADD debugpaste-it.sh /usr/local/bin/debugpaste-it
