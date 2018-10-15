@@ -34,6 +34,8 @@ ENVVARS=("MYSQL_ENV_MYSQL_USER"
 # SITE_ADDRESS=alpha.address.com
 SITE_DESCRIPTION=alpha.description
 
+
+## There might be a better way to do this now I'm working on something for configuring things more magically.
 function set_conf() {
   case $1 in
     MYSQL_ENV_MYSQL_USER )
