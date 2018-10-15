@@ -18,6 +18,8 @@ services:
         ipv4_address: 10.5.1.11
         aliases:
           - mysql
+    env_file:
+      - .env
     environment:
       ## These variables are stored in the .env file next to this docker-compose.yml file.
       ## I will include a default .env file and .gitignore the ".env" pattern so you should be able to just git pull in the future if you need to.
@@ -40,6 +42,8 @@ services:
     networks:
       traefik:
         ipv4_address: 10.5.1.20
+    env_file:
+      - .env
     environment:
       AWS_ID: ${AWS_ID:-default}
       AWS_SECRET: ${AWS_SECRET:-default}
