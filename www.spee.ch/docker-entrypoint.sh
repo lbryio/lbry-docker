@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -eo pipefail
 ## Add -x to set if you want really explicit feedback.
 ## -u breaks unbound variables

@@ -3,7 +3,7 @@
 ## https://hub.docker.com/_/node/
 # 8.11.2-alpine, 8.11-alpine, 8-alpine, carbon-alpine (8/alpine/Dockerfile)
 FROM node:8-alpine
-MAINTAINER chamunks [at] gmail [dot] com
+LABEL MAINTAINER="chamunks [at] gmail [dot] com"
 
 ## Install base packages and clone repo to src directory.
 RUN apk update && apk --no-cache add git curl wget python build-base bash && \
@@ -20,9 +20,9 @@ RUN wget -quiet -O /usr/bin/debugpaste https://github.com/nixc-us/debugpaste-it/
 
 ## Install container support files
 RUN curl -s https://raw.githubusercontent.com/leopere/docker-support/master/install | /bin/sh
-ADD docker-entrypoint.sh /usr/local/bin/docker-entrypoint
-ADD healthcheck.sh /usr/local/bin/healthcheck
-ADD debugpaste-it.sh /usr/local/bin/debugpaste-it
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+COPY healthcheck.sh /usr/local/bin/healthcheck
+COPY debugpaste-it.sh /usr/local/bin/debugpaste-it
 
 
 HEALTHCHECK CMD healthcheck

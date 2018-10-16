@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 echo "========================================================================="
 echo "========================================================================="
 echo "lbry-docker: does not maintain or support custom configuration of traefik"
