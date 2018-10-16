@@ -1,6 +1,6 @@
 ## base image for github.com/lbryio/reflector.go release binaries
 FROM golang:1.11.1
-LABEL MAINTAINER="chamunks [at] gmail [dot] com"
+LABEL MAINTAINER="leopere [at] nixc [dot] us"
 
 COPY start.sh /usr/local/bin/start
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
