@@ -61,7 +61,9 @@ services:
 ## Chainquery ##
 ################
   chainquery:
-    build: .
+    build:
+      context: .
+      target: app
     restart: always
     networks:
       traefik:
@@ -70,6 +72,5 @@ services:
       - "traefik.expose=false"
     expose:
       - 6300
-      - 3306
     depends_on:
       - mysql
