@@ -1,6 +1,6 @@
 ## This base image is for running the latest lbrynet-daemon release.
 FROM ubuntu:18.04
-LABEL MAINTAINER="chamunks [at] gmail [dot] com"
+LABEL MAINTAINER="leopere [at] nixc [dot] us"
 
 RUN apt-get update && apt-get -y install unzip
 # RUN mkdir -pv /data && chown 1000:1000 /data

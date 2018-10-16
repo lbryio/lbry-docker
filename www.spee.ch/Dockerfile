@@ -3,7 +3,7 @@
 ## https://hub.docker.com/_/node/
 # 8.11.2-alpine, 8.11-alpine, 8-alpine, carbon-alpine (8/alpine/Dockerfile)
 FROM node:8-alpine
-LABEL MAINTAINER="chamunks [at] gmail [dot] com"
+LABEL MAINTAINER="leopere [at] nixc [dot] us"
 
 ## Install base packages and clone repo to src directory.
 RUN apk update && apk --no-cache add git curl wget python build-base bash && \

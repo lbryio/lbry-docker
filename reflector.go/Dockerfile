@@ -1,6 +1,6 @@
 ## base image for github.com/lbryio/reflector.go release binaries
 FROM golang:1.11.1 as builder
-LABEL MAINTAINER="chamunks [at] gmail [dot] com"
+LABEL MAINTAINER="leopere [at] nixc [dot] us"
 
 RUN export GOROOT=$GOPATH/bin && \
     go get -v -u github.com/lbryio/reflector.go && \
@@ -11,7 +11,7 @@ RUN export GOROOT=$GOPATH/bin && \
 
 ## base image for github.com/lbryio/reflector.go release binaries
 FROM ubuntu:18:04 as app
-LABEL MAINTAINER="chamunks [at] gmail [dot] com"
+LABEL MAINTAINER="leopere [at] nixc [dot] us"
 
 COPY /go/src/github.com/lbryio/reflector.go/bin/prism-bin /usr/bin/prism-bin
 COPY start.sh /usr/local/bin/start

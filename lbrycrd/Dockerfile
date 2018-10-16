@@ -1,7 +1,7 @@
 ## This base image is for running latest lbrycrdd
 # For some reason I may switch this image over to Alpine when I can RCA why it won't start.
 FROM ubuntu:18.04
-LABEL MAINTAINER="chamunks [at] gmail [dot] com"
+LABEL MAINTAINER="leopere [at] nixc [dot] us"
 
 RUN adduser lbrycrdd --gecos GECOS --shell /bin/bash --disabled-password --home /data/ && \
     apt-get update && \
