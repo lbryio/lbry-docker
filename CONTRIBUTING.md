@@ -1,6 +1,34 @@
 # Contributing
 “This project follows the global contributing standards for all LBRY projects, to read those go [https://lbry.tech/resources/repository-standards](https://lbry.tech/resources/repository-standards). Also to [https://lbry.tech/contribute](https://lbry.tech/contribute).
 
+## Table of Contents
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Contributing](#contributing)
+	- [Table of Contents](#table-of-contents)
+	- [Important things to Note](#important-things-to-note)
+			- [Two core versions of Linux as base](#two-core-versions-of-linux-as-base)
+	- [Consistency across containers](#consistency-across-containers)
+	- [Note to contributors](#note-to-contributors)
+	- [Code Overview](#code-overview)
+			- [Dockerfiles](#dockerfiles)
+			- [docker-compose.yml](#docker-composeyml)
+			- [Debugpaste-it.sh](#debugpaste-itsh)
+			- [.env](#env)
+			- [start.sh](#startsh)
+			- [docker-entrypoint.sh](#docker-entrypointsh)
+			- [Multi Stage Containers](#multi-stage-containers)
+			- [Traefik](#traefik)
+				- [traefik/traefik.toml](#traefiktraefiktoml)
+			- [reflector.go/config.tmpl [Documentation of this is WIP]](#reflectorgoconfigtmpl-documentation-of-this-is-wip)
+			- [Data directories](#data-directories)
+			- [Compile containers [WIP]](#compile-containers-wip)
+			- [Configuration Order of Precedence](#configuration-order-of-precedence)
+	- [Testing](#testing)
+	- [Submitting Pull Requests](#submitting-pull-requests)
+
+<!-- /TOC -->
+
 ## Important things to Note
 
 #### Two core versions of Linux as base
