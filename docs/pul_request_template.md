@@ -16,3 +16,10 @@ I'm deleting this text and replacing it with what I replaced and why I replaced 
 <!-- Post your Unique LBC wallet RECEIVING address so that we can tip you ASAP -->
 ## This is my LBC wallet address for tips
 bQmvEEfu3TsfcVEPy3SCY1L38gcvXHBiEs
+
+
+**Checklist**:
+<!-- Make sure you have completed the following steps (put an "X" between of brackets): -->
+- [] I made sure there to link any relevant git Issues or Commits [(Use Issu Search)](https://github.com/lbryio/lbry-docker/issues?utf8=%E2%9C%93&q=is%3Aissue)
+- [] I've read the contribution guidelines so that I can get my PR accepted as fast as possible.
+- [] I have updated the wallet address in this issue from the one included to my own as I like getting paid for doing good and fun things in this world such as contributing to LBRY.
