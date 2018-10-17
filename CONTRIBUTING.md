@@ -92,6 +92,9 @@ This file requires two modifications the administration email address needs to b
 #### reflector.go/config.tmpl [Documentation of this is WIP]
 This config.tmpl should be the boilerplate to get a configuration up and running.  There may end up being more depending on how this container matures over time.
 
+#### .gitignore and .dockerignore files
+These ignore huge blob data to prevent docker build processes taking years and also prevents your local data from getting clobbered by any git pull's you might do.  Eventually I may switch up how this is done so that end users can have subdirectory specific exceptions and we will control the master one at the root of the git repository.
+
 #### Data directories
 These are created within the Git Repository path as a baseline configuration you're encouraged to switch things up to match your deployment or dev environment.  However, these directories being contained within this location means that your whole setup is portable and self contained.  It shouldn't mess with the host Operating System and I'd like to keep it this way.
 
