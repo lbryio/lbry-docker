@@ -9,6 +9,7 @@
 	- [Important things to Note](#important-things-to-note)
 			- [Two core versions of Linux as base](#two-core-versions-of-linux-as-base)
 	- [Consistency across containers](#consistency-across-containers)
+	- [Reviewers](#reviewers)
 	- [Note to contributors](#note-to-contributors)
 	- [Code Overview](#code-overview)
 			- [Dockerfiles](#dockerfiles)
@@ -41,6 +42,10 @@ Its extremely important for usability that we work within reasonably confines of
 * Simple method to extract consistent and informative logging information for ease of obtaining support.
 * [Principle of Least Privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) the main process should be running in an unprivileged user and have little to no influence on the surrounding container.  If this means writing App Armor profiles then so be it.  Ideally a 1.0 release will come out with just an underprivileged user.
 * One process per container, I realize that this is only a docker best practices guideline but I think that it's important to adhere to, not only for security but for flexibility for others to work on top of our containers.
+
+## Reviewers
+If you want to be on this list officially feel free to submit a PR adding yourself to this list so that people can feel free to @mention you about issues and PR's here.
+@leopere
 
 ## Note to contributors
 Keep in mind [I am](https://github.com/leopere/) preferential to receiving patches over rule following as we can always nudge you in the right direction to get things more compatible with the project ethos if it's not.  Never be afraid to file a PR no one should be offended.  This said following the next two guides will greatly improve the speed at which we can integrate your improvements.
