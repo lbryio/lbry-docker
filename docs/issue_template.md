@@ -24,9 +24,18 @@ Make sure that you're including the specific container your issue is in regards 
 **How to replicate:**
 <!--- If you can reproduce the issue please tell us as detailed as possible step by step how to do that -->
 
+<!-- Below this line and title please be sure to @mention whoever may have been responsible for the code you're suggesting that someone should be updating, fixing, or expanding on. -->
+## Below here I'm Sparingly @mentioning
+@someoneImportant and why I think it's relevant to mention them.
+
+<!-- Post your Unique LBC wallet RECEIVING address so that we can tip you ASAP -->
+## This is my LBC wallet address for tips
+bQmvEEfu3TsfcVEPy3SCY1L38gcvXHBiEs
+
 **Checklist**:
 <!-- Make sure you have completed the following steps (put an "X" between of brackets): -->
 ~~- [] I included a `debugpaste` link debugpastes only last 90 days from last time they were loaded in a browser.[Inclusion of debugpaste is WIP]~~
 - [] I made sure there are no duplicates of this report [(Use Search)](https://github.com/lbryio/lbry-docker/issues?utf8=%E2%9C%93&q=is%3Aissue)
 - [] I made sure I am using an up-to-date version of the container.
 - [] I Made sure the bug/error is not caused by any other application.
+- [] I have updated the wallet address in this issue from the one included to my own as I like getting paid for doing good and fun things in this world such as contributing to LBRY.
