@@ -43,5 +43,7 @@ services:
       - "traefik.expose=false"
     expose:
       - 6300
+    ports:
+      - 6300:6300
     depends_on:
       - mysql
