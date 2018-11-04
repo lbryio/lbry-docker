@@ -8,21 +8,23 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir /download
 
-RUN curl -L -o /download/chainquery.zip $(curl -s https://api.github.com/repos/lbryio/chainquery/releases | fgrep 'Linux_x86_64.zip' | grep download | head -n 1 | cut -d'"' -f4)
-
-## I really want to use this instead of all the curl stuff at one point.
-# ADD --chown=1000:1000 https://github.com/lbryio/chainquery/releases/download/latest/chainquery_latest_Linux_x86_64.zip /download
-RUN cd /download && \
+RUN curl -L -o /download/chainquery.zip $(curl -s https://api.github.com/repos/lbryio/chainquery/releases | fgrep 'Linux_x86_64.zip' | grep download | head -n 1 | cut -d'"' -f4) && \
+    cd /download && \
     ls -lAh /download && pwd && \
     unzip chainquery.zip && \
     rm chainquery.zip
+## I really want to use this instead of all the curl stuff at one point.
+# ADD --chown=1000:1000 https://github.com/lbryio/chainquery/releases/download/latest/chainquery_latest_Linux_x86_64.zip /download
+
 
 ## Switch to Alpine eventually we might need to compile in Alpine for this.
 FROM ubuntu:18.04 as app
 
 RUN adduser chainquery --gecos GECOS --shell /bin/bash --disabled-password --home /home/chainquery
 
-COPY --from=0 /download/chainquery /usr/bin
+# COPY --from=0 /download/chainquery /usr/bin
+
+ADD --chown=1000:1000 https://github.com/lbryio/chainquery/releases/download/latest/chainquery_latest_Linux_x86_64.zip /usr/bin
 COPY chainqueryconfig.toml /etc/chainquery/
 RUN ls -lAh /etc |grep chain && \
     ls -lAh /etc/chainquery/ && \
