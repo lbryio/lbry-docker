@@ -22,9 +22,9 @@ FROM ubuntu:18.04 as app
 
 RUN adduser chainquery --gecos GECOS --shell /bin/bash --disabled-password --home /home/chainquery
 
-# COPY --from=0 /download/chainquery /usr/bin
+COPY --from=0 /download/chainquery /usr/bin
 
-ADD --chown=1000:1000 https://github.com/lbryio/chainquery/releases/download/latest/chainquery_latest_Linux_x86_64.zip /usr/bin
+# ADD --chown=1000:1000 https://github.com/lbryio/chainquery/releases/download/latest/chainquery_latest_Linux_x86_64.zip /usr/bin
 COPY chainqueryconfig.toml /etc/chainquery/
 RUN ls -lAh /etc |grep chain && \
     ls -lAh /etc/chainquery/ && \
