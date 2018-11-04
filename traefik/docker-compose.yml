@@ -36,7 +36,7 @@ services:
     labels:
       # https://docs.traefik.io/user-guide/docker-and-lets-encrypt/
       - "traefik.backend=proxy"
-      - "traefik.docker.network=traefik"
+      - "traefik.docker.network=lbrynet"
       ## Make sure that you either set the .env variable included in this repository or replace the domain string below.
       ## Also your DNS record will need to exist pointing at the machine your Traefik Reverse Proxy will be hosted on before you launch this app cluster.
       - "traefik.frontend.rule=Host:monitor.${DOMAIN}"
