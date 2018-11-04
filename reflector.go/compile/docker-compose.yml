@@ -1,7 +1,7 @@
 version: '3.4'
 
 networks:
-  traefik:
+  lbrynet:
     external: true
 
 services:
@@ -14,7 +14,7 @@ services:
     image: mysql.5.7.23
     restart: always
     networks:
-      traefik:
+      lbrynet:
         ipv4_address: 10.5.1.11
         aliases:
           - mysql
@@ -38,7 +38,7 @@ services:
     build: .
     restart: always
     networks:
-      traefik:
+      lbrynet:
         ipv4_address: 10.5.1.20
     environment:
       AWS_ID: ${AWS_ID:-default}
