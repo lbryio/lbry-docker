@@ -22,8 +22,6 @@ services:
       - .env
     expose:
       - 3306
-    ports:
-      - 3306:3306
     volumes:
       - ./data/db:/var/lib/mysql
       - ./my.cnf:/etc/mysql/conf.d/chainquery-optimizations.cnf
