@@ -14,7 +14,7 @@ RUN curl -o /download/chainquery.zip $(curl -s https://api.github.com/repos/lbry
 # ADD --chown=1000:1000 https://github.com/lbryio/chainquery/releases/download/latest/chainquery_latest_Linux_x86_64.zip /download
 RUN cd /download && \
     ls -lAh /download && pwd && \
-    unzip chainquery.zip && \
+    unzip /download/chainquery.zip -d /download/ && \
     rm chainquery.zip
 
 ## Switch to Alpine eventually we might need to compile in Alpine for this.
