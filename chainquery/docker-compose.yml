@@ -35,27 +35,27 @@ services:
 #######################
 ## Adminer container ##
 #######################
-  adminer:
-    image: adminer
-    # restart: always
-    links:
-      - "mysql:database"
-    depends_on:
-      - mysql
-    labels:
-      # https://docs.traefik.io/user-guide/docker-and-lets-encrypt/
-      - "traefik.backend=adminer"
-      - "traefik.docker.network=lbrynet"
-      - "traefik.frontend.rule=Host:adminer.lbry-demo.nixc.us"
-      - "traefik.expose=true"
-      - "traefik.port=8080"
-    # healthcheck:
-    #   test: ["CMD", "curl", "--fail", "http://localhost:8080/", "||", "exit", "1"]
-    networks:
-      traefik:
-        ipv4_address: 10.5.1.19
-        aliases:
-          - adminer
+  # adminer:
+  #   image: adminer
+  #   # restart: always
+  #   links:
+  #     - "mysql:database"
+  #   depends_on:
+  #     - mysql
+  #   labels:
+  #     # https://docs.traefik.io/user-guide/docker-and-lets-encrypt/
+  #     - "traefik.backend=adminer"
+  #     - "traefik.docker.network=lbrynet"
+  #     - "traefik.frontend.rule=Host:adminer.lbry-demo.nixc.us"
+  #     - "traefik.expose=true"
+  #     - "traefik.port=8080"
+  #   # healthcheck:
+  #   #   test: ["CMD", "curl", "--fail", "http://localhost:8080/", "||", "exit", "1"]
+  #   networks:
+  #     traefik:
+  #       ipv4_address: 10.5.1.19
+  #       aliases:
+  #         - adminer
 
 ################
 ## Chainquery ##

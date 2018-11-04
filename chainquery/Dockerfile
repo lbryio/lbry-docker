@@ -5,7 +5,8 @@ LABEL MAINTAINER="leopere [at] nixc [dot] us"
 RUN apt-get update && \
     apt-get -y install unzip && \
     apt-get autoclean -y && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir /download
 
 ADD --chown=1000:1000 https://github.com/lbryio/chainquery/releases/download/v1.1.2/chainquery_1.1.2_Linux_x86_64.zip /download
 RUN cd /download/ && \
