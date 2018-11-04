@@ -1,7 +1,7 @@
 version: '3.4'
 
 networks:
-  traefik:
+  lbrynet:
     external: true
 
 services:
@@ -14,7 +14,7 @@ services:
     image: mysql:5.7.23
     restart: always
     networks:
-      traefik:
+      lbrynet:
         ipv4_address: 10.5.1.10
         aliases:
           - mysql
@@ -37,7 +37,7 @@ services:
       target: app
     restart: always
     networks:
-      traefik:
+      lbrynet:
         ipv4_address: 10.5.1.3
     env_file:
       - ./.env
