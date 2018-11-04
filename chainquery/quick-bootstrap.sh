@@ -35,24 +35,20 @@ BONUS_DEPENDENCIES=(
   docker-compose
 )
 
+function check_deps() {
 for i in "${!DEPENDENCIES[@]}"; do
   echo ${DEPENDENCIES[$i]}"_KEY"
   ## Indirect references http://tldp.org/LDP/abs/html/ivr.html
   eval TESTDEP=\$"${DEPENDENCIES[$i]}"
   test_for_deps $TESTDEP
 done
+}
 
 ## Add ways to get into and out of a bind here.
-case i in
-  * )
-    echo "=================================================="
-    echo "You look like you need usage examples let me help."
-    echo "=================================================="
-    echo "Add documentation on script params HERE"
-    ;;
+case $1 in
   getdata )
     ## Get DB Checkpoint data.
-    wget http://chainquery-data.s3.amazonaws.com/data.zip ./chainquery.zip
+    axel -a -n 6 http://chainquery-data.s3.amazonaws.com/data.zip -o ./chainquery.zip
     ;;
   extract )
     ## Unpack the data again if need be.
@@ -66,5 +62,11 @@ case i in
     ## Give up on everything and try again.
     # rm -Rf ./data
     # rm -f ./chainquery.zip
+    ;;
+  * )
+    echo "=================================================="
+    echo "You look like you need usage examples let me help."
+    echo "=================================================="
+    echo "Add documentation on script params HERE"
     ;;
 esac

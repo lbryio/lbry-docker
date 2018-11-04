@@ -23,9 +23,9 @@ FROM ubuntu:18.04 as app
 RUN adduser chainquery --gecos GECOS --shell /bin/bash --disabled-password --home /home/chainquery
 
 COPY --from=0 /download/chainquery /usr/bin
-COPY chainqueryconfig.toml /etc/chainquery
+COPY chainqueryconfig.toml /etc/chainquery/
 RUN ls -lAh /etc |grep chain && \
-    ls -lAh /etc/chainquery && \
+    ls -lAh /etc/chainquery/ && \
     cat /etc/chainquery/chainqueryconfig.toml
 COPY start.sh /usr/local/bin/start
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
