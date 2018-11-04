@@ -10,7 +10,7 @@ This is still a WIP and documentation may be wildly out of sync with reality.
 			- [Your changes take priority](#your-changes-take-priority)
 			- [Configuration](#configuration)
 - [Try it out immediately](#try-it-out-immediately)
-	- [Docker & Docker-compose](#docker-docker-compose)
+	- [Docker & Docker-compose](#docker--docker-compose)
 
 <!-- /TOC -->
 
