@@ -26,9 +26,7 @@ COPY --from=0 /download/chainquery /usr/bin
 
 # ADD --chown=1000:1000 https://github.com/lbryio/chainquery/releases/download/latest/chainquery_latest_Linux_x86_64.zip /usr/bin
 COPY chainqueryconfig.toml /etc/chainquery/
-RUN ls -lAh /etc |grep chain && \
-    ls -lAh /etc/chainquery/ && \
-    cat /etc/chainquery/chainqueryconfig.toml
+ADD --chown=1000:1000 https://raw.githubusercontent.com/lbryio/chainquery/master/config/default/chainqueryconfig.toml /etc/chainquery/chainqueryconfig.toml.orig
 COPY start.sh /usr/local/bin/start
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
