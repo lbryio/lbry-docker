@@ -30,7 +30,8 @@ For now I don't recommend using this container cluster however you're welcomed t
 
 ## Running from source
 Running this stuff from source should be possible if you have both [Docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/) both installed.  If these are both installed you can proceed to run the following from within your development directory.
-``` git clone https://github.com/lbryio/lbry-docker.git
+```
+git clone https://github.com/lbryio/lbry-docker.git
 ```
 Once you have a local copy of the recent source you will want to consider what containers/applications you require in your environment.  At the moment since at the writing of this documentation this comes with an assertion of [YMMV](https://dictionary.cambridge.org/dictionary/english/ymmv) so if something isn't working feel free to make suggestions in the form of a PR for how we should do this better.  The beauty of Open Source is learning better ways to do things as well as contributing to the world so I'm always going to be welcoming to contributions.
 
@@ -38,7 +39,7 @@ Once you have a local copy of the recent source you will want to consider what c
 Running from source for contributing and Merge/Pull requests.
 My goal is to make contributing to this possible using Docker and also GitLab CI/CD time.  
 
-## [Contributing]()
+## [Contributing](CONTRIBUTING.md)
 Keep in mind [I am](https://github.com/leopere/) preferential to receiving patches over rule following as we can always nudge you in the right direction to get things more compatible with the project ethos if it's not.  Never be afraid to file a PR no one should be offended.  This said following the next two guides will greatly improve the speed at which we can integrate your improvements.
 * [Repository Standards]( https://lbry.tech/resources/repository-standards)
 * [Contribute](https://lbry.tech/contribute)

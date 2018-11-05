@@ -3,14 +3,18 @@ FROM ubuntu:18.04 as prep
 LABEL MAINTAINER="leopere [at] nixc [dot] us"
 
 RUN apt-get update && \
-    apt-get -y install unzip && \
+    apt-get -y install unzip curl && \
     apt-get autoclean -y && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir /download
 
-ADD --chown=1000:1000 https://github.com/lbryio/chainquery/releases/download/v1.1.2/chainquery_1.1.2_Linux_x86_64.zip /download
-RUN cd /download/ && \
-    unzip chainquery_1.1.2_Linux_x86_64.zip && \
-    rm chainquery_1.1.2_Linux_x86_64.zip
+RUN curl -L -o /download/chainquery.zip $(curl -s https://api.github.com/repos/lbryio/chainquery/releases | fgrep 'Linux_x86_64.zip' | grep download | head -n 1 | cut -d'"' -f4) && \
+    cd /download && \
+    ls -lAh /download && pwd && \
+    unzip chainquery.zip && \
+    rm chainquery.zip
+## I really want to use this instead of all the curl stuff at one point.
+# ADD --chown=1000:1000 https://github.com/lbryio/chainquery/releases/download/latest/chainquery_latest_Linux_x86_64.zip /download
 
 
 ## Switch to Alpine eventually we might need to compile in Alpine for this.
@@ -18,7 +22,11 @@ FROM ubuntu:18.04 as app
 
 RUN adduser chainquery --gecos GECOS --shell /bin/bash --disabled-password --home /home/chainquery
 
-COPY chainqueryconfig.toml /data/chainqueryconfig.toml
+COPY --from=0 /download/chainquery /usr/bin
+
+# ADD --chown=1000:1000 https://github.com/lbryio/chainquery/releases/download/latest/chainquery_latest_Linux_x86_64.zip /usr/bin
+COPY chainqueryconfig.toml /etc/chainquery/
+ADD --chown=1000:1000 https://raw.githubusercontent.com/lbryio/chainquery/master/config/default/chainqueryconfig.toml /etc/chainquery/chainqueryconfig.toml.orig
 COPY start.sh /usr/local/bin/start
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 

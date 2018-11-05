@@ -30,7 +30,7 @@ services:
 #############
 ## Lbrynet ##
 #############
-  traefik:
+  lbrynet:
     build:
       context: ../lbrynet-daemon/
       dockerfile: Dockerfile
