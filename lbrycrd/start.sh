@@ -25,7 +25,7 @@ case ${RUN_MODE:-default} in
   default )
     lbrycrdd \
       -server \
-      -conf=$HOME/.lbrycrd/lbrycrd.conf \
+      -conf=$HOME.lbrycrd/lbrycrd.conf \
       -printtoconsole
     ;;
   reindex )
@@ -33,14 +33,14 @@ case ${RUN_MODE:-default} in
       -server \
       -txindex \
       -reindex \
-      -conf=$HOME/.lbrycrd/lbrycrd.conf \
+      -conf=$HOME.lbrycrd/lbrycrd.conf \
       -printtoconsole
     ;;
   chainquery )
     lbrycrdd \
       -server \
       -txindex \
-      -conf=$HOME/.lbrycrd/lbrycrd.conf \
+      -conf=$HOME.lbrycrd/lbrycrd.conf \
       -printtoconsole
     ;;
 esac
