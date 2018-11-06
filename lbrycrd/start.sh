@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# ## ToDo:
-# ## Get a test case to see if this is the first run or a repeat run
+# ## ToDo: Get a test case to see if this is the first run or a repeat run.
 # ## If it's a first run you need to do a full index including all transactions
 # ## tx index creates an index of every single transaction in the block history if
 # ## not specified it will only create an index for transactions that are related to the wallet or have unspent outputs.
