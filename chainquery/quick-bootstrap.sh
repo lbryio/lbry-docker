@@ -52,13 +52,13 @@ case $1 in
   getdata )
     ## Get DB Checkpoint data.
     echo Asked to get the latest checkpoint data from
-    wget http://chainquery-data.s3.amazonaws.com/chainquery-data.zip -o ./chainquery.zip
+    docker run -v $(pwd)/:/download --rm leopere/axel-docker http://chainquery-data.s3.amazonaws.com/chainquery-data.zip -o ./chainquery.zip
     ;;
   extract )
     ## Unpack the data again if need be.
     echo Asked to unpack chainquery.zip if downloaded.
     # TODO: add some magic here which will check for the presence of chainquery.zip and notify if its already gone.
-    unzip ./chainquery.zip
+    docker run -v $(pwd)/:/data --rm leopere/unzip-docker ./chainquery.zip
     ;;
   cleanup )
     ## Remove any junk here.
