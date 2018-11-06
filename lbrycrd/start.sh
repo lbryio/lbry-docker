@@ -10,9 +10,9 @@
 ## Ensure perms are correct prior to running main binary
 chown -R 1000:1000 /data
 chmod -R 755 /data
-chown -R 1000:1000 /etc/lbrycrdd
-chmod -R 755 /etc/lbrycrdd
-rm -f /var/run/lbrycrdd.pid
+chown -R 1000:1000 /etc/lbrycrd
+chmod -R 755 /etc/lbrycrd
+rm -f /var/run/lbrycrd.pid
 mkdir -p ~/.lbrycrd
 
 ## Set config params
