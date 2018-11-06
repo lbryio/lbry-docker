@@ -25,19 +25,13 @@ function test_for_deps() {
   fi
 }
 
-## TODO: Don't bother caring about host dependencies just use Docker for everything.
 ## Declare Linux app dependencies to check for.
 DEPENDENCIES=(
-  wget
-  unzip
   docker
-)
-## Recommended.
-BONUS_DEPENDENCIES=(
   docker-compose
 )
 
-## TODO: If the host doesn't have a dependency aside from docker, just use docker to do it and set the containers to remove themselves.
+## TODO: Check for docker and docker-compose
 function check_deps() {
 for i in "${!DEPENDENCIES[@]}"; do
   echo ${DEPENDENCIES[$i]}"_KEY"
