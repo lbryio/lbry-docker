@@ -63,6 +63,14 @@ case $1 in
     # rm -Rf ./data
     # rm -f ./chainquery.zip
     ;;
+  update-bootstrap )
+    ## This is a function just to ensure that we keep checkpoint data up to date.
+    docker-compose stop chainquery
+    docker-compose stop mysql
+    zip -r chainquery-data.zip data
+    aws s3 cp ./chainquery-data.zip s3://chainquery-data/chainquery-data.new
+    aws s3 rm s3://chainquery-data/chainquery-data.zip
+    aws s3 mv s3://chainquery-data/chainquery-data.new s3://chainquery-data/chainquery-data.zip
   * )
     echo "=================================================="
     echo "You look like you need usage examples let me help."
