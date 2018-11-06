@@ -48,7 +48,7 @@ done
 case $1 in
   getdata )
     ## Get DB Checkpoint data.
-    axel -a -n 6 http://chainquery-data.s3.amazonaws.com/data.zip -o ./chainquery.zip
+    axel -a -n 6 http://chainquery-data.s3.amazonaws.com/chainquery-data.zip -o ./chainquery.zip
     ;;
   extract )
     ## Unpack the data again if need be.
