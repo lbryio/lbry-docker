@@ -63,11 +63,17 @@ case $1 in
     # rm -Rf ./data
     # rm -f ./chainquery.zip
     ;;
-  upload-latest-checkpoint-data )
-    ## This is a function just to ensure that we keep checkpoint data up to date.
+  compress-latest-checkpoint-data )
+    ## This is not intended for public use.
     docker-compose stop chainquery
     docker-compose stop mysql
-    zip -r chainquery-data.zip data
+    sudo zip -r chainquery-data.zip data
+    docker-compose up -d mysql
+    sleep 30
+    docker-compose up -d chainquery
+    ;;
+  upload-latest-checkpoint-data )
+    ## This is not intended for public use.
     aws s3 cp ./chainquery-data.zip s3://chainquery-data/chainquery-data.new
     aws s3 rm s3://chainquery-data/chainquery-data.zip
     aws s3 mv s3://chainquery-data/chainquery-data.new s3://chainquery-data/chainquery-data.zip
