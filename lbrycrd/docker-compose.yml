@@ -25,4 +25,3 @@ services:
     ## host volumes for persistent data such as wallet private keys.
     volumes:
       - ./data/:/data
-      - ./config:/etc/lbrycrdd
