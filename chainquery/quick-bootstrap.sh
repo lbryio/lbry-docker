@@ -25,6 +25,7 @@ function test_for_deps() {
   fi
 }
 
+## TODO: Don't bother caring about host dependencies just use Docker for everything.
 ## Declare Linux app dependencies to check for.
 DEPENDENCIES=(
   wget
@@ -36,6 +37,7 @@ BONUS_DEPENDENCIES=(
   docker-compose
 )
 
+## TODO: If the host doesn't have a dependency aside from docker, just use docker to do it and set the containers to remove themselves.
 function check_deps() {
 for i in "${!DEPENDENCIES[@]}"; do
   echo ${DEPENDENCIES[$i]}"_KEY"
@@ -49,20 +51,41 @@ done
 case $1 in
   getdata )
     ## Get DB Checkpoint data.
-    axel -a -n 6 http://chainquery-data.s3.amazonaws.com/chainquery-data.zip -o ./chainquery.zip
+    echo Asked to get the latest checkpoint data from
+    wget http://chainquery-data.s3.amazonaws.com/chainquery-data.zip -o ./chainquery.zip
     ;;
   extract )
     ## Unpack the data again if need be.
+    echo Asked to unpack chainquery.zip if downloaded.
+    # TODO: add some magic here which will check for the presence of chainquery.zip and notify if its already gone.
     unzip ./chainquery.zip
     ;;
   cleanup )
     ## Remove any junk here.
+    echo Asked to clean up leftover chainquery.zip to save on disk space.
     rm chainquery.zip
     ;;
   reset )
     ## Give up on everything and try again.
-    # rm -Rf ./data
-    # rm -f ./chainquery.zip
+    docker-compose kill
+    docker-compose rm -f
+    rm -Rf ./data
+    rm -f ./chainquery.zip
+    ## TODO: Consider moving this somewhere as a function.
+    # docker-compose up -d mysql
+    # sleep 30
+    # docker-compose up -d chainquery
+    ;;
+  start )
+    ## Unsupported start command to start containers.
+    ## You can use this if you want to start this thing gracefully.
+    ## Ideally you would not use this in production.
+    echo "Asked to start chainquery gracefully for you."
+    docker-compose up -d mysql
+    echo "giving mysql some time to establish schema, crypto, users, permissions, and tables"
+    sleep 30
+    echo "Starting Chainquery"
+    docker-compose up -d chainquery
     ;;
   compress-latest-checkpoint-data )
     ## This is not intended for public use.
