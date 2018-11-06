@@ -16,9 +16,9 @@ rm -f /var/run/lbrycrdd.pid
 mkdir -p ~/.lbrycrd
 
 ## Set config params
-echo -e "rpcuser=lbryrpc\nrpcpassword=${RPC_PASSWORD:-changeme}" > ~/.lbrycrd/lbrycrd.conf
-echo -e "rpcallowip=${RPC_ALLOW_IP:-10.5.1.3}" >> ~/.lbrycrd/lbrycrd.conf
-echo -e "rpcuser=${RPC_USER:-lbryrpc}" >> ~/.lbrycrd/lbrycrd.conf
+echo -e "rpcuser=lbryrpc\nrpcpassword=${RPC_PASSWORD:-changeme}" > $HOME/.lbrycrd/lbrycrd.conf
+echo -e "rpcallowip=${RPC_ALLOW_IP:-10.5.1.3}" >> $HOME/.lbrycrd/lbrycrd.conf
+echo -e "rpcuser=${RPC_USER:-lbryrpc}" >> $HOME/.lbrycrd/lbrycrd.conf
 
 ## Control this invocation through envvar.
 case ${RUN_MODE:-default} in
