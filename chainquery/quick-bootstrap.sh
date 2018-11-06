@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## Be Polite and ask for permission.
+## TODO: Be Polite and ask for confirmation.
 function QandA() {
   read -r -p "Continue with $1 [y/N] " response
   response=${response,,}    # tolower
@@ -14,6 +14,7 @@ function QandA() {
 
 ## Check your $PATH for required dependencies.
 ## Stop and complain for now, later automagically install them.
+## TODO: Add dependency checker.
 function test_for_deps() {
   ## Test for Command
   if ! [ -x "$(command -v $1)" ]; then
