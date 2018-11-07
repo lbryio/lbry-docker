@@ -34,7 +34,7 @@ COPY chainqueryconfig.toml /etc/chainquery/
 
 ## Get latest chainqueryconfig.toml from master on github as template.
 # TODO: add magic which pattern matches for chainqueryconfig.toml DEFAULT strings and replaces them with configured settings on container start.
-ADD --chown=1000:1000 https://raw.githubusercontent.com/lbryio/chainquery/master/config/default/chainqueryconfig.toml /etc/chainquery/chainqueryconfig.toml.orig
+# ADD --chown=1000:1000 https://raw.githubusercontent.com/lbryio/chainquery/master/config/default/chainqueryconfig.toml /etc/chainquery/chainqueryconfig.toml.orig
 
 ## Install start.sh as executable script in container $PATH
 COPY start.sh /usr/local/bin/start
