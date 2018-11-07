@@ -5,14 +5,15 @@ LABEL MAINTAINER="leopere [at] nixc [dot] us"
 
 RUN adduser lbrycrdd --gecos GECOS --shell /bin/bash --disabled-password --home /data/ && \
     apt-get update && \
-    apt-get -y install unzip wget && \
+    apt-get -y install unzip wget curl && \
     apt-get autoclean -y && \
     rm -rf /var/lib/apt/lists/* && \
     mkdir -p /etc/lbrycrdd && \
     chown -R 1000:1000 /etc/lbrycrdd
 
-RUN wget -O /usr/bin/debugpaste https://github.com/nixc-us/debugpaste-it/raw/master/bin/debugpaste_64 && \
-    chmod +x /usr/bin/debugpaste
+## TODO: Consider adding debugpaste or variant
+# RUN wget -O /usr/bin/debugpaste https://github.com/nixc-us/debugpaste-it/raw/master/bin/debugpaste_64 && \
+#     chmod +x /usr/bin/debugpaste
 
 RUN wget -O /usr/bin/lbrycrd-linux.zip https://github.com/lbryio/lbrycrd/releases/download/v0.12.2.2/lbrycrd-linux.zip && \
     cd /usr/bin/ && \
@@ -23,6 +24,7 @@ RUN wget -O /usr/bin/lbrycrd-linux.zip https://github.com/lbryio/lbrycrd/release
 COPY debugpaste-it.sh /usr/local/bin/debugpaste-it
 COPY start.sh /usr/local/bin/start
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+COPY healthcheck.sh /usr/local/bin/healthcheck
 
 USER lbrycrdd
 
@@ -30,6 +32,9 @@ RUN mkdir -p /data/
 
 VOLUME /data/
 VOLUME /etc/lbrycrdd/
+
+## TODO: Implement healthcheck.
+# HEALTHCHECK ["healthcheck"]
 
 ## Exposing daemon port and RPC port
 EXPOSE 9245 9246
