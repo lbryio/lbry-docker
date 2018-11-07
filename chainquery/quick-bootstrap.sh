@@ -61,6 +61,7 @@ case $1 in
     ;;
   reset )
     ## Give up on everything and try again.
+    ## TODO: Make it very obvious with a nice little Y/N prompt that you're about to trash your settings and start over.
     docker-compose kill
     docker-compose rm -f
     rm -Rf ./data
