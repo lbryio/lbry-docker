@@ -1,6 +1,6 @@
 ## Get the lbry-docker repository
 
-git clone https://github.com/lbryio/lbry-docker.git
+`git clone https://github.com/lbryio/lbry-docker.git`
 
 ## Setup networking
 
