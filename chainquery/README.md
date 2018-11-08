@@ -1,6 +1,6 @@
 ## Get the lbry-docker repository
 
-`git clone https://github.com/lbryio/lbry-docker.git`
+`sudo git clone https://github.com/lbryio/lbry-docker.git`
 
 ## Setup networking
 
@@ -14,9 +14,9 @@ a docker bridge network that is going to be managed externally to your usual doc
 
 This is only required on host mounted volumes. (the default settings)
 
-`mkdir -p ./lbry-docker/lbrycrd/data`
+`sudo mkdir -p ./lbry-docker/lbrycrd/data`
 
-`chmod -R 755 ./lbry-docker/lbrycrd/data`
+`sudo chmod -R 755 ./lbry-docker/lbrycrd/data`
 
 ## Setup lbrycrd
 
