@@ -8,17 +8,17 @@
 # ## This is specific to chainquery.
 
 ## Ensure perms are correct prior to running main binary
+mkdir -p /data/.lbrycrd
 chown -R 1000:1000 /data
 chmod -R 755 /data
-chown -R 1000:1000 /etc/lbrycrdd
-chmod -R 755 /etc/lbrycrdd
+# chown -R 1000:1000 /etc/lbrycrdd
+# chmod -R 755 /etc/lbrycrdd
 rm -f /var/run/lbrycrdd.pid
-mkdir -p ~/.lbrycrd
 
 ## Set config params
-echo -e "rpcuser=lbryrpc\nrpcpassword=${RPC_PASSWORD:-changeme}" > ~/.lbrycrd/lbrycrd.conf
-echo -e "rpcallowip=${RPC_ALLOW_IP:-10.5.1.3}" >> ~/.lbrycrd/lbrycrd.conf
-echo -e "rpcuser=${RPC_USER:-lbryrpc}" >> ~/.lbrycrd/lbrycrd.conf
+echo 'rpcuser=lbryrpc\nrpcpassword='${RPC_PASSWORD:-changeme} > ~/.lbrycrd/lbrycrd.conf
+echo "rpcallowip=${RPC_ALLOW_IP:-10.5.1.3}" >> ~/.lbrycrd/lbrycrd.conf
+echo "rpcuser=${RPC_USER:-lbryrpc}" >> ~/.lbrycrd/lbrycrd.conf
 
 ## Control this invocation through envvar.
 case ${RUN_MODE:-default} in

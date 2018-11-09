@@ -16,7 +16,6 @@ services:
         ipv4_address: 10.5.1.2
     labels:
       - "traefik.expose=false"
-    user: "${UID:-1000}:${GID:-1000}"
     environment:
       RUN_MODE: chainquery
     expose:
@@ -24,4 +23,4 @@ services:
       - 9246
     ## host volumes for persistent data such as wallet private keys.
     volumes:
-      - ./data:/data
+      - "./data:/data"

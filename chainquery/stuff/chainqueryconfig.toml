@@ -1,3 +1,5 @@
+## TODO: Don't hardcode this stuff for production
+
 #Debug mode outputs specific information to the console
 debugmode=false
 
