@@ -2,7 +2,8 @@
 ## Compiler/Builder Step ##
 ###########################
 FROM ubuntu:18.04 as builder
-LABEL MAINTAINER="@Brannon Update Me Or Put Mine Here"
+## TODO: Decide who gets the MAINTAINER label
+## LABEL MAINTAINER="@Brannon Update Me Or Put Mine Here"
 
 ## Added apt work as single container layer then remove cruft before layer is committed.
 RUN apt-get update && \

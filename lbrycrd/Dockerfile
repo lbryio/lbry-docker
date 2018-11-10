@@ -3,13 +3,12 @@
 FROM ubuntu:18.04
 LABEL MAINTAINER="leopere [at] nixc [dot] us"
 
-RUN adduser lbrycrdd --gecos GECOS --shell /bin/bash --disabled-password --home /data/ && \
+RUN addgroup --gid 1000 lbrycrd && \
+    adduser lbrycrd --uid 1000 --gid 1000 --gecos GECOS --shell /bin/bash --disabled-password --home /data && \
     apt-get update && \
     apt-get -y install unzip wget curl && \
     apt-get autoclean -y && \
-    rm -rf /var/lib/apt/lists/* && \
-    mkdir -p /etc/lbrycrdd && \
-    chown -R 1000:1000 /etc/lbrycrdd
+    rm -rf /var/lib/apt/lists/*
 
 ## TODO: Consider adding debugpaste or variant
 # RUN wget -O /usr/bin/debugpaste https://github.com/nixc-us/debugpaste-it/raw/master/bin/debugpaste_64 && \
@@ -21,17 +20,15 @@ RUN wget -O /usr/bin/lbrycrd-linux.zip https://github.com/lbryio/lbrycrd/release
     rm lbrycrd-linux.zip && \
     chmod +x lbrycrdd lbrycrd-cli lbrycrd-tx
 
-COPY debugpaste-it.sh /usr/local/bin/debugpaste-it
-COPY start.sh /usr/local/bin/start
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
-COPY healthcheck.sh /usr/local/bin/healthcheck
+COPY stuff/debugpaste-it.sh /usr/local/bin/debugpaste-it
+COPY stuff/start.sh /usr/local/bin/start
+COPY stuff/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+COPY stuff/healthcheck.sh /usr/local/bin/healthcheck
 
-USER lbrycrdd
-
-RUN mkdir -p /data/
-
-VOLUME /data/
-VOLUME /etc/lbrycrdd/
+# USER lbrycrd
+# RUN mkdir /data
+VOLUME ["/data"]
+WORKDIR /data
 
 ## TODO: Implement healthcheck.
 # HEALTHCHECK ["healthcheck"]
@@ -39,6 +36,9 @@ VOLUME /etc/lbrycrdd/
 ## Exposing daemon port and RPC port
 EXPOSE 9245 9246
 
+## TODO: Decide what's important for lbrycrd and possibly add an entrypoint.
+## Maybe catch things that might match things that can be easily executed in the
+## lbrycrd cli and if nothing is entered just default to the containers shell.
 ## For now this is a placeholder that executes /bin/bash on `docker exec`
 # ENTRYPOINT ["docker-entrypoint"]
 

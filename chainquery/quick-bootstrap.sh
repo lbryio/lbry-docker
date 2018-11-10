@@ -41,18 +41,37 @@ for i in "${!DEPENDENCIES[@]}"; do
 done
 }
 
-## Add ways to get into and out of a bind here.
+function get_checkpoint() {
+  ## Get DB Checkpoint data.
+  echo Asked to get the latest checkpoint data, downloading latest checkpoint.
+  echo This data is fairly large so this saves you a few days of parsing the LBRY blockchain.
+  docker run -v $(pwd)/:/download --rm leopere/axel-docker http://chainquery-data.s3.amazonaws.com/chainquery-data.zip -o ./chainquery.zip
+}
+
+#################################
+## The real action begins here ##
+#################################
+## TODO: Add ways to get into and out of a bind here.
 case $1 in
   getdata )
-    ## Get DB Checkpoint data.
-    echo Asked to get the latest checkpoint data from
-    docker run -v $(pwd)/:/download --rm leopere/axel-docker http://chainquery-data.s3.amazonaws.com/chainquery-data.zip -o ./chainquery.zip
+    if [[ -f ./chainquery.zip ]]; then
+      echo "Found a copy of ./chainquery.zip already in your system."
+      echo "We recommend that you delete this data before proceeding and grab a fresh copy."
+      QandA "rm -f ./chainquery.zip"
+      get_checkpoint
+    else
+      get_checkpoint
+    fi
     ;;
   extract )
     ## Unpack the data again if need be.
     echo Asked to unpack chainquery.zip if downloaded.
-    # TODO: add some magic here which will check for the presence of chainquery.zip and notify if its already gone.
-    docker run -v $(pwd)/:/data --rm leopere/unzip-docker ./chainquery.zip
+    if [[ -f ./chainquery.zip ]]; then
+      docker run -v $(pwd)/:/data --rm leopere/unzip-docker ./chainquery.zip
+    else
+      echo "Could not extractas chainquery.zip did not exist."
+      echo "Feel free to execute './quick-bootstrap.sh getdata' first next time."
+    fi
     ;;
   cleanup )
     ## Remove any junk here.
@@ -62,25 +81,31 @@ case $1 in
   reset )
     ## Give up on everything and try again.
     ## TODO: Make it very obvious with a nice little Y/N prompt that you're about to trash your settings and start over.
+    echo "Agressively Killing all chainquery and dependency containers."
+    echo "executing: docker-compose kill"
     docker-compose kill
+    echo "Cleaning up stopped containers."
+    echo "executing: docker-compose rm -f"
     docker-compose rm -f
     rm -Rf ./data
     rm -f ./chainquery.zip
-    ## TODO: Consider moving this somewhere as a function.
-    # docker-compose up -d mysql
-    # sleep 30
-    # docker-compose up -d chainquery
     ;;
   start )
     ## Unsupported start command to start containers.
     ## You can use this if you want to start this thing gracefully.
     ## Ideally you would not use this in production.
     echo "Asked to start chainquery gracefully for you."
+    echo "executing: docker-compose up -d mysql"
     docker-compose up -d mysql
     echo "giving mysql some time to establish schema, crypto, users, permissions, and tables"
     sleep 30
     echo "Starting Chainquery"
+    echo "executing: docker-compose up -d chainquery"
     docker-compose up -d chainquery
+    ## TODO: verify chainquery instance is up and healthy, this requires a functional HEALTHCHECK
+    echo "This should have chainquery up and running, currently theres no checks in this function to verify this however."
+    echo "Do feel free to execute 'docker-compose ps' to verify if its running and not restarting or exited."
+    echo "Final Note: You should try to use the docker-compose commands in the tutorial at https://github.com/lbryio/lbry-docker/blob/master/chainquery/README.md"
     ;;
   compress-latest-checkpoint-data )
     ## This is not intended for public use.

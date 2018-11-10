@@ -7,43 +7,32 @@
 # ## This is specific to chainquery.
 
 ## Ensure perms are correct prior to running main binary
-chown -R 1000:1000 /data
-chmod -R 755 /data
+mkdir -p /data/.lbrycrd
+chown -R lbrycrd:lbrycrd /data
+chmod -R 755 /data/
 
 ## TODO: Consider a config directory for future magic.
 # chown -R 1000:1000 /etc/lbrycrd
 # chmod -R 755 /etc/lbrycrd
 rm -f /var/run/lbrycrd.pid
-mkdir -p ~/.lbrycrd
+
 
 ## Set config params
 ## TODO: Make this more automagic in the future.
-echo -e "rpcuser=lbryrpc\nrpcpassword=${RPC_PASSWORD:-changeme}" > $HOME/.lbrycrd/lbrycrd.conf
-echo -e "rpcallowip=${RPC_ALLOW_IP:-10.5.1.3}" >> $HOME/.lbrycrd/lbrycrd.conf
-echo -e "rpcuser=${RPC_USER:-lbryrpc}" >> $HOME/.lbrycrd/lbrycrd.conf
+echo "rpcuser=lbryrpc\nrpcpassword=${RPC_PASSWORD:-changeme}" > /data/.lbrycrd/lbrycrd.conf
+echo "rpcallowip=${RPC_ALLOW_IP:-10.5.1.3}" >> /data/.lbrycrd/lbrycrd.conf
+echo "rpcuser=${RPC_USER:-lbryrpc}" >> /data/.lbrycrd/lbrycrd.conf
 
 ## Control this invocation through envvar.
 case ${RUN_MODE:-default} in
   default )
-    lbrycrdd \
-      -server \
-      -conf=$HOME.lbrycrd/lbrycrd.conf \
-      -printtoconsole
+    su -c "lbrycrdd -server -conf=/data/.lbrycrd/ -printtoconsole" lbrycrd
     ;;
   reindex )
-    lbrycrdd \
-      -server \
-      -txindex \
-      -reindex \
-      -conf=$HOME.lbrycrd/lbrycrd.conf \
-      -printtoconsole
+    su -c "lbrycrdd -server -txindex -reindex -conf=/data/.lbrycrd/ -printtoconsole" lbrycrd
     ;;
   chainquery )
-    lbrycrdd \
-      -server \
-      -txindex \
-      -conf=$HOME.lbrycrd/lbrycrd.conf \
-      -printtoconsole
+    su -c "lbrycrdd -server -txindex -conf=/data/.lbrycrd/ -printtoconsole" lbrycrd
     ;;
 esac
 
