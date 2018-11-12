@@ -3,18 +3,13 @@
 ## Config setup
 
 ## Setup Values
-echo FINDME
-# DEBUGMODE=$(echo "debugquerymode=$DEBUGMODE")
-# echo $DEBUGMODE
+DEBUGMODE=$(echo "debugmode=$DEBUGMODE")
 LBRYCRDURL=$(echo "lbrycrdurl=\"rpc://$RPC_USER:$RPC_PASSWORD@10.5.1.2:9245\"")
-echo $LBRYCRDURL
 MYSQLDSN=$(echo "mysqldsn=\"$MYSQL_USER:$MYSQL_PASSWORD@tcp($MYSQL_SERVER:3306)/$MYSQL_DATABASE\"")
-echo $MYSQLDSN
 APIMYSQLDSN=$(echo "apimysqldsn=\"$MYSQL_USER:$MYSQL_PASSWORD@tcp($MYSQL_SERVER:3306)/$MYSQL_DATABASE\"")
-echo $APIMYSQLDSN
 
 ## Setup Defaults
-# DEBUGMODE_DEFAULT='#DEFAULT-debugquerymode=false'
+DEBUGMODE_DEFAULT='#DEFAULT-debugmode=false'
 LBRYCRDURL_DEFAULT='#DEFAULT-lbrycrdurl="rpc://lbry:lbry@localhost:9245"'
 MYSQLDSN_DEFAULT='#DEFAULT-mysqldsn="lbry:lbry@tcp(localhost:3306)/chainquery"'
 APIMYSQLDSN_DEFAULT='#DEFAULT-apihostport="0.0.0.0:6300"'
