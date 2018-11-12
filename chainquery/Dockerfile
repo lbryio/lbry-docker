@@ -30,7 +30,7 @@ RUN adduser chainquery --gecos GECOS --shell /bin/bash --disabled-password --hom
 COPY --from=0 /download/chainquery /usr/bin
 
 # ADD --chown=1000:1000 https://github.com/lbryio/chainquery/releases/download/latest/chainquery_latest_Linux_x86_64.zip /usr/bin
-COPY stuff/chainqueryconfig.toml /etc/chainquery/
+# COPY stuff/chainqueryconfig.toml /etc/chainquery/
 
 ## Get latest chainqueryconfig.toml from master on github as template.
 # TODO: add magic which pattern matches for chainqueryconfig.toml DEFAULT strings and replaces them with configured settings on container start.
@@ -42,8 +42,8 @@ COPY stuff/start.sh /usr/local/bin/start
 # TODO: Implement docker-entrypoint if later required this might be handy if we need certain maintainence tasks to be executed in the live container.
 # COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
-## From here onward we're doing this with no root.
-USER chainquery
+# ## From here onward we're doing this with no root.
+# USER chainquery
 
 ## Expose Chainquery API port
 EXPOSE 6300
