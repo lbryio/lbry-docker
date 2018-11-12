@@ -12,12 +12,13 @@ APIMYSQLDSN=$(echo "apimysqldsn=\"$MYSQL_USER:$MYSQL_PASSWORD@tcp($MYSQL_SERVER:
 DEBUGMODE_DEFAULT='#DEFAULT-debugmode=false'
 LBRYCRDURL_DEFAULT='#DEFAULT-lbrycrdurl="rpc://lbry:lbry@localhost:9245"'
 MYSQLDSN_DEFAULT='#DEFAULT-mysqldsn="lbry:lbry@tcp(localhost:3306)/chainquery"'
-APIMYSQLDSN_DEFAULT='#DEFAULT-apihostport="0.0.0.0:6300"'
+APIMYSQLDSN_DEFAULT='#DEFAULT-apimysqldsn="lbry:lbry@tcp(localhost:3306)/chainquery"'
 
 ## Add setup value variable name to this list to get processed on container start
 CONFIG_SETTINGS=(
+  DEBUGMODE
   LBRYCRDURL
-  MYSQLDSN_
+  MYSQLDSN
   APIMYSQLDSN
 )
 
