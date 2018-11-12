@@ -22,21 +22,22 @@ CONFIG_SETTINGS=(
   APIMYSQLDSN
 )
 
-function set_configs(parameter) {
+function set_configs() {
   ## Set configs on container start if not already set.
   for i in "${!CONFIG_SETTINGS[@]}"; do
-    echo ${CONFIG_SETTINGS[$i]}"_KEY"
     ## Indirect references http://tldp.org/LDP/abs/html/ivr.html
     eval FROM_STRING=\$"${CONFIG_SETTINGS[$i]}_DEFAULT"
     eval TO_STRING=\$${CONFIG_SETTINGS[$i]}
     ## TODO: Add a bit more magic to make sure that you're only configuring things if not set by config mounts.
-    sed -i '' "s/$FROM_STRING/$TO_STRING/g" /etc/chainquery/chainqueryconfig.toml
+    sed -i '' "s~$FROM_STRING~$TO_STRING~g" /etc/chainquery/chainqueryconfig.toml
   done
 }
 
 if [[ ! -f /etc/chainquery/chainqueryconfig.toml ]]; then
   echo "[INFO]: Found no chainqueryconfig.toml"
   echo "        Installing default and configuring with provided environment variables if any."
+  ## Install fresh copy of config file.
+  cp /etc/chainquery/chainqueryconfig.toml.orig /etc/chainquery/chainqueryconfig.toml
   set_configs
 else
   echo "[INFO]: Found a copy of chainqueryconfig.toml in /etc/chainquery"
