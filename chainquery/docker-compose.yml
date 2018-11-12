@@ -52,3 +52,6 @@ services:
       - 6300:6300
     depends_on:
       - mysql
+    ## TODO: Uncomment this in a docker-compose.override.yml to allow for external configurations.
+    # volumes:
+    #   - ./data/config/chainqueryconfig.toml:/etc/chainquery/chainqueryconfig.toml
