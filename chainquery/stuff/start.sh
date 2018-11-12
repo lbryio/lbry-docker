@@ -4,24 +4,23 @@
 
 ## Setup Values
 echo FINDME
-DEBUGMODE=$(echo "debugquerymode=${DEBUGMODE:-false}")
-echo $DEBUGMODE
-LBRYCRDURL=$(echo "rpc://${RPC_USER:-lbryrpc}:${RPC_PASSWORD:-changeme}@10.5.1.2:9245")
+# DEBUGMODE=$(echo "debugquerymode=$DEBUGMODE")
+# echo $DEBUGMODE
+LBRYCRDURL=$(echo "lbrycrdurl=\"rpc://$RPC_USER:$RPC_PASSWORD@10.5.1.2:9245\"")
 echo $LBRYCRDURL
-MYSQLDSN=$(echo "${MYSQL_USER:-chainquery}:${MYSQL_PASSWORD:-changeme}@tcp(${MYSQL_SERVER:-10.5.1.10}:3306)/${MYSQL_DATABASE:-chainquery}")
+MYSQLDSN=$(echo "mysqldsn=\"$MYSQL_USER:$MYSQL_PASSWORD@tcp($MYSQL_SERVER:3306)/$MYSQL_DATABASE\"")
 echo $MYSQLDSN
-APIMYSQLDSN=$(echo "${MYSQL_USER:-chainquery}:${MYSQL_PASSWORD:-changeme}@tcp(${MYSQL_SERVER:-10.5.1.10}:3306)/${MYSQL_DATABASE:-chainquery}")
+APIMYSQLDSN=$(echo "apimysqldsn=\"$MYSQL_USER:$MYSQL_PASSWORD@tcp($MYSQL_SERVER:3306)/$MYSQL_DATABASE\"")
 echo $APIMYSQLDSN
 
 ## Setup Defaults
-DEBUGMODE_DEFAULT='#DEFAULT-debugquerymode=false'
+# DEBUGMODE_DEFAULT='#DEFAULT-debugquerymode=false'
 LBRYCRDURL_DEFAULT='#DEFAULT-lbrycrdurl="rpc://lbry:lbry@localhost:9245"'
 MYSQLDSN_DEFAULT='#DEFAULT-mysqldsn="lbry:lbry@tcp(localhost:3306)/chainquery"'
 APIMYSQLDSN_DEFAULT='#DEFAULT-apihostport="0.0.0.0:6300"'
 
 ## Add setup value variable name to this list to get processed on container start
 CONFIG_SETTINGS=(
-  DEBUGMODE
   LBRYCRDURL
   MYSQLDSN_
   APIMYSQLDSN
