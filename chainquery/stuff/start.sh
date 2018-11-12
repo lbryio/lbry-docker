@@ -37,6 +37,8 @@ function set_configs(parameter) {
 if [[ ! -f /etc/chainquery/chainqueryconfig.toml ]]; then
   echo "[INFO]: Found no chainqueryconfig.toml"
   echo "        Installing default and configuring with provided environment variables if any."
+  ## Install fresh copy of config file.
+  cp /etc/chainquery/chainqueryconfig.toml.orig /etc/chainquery/chainqueryconfig.toml
   set_configs
 else
   echo "[INFO]: Found a copy of chainqueryconfig.toml in /etc/chainquery"
