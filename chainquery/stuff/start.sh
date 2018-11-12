@@ -22,7 +22,7 @@ CONFIG_SETTINGS=(
   APIMYSQLDSN
 )
 
-function set_configs(parameter) {
+function set_configs() {
   ## Set configs on container start if not already set.
   for i in "${!CONFIG_SETTINGS[@]}"; do
     echo ${CONFIG_SETTINGS[$i]}"_KEY"
