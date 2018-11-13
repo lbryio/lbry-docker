@@ -19,12 +19,12 @@ rm -f /var/run/lbrycrd.pid
 
 ## Set config params
 ## TODO: Make this more automagic in the future.
-echo "rpcuser=lbryrpc\nrpcpassword=${RPC_PASSWORD:-changeme}" > /data/.lbrycrd/lbrycrd.conf
-echo "rpcallowip=${RPC_ALLOW_IP:-10.6.1.3}" >> /data/.lbrycrd/lbrycrd.conf
-echo "rpcuser=${RPC_USER:-lbryrpc}" >> /data/.lbrycrd/lbrycrd.conf
+echo "rpcuser=lbryrpc\nrpcpassword=$RPC_PASSWORD" > /data/.lbrycrd/lbrycrd.conf
+echo "rpcallowip=$RPC_ALLOW_IP" >> /data/.lbrycrd/lbrycrd.conf
+echo "rpcuser=$RPC_USER" >> /data/.lbrycrd/lbrycrd.conf
 
 ## Control this invocation through envvar.
-case ${RUN_MODE:-default} in
+case $RUN_MODE in
   default )
     su -c "lbrycrdd -server -conf=/data/.lbrycrd/ -printtoconsole" lbrycrd
     ;;
@@ -35,13 +35,3 @@ case ${RUN_MODE:-default} in
     su -c "lbrycrdd -server -txindex -conf=/data/.lbrycrd/ -printtoconsole" lbrycrd
     ;;
 esac
-
-## TODO: Look into what we can do with these launch params
-## We were unsure if these function as intended so they were disabled for the time being.
-#  -port=${PORT:-9246} \
-#  -data=${DATA_DIR:-/data/} \
-#  -pid=${PID_FILE:/var/run/lbrycrdd.pid} \
-#  -rpcport=${RPC_PORT:-9245} \
-#  -rpcpassword=${RPC_PASSWORD:-changeme} \
-#  -rpcuser=${RPC_USER:-lbryrpc} \
-#  -rpcallowip=${RPC_ALLOW_IP:-10.6.1.3}
