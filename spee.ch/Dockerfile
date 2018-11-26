@@ -20,14 +20,16 @@ RUN wget -quiet -O /usr/bin/debugpaste https://github.com/nixc-us/debugpaste-it/
 
 ## Install container support files
 RUN curl -s https://raw.githubusercontent.com/leopere/docker-support/master/install | /bin/sh
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
-COPY healthcheck.sh /usr/local/bin/healthcheck
-COPY debugpaste-it.sh /usr/local/bin/debugpaste-it
+COPY ./stuff/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+COPY ./stuff/healthcheck.sh /usr/local/bin/healthcheck
+COPY ./stuff/debugpaste-it.sh /usr/local/bin/debugpaste-it
 
-
-HEALTHCHECK CMD healthcheck
+## TODO: Add debug and stabilize a reasonable HEALTHCHECK
+# HEALTHCHECK CMD healthcheck
 EXPOSE 3000
 USER speech
 WORKDIR /app/
 ENTRYPOINT ["docker-entrypoint"]
+
+## TODO: Add start.sh into $PATH
 CMD ["npm", "run", "start:dev"]
