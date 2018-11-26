@@ -25,6 +25,8 @@ EXPOSE 4444
 ## Wallet port [Intended for internal use]
 EXPOSE 50001
 
+
+## TODO: Look over these comments and get up to date on what's needed for exclusively lbrynet
 ## Undocumented ports that exist in conf.py
 ## API port
 # EXPOSE 5279
@@ -44,11 +46,15 @@ EXPOSE 50001
 ## Downloaded blobs will be in their own separate volume for keeping backups of critical secrets and data separate from backups of potentially massive blob files.
 # VOLUME /data/Downloads/
 
+## TODO: Decide if this next step is ideal or if it would be samrter to run as root to assert volume permissions on launch for improved container statelessness.
 ## Never run container processes as root
 USER lbrynet
+
+## TODO: Add start.sh script which can assert permissions and do any configuration prep that's required on container start.
 ## Run on container launch
 CMD ["lbrynet-daemon"]
 
+## TODO: Cleanup below
 ## Setting this entrypoint should mean that you can `docker exec lbrynet commands`
 ## and you should be able to control the daemon's CLI this way.  There is an
 ## alternative method we could use here where we have an entrypoint shell script which could be a bit smarter.
