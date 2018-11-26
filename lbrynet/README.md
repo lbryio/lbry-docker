@@ -1,4 +1,4 @@
-## lbrynet-As-A-Container
+## lbrynet-As-A-Container [WIP]
 
 I'll document a bit of this later but for now you may look over ```docker-compose.yml``` and then modify any environment variables you feel the need to.
 
