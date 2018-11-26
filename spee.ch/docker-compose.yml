@@ -18,10 +18,12 @@ services:
     volumes:
       - ./data/speech:/data
     networks:
-      green:
-        ipv4_address: 10.5.1.6
-        aliases:
-          - speech
+      - lbrynet
+      ## TODO: Determine if we need static internal networking, I highly doubt it's required.
+      # lbrynet:
+      #   ipv4_address: 10.5.1.6
+      #   aliases:
+      #     - speech
 
 #############
 ## Lbrynet ##
@@ -31,6 +33,7 @@ services:
       context: ../lbrynet-daemon/
       dockerfile: Dockerfile
     restart: always
+    ## TODO: Pull from environment file instead of environment variables in this file.
     environment:
       ## These variables are stored in the .env file next to this docker-compose.yml file.
       ## I will include a default .env file and .gitignore the ".env" pattern so you should be able to just git pull in the future if you need to.
@@ -51,6 +54,7 @@ services:
         aliases:
           - lbrynet
 
+## TODO: Determine whether or not it's required to have a completely separate SQL database or if we're just going to use the Chainquery SQL database.  If its not the same data it should be in it's own daemon.
 #############
 ## MariaDB ##
 #############
@@ -78,6 +82,7 @@ services:
         aliases:
           - mysql
 
+## TODO: Update networking to lbrynet container network.
 #########################
 ## Network Definitions ##
 #########################
