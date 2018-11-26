@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+## TODO: Start work on start.sh configuration and other magic assertions of file permissions etc...
