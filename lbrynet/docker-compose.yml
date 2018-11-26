@@ -11,11 +11,14 @@ services:
   lbrynet:
     build: .
     restart: always
+    ## TODO: Does this container ever need a static network address or is it better to be dynamic?
     networks:
-      lbrynet:
-        ipv4_address: 10.5.1.4
+      # lbrynet:
+      #   ipv4_address: 10.5.1.4
+      - lbrynet
     labels:
       - "traefik.expose=false"
+    ## TODO: Verify the need for the following port binds on host networking.
     ports:
       - 4444:4444
       - 50001:50001
