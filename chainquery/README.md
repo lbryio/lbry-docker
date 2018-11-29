@@ -46,7 +46,7 @@ You only need external networking if you plan on keeping your docker-compose fil
 For the sake of modularity in the design of this git repository the plan is to give you examples to try and then you're supposed to move towards your own custom docker-compose configuration.  We're going to create
 a docker bridge network that is going to be managed externally to your usual docker-compose networks which are compose internal.
 
-`docker network create -d bridge --subnet=10.5.1.0/16 lbrynet`
+`docker network create -d bridge --subnet=10.6.1.0/16 lbrynet`
 
 ## Make directories and set permissions
 
