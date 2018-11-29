@@ -14,7 +14,7 @@ services:
     ## TODO: Does this container ever need a static network address or is it better to be dynamic?
     networks:
       # lbrynet:
-      #   ipv4_address: 10.5.1.4
+      #   ipv4_address: 10.6.1.4
       - lbrynet
     labels:
       - "traefik.expose=false"
