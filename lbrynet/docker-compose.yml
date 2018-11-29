@@ -1,7 +1,7 @@
 version: '3.4'
 
 networks:
-  lbrynet:
+  lbry-network:
     external: true
 
 services:
@@ -15,7 +15,7 @@ services:
     networks:
       # lbrynet:
       #   ipv4_address: 10.6.1.4
-      - lbrynet
+      - lbry-network
     labels:
       - "traefik.expose=false"
     ## TODO: Verify the need for the following port binds on host networking.
@@ -24,4 +24,4 @@ services:
       - 50001:50001
     ## host volumes for persistent data such as wallet private keys.
     volumes:
-      - ./data:/data
+      - ./data:/lbrynet
