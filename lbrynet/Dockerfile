@@ -27,7 +27,7 @@ EXPOSE 5566
 EXPOSE 5279
 
 ## ToDo: Determine why this port isn't documented in the lbry.tech resources for daemon-settings
-# ## Wallet port [Intended for internal use]
+# ## the lbryumx aka Wallet port [Intended for internal use]
 EXPOSE 50001
 
 
