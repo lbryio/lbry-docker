@@ -25,9 +25,7 @@ EXPOSE 3333
 EXPOSE 5566
 ## Expose 5279 Port the daemon API will listen on
 EXPOSE 5279
-
-## ToDo: Determine why this port isn't documented in the lbry.tech resources for daemon-settings
-# ## the lbryumx aka Wallet port [Intended for internal use]
+## the lbryumx aka Wallet port [Intended for internal use]
 EXPOSE 50001
 
 
