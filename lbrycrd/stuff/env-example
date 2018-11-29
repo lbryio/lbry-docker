@@ -9,4 +9,4 @@ RPC_PASSWORD=${RPC_PASSWORD:-changeme}
 
 ## This should be the internal container IP from which you'll be calling the RPC for Lbrycrdd from.
 ## TODO: make this more dynamic before we move to scalability
-RPC_ALLOW_IP=${RPC_ALLOW_IP:-10.5.1.3}
+RPC_ALLOW_IP=${RPC_ALLOW_IP:-10.6.1.3}

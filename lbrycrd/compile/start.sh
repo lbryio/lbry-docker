@@ -17,7 +17,7 @@ rm -f /var/run/lbrycrdd.pid
 
 ## Set config params
 echo 'rpcuser=lbryrpc\nrpcpassword='${RPC_PASSWORD:-changeme} > ~/.lbrycrd/lbrycrd.conf
-echo "rpcallowip=${RPC_ALLOW_IP:-10.5.1.3}" >> ~/.lbrycrd/lbrycrd.conf
+echo "rpcallowip=${RPC_ALLOW_IP:-10.6.1.3}" >> ~/.lbrycrd/lbrycrd.conf
 echo "rpcuser=${RPC_USER:-lbryrpc}" >> ~/.lbrycrd/lbrycrd.conf
 
 ## Control this invocation through envvar.
@@ -53,4 +53,4 @@ esac
 #  -rpcport=${RPC_PORT:-9245} \
 #  -rpcpassword=${RPC_PASSWORD:-changeme} \
 #  -rpcuser=${RPC_USER:-lbryrpc} \
-#  -rpcallowip=${RPC_ALLOW_IP:-10.5.1.3}
+#  -rpcallowip=${RPC_ALLOW_IP:-10.6.1.3}
