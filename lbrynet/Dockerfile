@@ -21,12 +21,14 @@ COPY stuff/healthcheck.sh /usr/local/bin/healthcheck
 EXPOSE 4444
 ## LBRYNET talks to peers on port 3333 [Intended for external use] this port is used to discover other lbrynet daemons with blobs.
 EXPOSE 3333
+## Expose 5566 Reflector port to listen on
+EXPOSE 5566
+## Expose 5279 Port the daemon API will listen on
+EXPOSE 5279
 
 ## ToDo: Determine why this port isn't documented in the lbry.tech resources for daemon-settings
 # ## Wallet port [Intended for internal use]
-# EXPOSE 50001
-## All ports that are listed in the networking section of lbry.tech/resources/daemon-settings
-# 3333 5566 4444 5279
+EXPOSE 50001
 
 
 
