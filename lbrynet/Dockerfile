@@ -37,7 +37,7 @@ EXPOSE 50001
 ## Example daemon_settings.yml is at https://github.com/lbryio/lbry/blob/master/example_daemon_settings.yml
 ADD https://raw.githubusercontent.com/lbryio/lbry/master/example_daemon_settings.yml /etc/lbrynet/example_daemon_settings.yml
 ## TODO: In start.sh detect and merge changes.
-VOLUME /etc/lbry/daemon_settings.yml
+# VOLUME /etc/lbry/daemon_settings.yml
 
 ## TODO: Downloaded blobs will be in their own separate volume for keeping backups of critical secrets and data separate from backups of potentially massive blob files.
 # VOLUME /lbrynet/Downloads/
