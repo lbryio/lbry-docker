@@ -9,7 +9,7 @@ RUN adduser lbrynet --gecos GECOS --shell /bin/bash/ --disabled-password --home 
 ADD https://lbry.io/get/lbrynet.linux.zip /lbrynet/lbrynet.linux.zip
 RUN unzip /lbrynet/lbrynet.linux.zip -d /lbrynet/ && \
     rm /lbrynet/lbrynet.linux.zip && \
-    chown -Rv traefik:lbrynet /lbrynet && \
+    chown -Rv lbrynet:lbrynet /lbrynet && \
     mv /lbrynet/lbrynet /bin/
     
 # COPY stuff/debugpaste-it.sh /usr/local/bin/debugpaste-it
