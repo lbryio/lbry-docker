@@ -24,4 +24,4 @@ services:
       - 50001:50001
     ## host volumes for persistent data such as wallet private keys.
     volumes:
-      - ./data/:/data
+      - ./data:/data
