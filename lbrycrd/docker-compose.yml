@@ -19,7 +19,7 @@ services:
     environment:
       RUN_MODE: chainquery
     env_file:
-     - .env
+     - env
     expose:
       - 9245
       - 9246
