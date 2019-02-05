@@ -28,9 +28,7 @@ echo "regtest=1" >>             /data/.lbrycrd/lbrycrd.conf
 echo "txindex=1" >>             /data/.lbrycrd/lbrycrd.conf
 echo "server=1" >>              /data/.lbrycrd/lbrycrd.conf
 echo "printtoconsole=1" >>      /data/.lbrycrd/lbrycrd.conf
-#echo "bind=0.0.0.0" >>         /data/.lbrycrd/lbrycrd.conf
 
-#advance nohup &
-nohup advance &>/dev/null &
+#nohup advance &>/dev/null &
 su -c "lbrycrdd -conf=/data/.lbrycrd/lbrycrd.conf" lbrycrd
 
