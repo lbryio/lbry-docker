@@ -21,7 +21,6 @@ RUN wget -O /usr/bin/lbrycrd-linux.zip https://github.com/lbryio/lbrycrd/release
     chmod +x lbrycrdd lbrycrd-cli lbrycrd-tx
 
 COPY start.sh /usr/local/bin/start
-COPY advance_blocks.sh /usr/local/bin/advance
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 
 # USER lbrycrd
