@@ -1,6 +1,7 @@
 .gitlab-ci.yml
 .DS_Store
 */docker-compose.override.yml
-*/data/
+*/*/data
+
 ./docker-compose.yml
 *.zip
