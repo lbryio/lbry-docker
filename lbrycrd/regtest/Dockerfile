@@ -14,7 +14,7 @@ RUN addgroup --gid 1000 lbrycrd && \
 # RUN wget -O /usr/bin/debugpaste https://github.com/nixc-us/debugpaste-it/raw/master/bin/debugpaste_64 && \
 #     chmod +x /usr/bin/debugpaste
 
-RUN wget -O /usr/bin/lbrycrd-linux.zip https://github.com/lbryio/lbrycrd/releases/download/v0.12.3.1/lbrycrd-linux.zip && \
+RUN wget -O /usr/bin/lbrycrd-linux.zip https://github.com/lbryio/lbrycrd/releases/download/v0.12.4.0/lbrycrd-linux.zip && \
     cd /usr/bin/ && \
     unzip lbrycrd-linux.zip && \
     rm lbrycrd-linux.zip && \
