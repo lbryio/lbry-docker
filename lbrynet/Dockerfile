@@ -2,7 +2,7 @@
 FROM ubuntu:18.04
 LABEL MAINTAINER="leopere [at] nixc [dot] us"
 
-RUN apt-get update && apt-get -y install unzip
+RUN apt-get update && apt-get -y install unzip && apt-get install -y ca-certificates
 RUN adduser lbrynet --gecos GECOS --shell /bin/bash --disabled-password --home /lbrynet/
 
 ## Add lbrynet
@@ -16,13 +16,14 @@ RUN unzip /lbrynet/lbrynet.linux.zip -d /lbrynet/ && \
 COPY stuff/start.sh /usr/local/bin/start
 COPY stuff/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 COPY stuff/healthcheck.sh /usr/local/bin/healthcheck
+COPY stuff/daemon_settings.yml /lbrynet/daemon_settings.yml
 
 ## Daemon port [Intended for internal use]
 ## LBRYNET talks to peers on port 3333 [Intended for external use] this port is used to discover other lbrynet daemons with blobs.
 ## Expose 5566 Reflector port to listen on
 ## Expose 5279 Port the daemon API will listen on
 ## the lbryumx aka Wallet port [Intended for internal use]
-EXPOSE 4444 3333 5566 5279 50001
+#EXPOSE 4444 3333 5566 52800 50001
 
 
 
@@ -32,7 +33,7 @@ EXPOSE 4444 3333 5566 5279 50001
 # VOLUME /lbrynet/.local/
 
 ## Example daemon_settings.yml is at https://github.com/lbryio/lbry/blob/master/example_daemon_settings.yml
-ADD https://raw.githubusercontent.com/lbryio/lbry/master/example_daemon_settings.yml /etc/lbrynet/example_daemon_settings.yml
+##ADD https://raw.githubusercontent.com/lbryio/lbry/master/example_daemon_settings.yml /etc/lbrynet/example_daemon_settings.yml
 ## TODO: In start.sh detect and merge changes.
 # VOLUME /etc/lbry/daemon_settings.yml
 

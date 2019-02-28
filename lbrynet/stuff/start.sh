@@ -14,4 +14,4 @@ chmod -R 755 /lbrynet
 # chmod -R 755 /etc/lbrynet
 # rm -f /var/run/lbrynet.pid
 
-su -c "lbrynet start" lbrynet
+su -c "lbrynet start --api localhost:5280"

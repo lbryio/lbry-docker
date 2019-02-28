@@ -1,25 +1,13 @@
 version: '3.4'
 
-networks:
-  lbry-network:
-    external: true
-
 services:
 #############
 ## Lbrynet ##
 #############
   lbrynet:
     build: .
-    restart: always
-    ## TODO: Does this container ever need a static network address or is it better to be dynamic?
-    networks:
-      # lbrynet:
-      #   ipv4_address: 10.6.1.4
-      - lbry-network
-    labels:
-      - "traefik.expose=false"
-    ## TODO: Verify the need for the following port binds on host networking.
     ports:
+      - 5280:52800
       - 4444:4444
       - 50001:50001
     ## host volumes for persistent data such as wallet private keys.

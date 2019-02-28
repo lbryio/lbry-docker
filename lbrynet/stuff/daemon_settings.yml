@@ -1,0 +1,16 @@
+share_usage_data: True
+
+lbryum_servers:
+  - lbryumx1.lbry.io:50001
+  - lbryumx2.lbry.io:50001
+
+blockchain_name: lbrycrd_main
+
+data_dir: /home/lbry/.lbrynet
+download_directory: /home/lbry/downloads
+
+delete_blobs_on_remove: True
+dht_node_port: 4444
+port: 5280
+peer_port: 3333
+use_upnp: True
