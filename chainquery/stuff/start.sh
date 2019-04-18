@@ -29,26 +29,23 @@ function set_configs() {
     eval FROM_STRING=\$"${CONFIG_SETTINGS[$i]}_DEFAULT"
     eval TO_STRING=\$${CONFIG_SETTINGS[$i]}
     ## TODO: Add a bit more magic to make sure that you're only configuring things if not set by config mounts.
-    sed -i "s~$FROM_STRING~"$TO_STRING"~g" /etc/chainquery/chainqueryconfig.toml
+    sed -i "s~$FROM_STRING~"$TO_STRING"~g" /etc/lbry/chainqueryconfig.toml
   done
   echo "Reading config for debugging."
-  cat /etc/chainquery/chainqueryconfig.toml
+  cat /etc/lbry/chainqueryconfig.toml
 }
 
-if [[ ! -f /etc/chainquery/chainqueryconfig.toml ]]; then
+if [[ ! -f /etc/lbry/chainqueryconfig.toml ]]; then
   echo "[INFO]: Did not find chainqueryconfig.toml"
   echo "        Installing default and configuring with provided environment variables if any."
   ## Install fresh copy of config file.
-  echo "cp -v /etc/chainquery/chainqueryconfig.toml.orig /etc/chainquery/chainqueryconfig.toml"
-  cp -v /etc/chainquery/chainqueryconfig.toml.orig /etc/chainquery/chainqueryconfig.toml
-  chmod 755 /etc/chainquery/chainqueryconfig.toml
-  ls -lAh /etc/chainquery/
+  echo "cp -v /etc/lbry/chainqueryconfig.toml.orig /etc/lbry/chainqueryconfig.toml"
+  cp -v /etc/lbry/chainqueryconfig.toml.orig /etc/lbry/chainqueryconfig.toml
+  ls -lAh /etc/lbry/
   set_configs
 else
-  echo "[INFO]: Found a copy of chainqueryconfig.toml in /etc/chainquery"
-  echo "        Attempting to non destructively install any new environment configurations."
-  set_configs
+  echo "[INFO]: Found a copy of chainqueryconfig.toml in /etc/lbry"
 fi
 
 ## For now keeping this simple. Potentially eventually add all command args as envvars for the Dockerfile or use safe way to add args via docker-compose.yml
-su -c "chainquery serve -c "/etc/chainquery/"" chainquery
+chainquery serve --configpath "/etc/lbry/"
