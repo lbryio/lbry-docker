@@ -1,7 +1,7 @@
 version: '3.4'
 
 networks:
-  lbry-network:
+  lbrynet:
     external: true
 
 services:
@@ -14,12 +14,12 @@ services:
     image: mysql:5.7.23
     restart: always
     networks:
-      lbry-network:
-        ipv4_address: 10.6.1.10
+      lbrynet:
+        ipv4_address: 10.5.1.10
         aliases:
           - mysql
     env_file:
-      - env
+      - .env
     expose:
       - 3306
     ## TODO: I want to find a way that is acceptable to everyone to lock this up
@@ -39,11 +39,11 @@ services:
       target: app
     restart: always
     networks:
-      lbry-network:
-        ipv4_address: 10.6.1.3
+      lbrynet:
+        ipv4_address: 10.5.1.3
     env_file:
-      - env
-      - ../lbrycrd/env
+      - .env
+      - ../lbrycrd/.env
     labels:
       - "traefik.expose=false"
     expose:

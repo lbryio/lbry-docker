@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+#############
+## Lbrycrd ##
+#############
+  lbrycrd:
+    image: tiger5226/regtest
+    restart: always
+    labels:
+      - "traefik.expose=true"
+    ports:
+      - "11336:9246"
+      - "11337:11337"
+    ## host volumes for persistent data such as wallet private keys.
+    volumes:
+      - "./data:/data"

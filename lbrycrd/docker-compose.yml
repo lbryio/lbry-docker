@@ -18,6 +18,8 @@ services:
       - "traefik.expose=false"
     environment:
       RUN_MODE: chainquery
+    env_file:
+     - env
     expose:
       - 9245
       - 9246

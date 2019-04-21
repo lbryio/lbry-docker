@@ -1,4 +1,4 @@
 data/
 data.z*
 chainquery.z*
-*.zip
+compile/
