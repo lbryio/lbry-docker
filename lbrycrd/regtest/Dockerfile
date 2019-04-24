@@ -1,7 +1,7 @@
 ## This base image is for running latest lbrycrdd
 # For some reason I may switch this image over to Alpine when I can RCA why it won't start.
 FROM ubuntu:18.04
-LABEL MAINTAINER="leopere [at] nixc [dot] us"
+LABEL MAINTAINER="beamer@lbry.io"
 
 RUN addgroup --gid 1000 lbrycrd && \
     adduser lbrycrd --uid 1000 --gid 1000 --gecos GECOS --shell /bin/bash --disabled-password --home /data && \
