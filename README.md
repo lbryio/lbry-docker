@@ -1,5 +1,8 @@
 # lbry-Docker
 
+## Tags
+Document tags and link to their Dockerfiles here.
+
 ## Scope
 This repository is in heavy flux as it travels towards [version 1.0](https://github.com/lbryio/lbry-docker/projects/1) however its goal is to make development for and adoption of any of the LBRY appliances trivial.  You should be able to clone pull fork your way to a better LBRY without having to do much more than some light reading of a README to get started.
 

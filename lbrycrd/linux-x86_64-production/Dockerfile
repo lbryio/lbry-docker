@@ -7,16 +7,17 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 WORKDIR /
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-COPY stuff/start.sh start
-COPY stuff/healthcheck.sh healthcheck
-COPY stuff/fix-permissions.c fix-permissions.c
+COPY ../stuff/start.sh start
+COPY ../stuff/healthcheck.sh healthcheck
+COPY ../stuff/advance_blocks.sh advance
+COPY ../stuff/fix-permissions.c fix-permissions.c
 RUN curl -L -o ./lbrycrd-linux.zip $(curl -s https://api.github.com/repos/lbryio/lbrycrd/releases | grep -F 'lbrycrd-linux.zip' | grep download | head -n 1 | cut -d'"' -f4) && \
   unzip ./lbrycrd-linux.zip && \
   gcc fix-permissions.c -o fix-permissions && \
-  chmod +x ./lbrycrdd ./lbrycrd-cli ./lbrycrd-tx ./start ./healthcheck ./fix-permissions
+  chmod +x ./lbrycrdd ./lbrycrd-cli ./lbrycrd-tx ./start ./healthcheck ./fix-permissions ./advance
 
 FROM ubuntu:18.04 as app
-COPY --from=prep /lbrycrdd /lbrycrd-cli /lbrycrd-tx /start /healthcheck /fix-permissions /usr/bin/
+COPY --from=prep /lbrycrdd /lbrycrd-cli /lbrycrd-tx /start /healthcheck /fix-permissions /advance /usr/bin/
 RUN addgroup --gid 1000 lbrycrd && \
   adduser lbrycrd --uid 1000 --gid 1000 --gecos GECOS --shell /bin/bash --disabled-password --home /data && \
   chmod a+s /usr/bin/fix-permissions

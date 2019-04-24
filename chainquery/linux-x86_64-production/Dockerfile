@@ -8,7 +8,7 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 WORKDIR /
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-COPY stuff/start.sh start
+COPY ../stuff/start.sh start
 RUN curl -L -o /chainquery.zip $(curl -s https://api.github.com/repos/lbryio/chainquery/releases | grep -F 'Linux_x86_64.zip' | grep download | head -n 1 | cut -d'"' -f4) && \
   unzip /chainquery.zip && \
   rm /chainquery.zip

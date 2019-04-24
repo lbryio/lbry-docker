@@ -1,7 +1,13 @@
-.gitlab-ci.yml
 .DS_Store
-*/docker-compose.override.yml
-*/*/data
-
 ./docker-compose.yml
+*/docker-compose.override.yml
+
+
+*/*/data
 *.zip
+*.tar.gz
+*.tar.xz
+
+./persist/lbrycrd/*
+./persist/lbrynet/*
+./persist/chainquery/*
