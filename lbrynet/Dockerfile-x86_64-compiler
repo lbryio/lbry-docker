@@ -1,4 +1,4 @@
-FROM multiarch/ubuntu-core:armhf-bionic as dependencies
+FROM ubuntu:18.04 as dependencies
 RUN apt-get update && \
     apt-get install -y \
       python3-pip \
@@ -32,7 +32,7 @@ FROM dependencies as compile
 
 RUN python3.7 -m pip install -U pyinstaller && \
     git clone https://github.com/lbryio/lbry.git --depth 1 /lbry
-    WORKDIR /lbry
+WORKDIR /lbry
 RUN git clone https://github.com/lbryio/torba.git --depth 1 /lbry/torba
 WORKDIR /lbry/torba
 RUN python3.7 -m pip install -e .
@@ -45,9 +45,9 @@ RUN python3.7 scripts/set_build.py && \
     mkdir /target && \
     /lbry/dist/lbrynet --version
 
-FROM multiarch/ubuntu-core:armhf-bionic as app
+FROM ubuntu:18.04 as app
 RUN adduser lbrynet --gecos GECOS --shell /bin/bash --disabled-password --home /home/lbrynet
-COPY ../stuff/start.sh /usr/local/bin/start
+COPY stuff/start.sh /usr/local/bin/start
 COPY --from=compile /lbry/dist/lbrynet /usr/local/bin/
 EXPOSE 5279
 USER lbrynet
