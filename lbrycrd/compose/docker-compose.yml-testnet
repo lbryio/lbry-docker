@@ -1,20 +1,11 @@
 version: '3.4'
 
-## README
-# To run a local instance of testnet via docker:
-#
-# 1) clone this repository
-#
-# 2) Run `cd ./lbrycrd/testnet`
-#
-# 3) Run `docker-compose up -d`
-
 services:
 #############
 ## Lbrycrd ##
 #############
   lbrycrd:
-    image: tiger5226/testnet
+    image: lbry/lbry-docker:lbrycrd-linux-x86_64-production
     restart: always
     ports:
       - "11336:9246"
@@ -22,3 +13,5 @@ services:
     ## host volumes for persistent data such as wallet private keys.
     volumes:
       - "../persist/data:/data"
+    environment:
+      - RUN_MODE=testnet

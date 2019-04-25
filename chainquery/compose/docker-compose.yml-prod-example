@@ -27,16 +27,15 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./data/db:/var/lib/mysql
-      - ./stuff/my.cnf:/etc/mysql/conf.d/chainquery-optimizations.cnf
+      - ../persist/chainquery/db:/var/lib/mysql
+      ## This one may need to be tweaked based on where you run this docker-compose from.
+      - ../stuff/my.cnf:/etc/mysql/conf.d/chainquery-optimizations.cnf
 
 ################
 ## Chainquery ##
 ################
   chainquery:
-    build:
-      context: .
-      target: app
+    image: lbryio/lbry-docker:linux-x86_64-production
     restart: always
     networks:
       lbry-network:
@@ -54,4 +53,4 @@ services:
       - mysql
     ## TODO: Uncomment this in a docker-compose.override.yml to allow for external configurations.
     # volumes:
-    #   - ./data/config/chainqueryconfig.toml:/etc/chainquery/chainqueryconfig.toml
+    #   - ../persist/chainquery/config/chainqueryconfig.toml:/etc/chainquery/chainqueryconfig.toml

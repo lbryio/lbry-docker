@@ -23,7 +23,10 @@ See [Running from source](##Running-from-source) for the current instructions on
 
 #### Currently supported platforms
 
-**X64 cpu architecture**
+**X86_64 cpu architecture**
+Lbrynet, Lbrycrd, Chainqery are currently supported.
+
+**Some arm architectures**
 
 **More will be added on request and over time**
 
@@ -50,7 +53,7 @@ Keep in mind [I am](https://github.com/leopere/) preferential to receiving patch
 
 ## Getting Support
 
-#### Debugpaste [WIP]
+<!-- #### Debugpaste [WIP]
 I'll be including a function to get a self destructing debugpaste of your LBRY appliances logs you'll be able to execute something similar to the following in all containers to export raw logs to a paste service where you can then either modify them removing sensitive data or just take that URL and create a new issue after you [(Use Issue Search)](https://github.com/lbryio/lbry-docker/issues?utf8=%E2%9C%93&q=is%3Aissue) to make sure there isn't already an open thread for your issue.
 
 #### Example debugpaste
@@ -60,7 +63,7 @@ docker-compose exec chainquery debugpaste
 https://haste.nixc.us/ocatumatozaq.nginx
 ```
 You can then take output given in the response from the debugpaste command and put that into your github issue (This may be automated at some point to some degree).
-
+ -->
 
 #### Creating an Issue
 Please be sure to fill out the [issue template](https://github.com/lbryio/lbry-docker/issues/new) as best as possible.  This will help us answer your questions faster and fix things quicker if we have quality reports.

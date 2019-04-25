@@ -5,7 +5,7 @@ services:
 ## Lbrycrd ##
 #############
   lbrycrd:
-    image: tiger5226/regtest
+    image: lbry/lbry-docker:lbrycrd-linux-x86_64-production
     restart: always
     ports:
       - "11336:9246"
@@ -13,3 +13,5 @@ services:
     ## host volumes for persistent data such as wallet private keys.
     volumes:
       - "../persist/data:/data"
+    environment:
+      - RUN_MODE=regtest
