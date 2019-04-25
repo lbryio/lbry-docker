@@ -1,4 +1,13 @@
-FROM ubuntu:18.04 as dependencies
+## Compiler for lbrynet container for any architecture supported by Ubuntu 18.04
+## Specify the BASE_IMAGE build argument to choose which Ubuntu base image to build from.
+## Docs for ARG in FROM:  https://github.com/docker/cli/blob/master/docs/reference/builder.md#understand-how-arg-and-from-interact
+## Architecture | Build command
+##    x86_64    | docker build -t lbrynet -f Dockerfile-compiler .
+##    armhf     | docker build -t lbrynet-armhf -f Dockerfile-compiler --build-arg BASE_IMAGE=multiarch/ubuntu-core:armhf-bionic .
+##    arm64     | docker build -t lbrynet-arm64 -f Dockerfile-compiler --build-arg BASE_IMAGE=multiarch/ubuntu-core:arm64-bionic .
+
+ARG BASE_IMAGE=ubuntu:18.04
+FROM ${BASE_IMAGE} as dependencies
 RUN apt-get update && \
     apt-get install -y \
       python3-pip \
@@ -32,7 +41,7 @@ FROM dependencies as compile
 
 RUN python3.7 -m pip install -U pyinstaller && \
     git clone https://github.com/lbryio/lbry.git --depth 1 /lbry
-WORKDIR /lbry
+    WORKDIR /lbry
 RUN git clone https://github.com/lbryio/torba.git --depth 1 /lbry/torba
 WORKDIR /lbry/torba
 RUN python3.7 -m pip install -e .
@@ -48,7 +57,7 @@ RUN python3.7 scripts/set_build.py && \
     mkdir /target && \
     /lbry/dist/lbrynet --version
 
-FROM ubuntu:18.04 as app
+FROM ${BASE_IMAGE} as app
 RUN adduser lbrynet --gecos GECOS --shell /bin/bash --disabled-password --home /home/lbrynet
 COPY --from=compile /usr/local/bin/start /usr/local/bin/checkmount /lbry/dist/lbrynet /usr/local/bin/
 EXPOSE 5279
