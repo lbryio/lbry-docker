@@ -77,6 +77,8 @@ Now that you're done syncing your own copy of the lbry blockchain into the `lbry
 
 `cd ../chainquery/`
 
+`cat ./compose/docker-compose.yml-prod-example > docker-compose.yml`
+
 `./quick-bootstrap.sh getdata`
 
 `./quick-bootstrap.sh extract`

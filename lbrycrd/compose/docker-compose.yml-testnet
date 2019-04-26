@@ -5,7 +5,7 @@ services:
 ## Lbrycrd ##
 #############
   lbrycrd:
-    image: lbry/lbry-docker:lbrycrd-linux-x86_64-production
+    image: lbry/lbrycrd:linux-x86_64-production
     restart: always
     ports:
       - "11336:9246"

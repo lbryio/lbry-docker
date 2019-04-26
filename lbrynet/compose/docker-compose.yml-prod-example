@@ -9,19 +9,18 @@ services:
 ## Lbrynet ##
 #############
   lbrynet:
-    build: .
+    image: lbry/lbrynet:Linux-x86_64-production
     restart: always
-    ## TODO: Does this container ever need a static network address or is it better to be dynamic?
     networks:
       # lbrynet:
       #   ipv4_address: 10.6.1.4
       - lbry-network
-    labels:
-      - "traefik.expose=false"
-    ## TODO: Verify the need for the following port binds on host networking.
     ports:
       - 4444:4444
       - 50001:50001
+    env_file:
+      - ../environment/lbrynet.env
     ## host volumes for persistent data such as wallet private keys.
+    #  This container will not run without a persistent wallet as it may contain a LBC balance.
     volumes:
-      - ./data:/lbrynet
+      - ../persist/lbrynet/data:/lbrynet

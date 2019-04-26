@@ -26,7 +26,7 @@ for that. This tutorial will use cloud-init and systemd to control docker.
  * Select a Standard droplet with 8GB of memory ($40 per month in 2019.)
  * Select whatever datacenter you want.
  * Mark the checkbox called `User data`, and paste the following into the box:
- 
+
 ```
 #cloud-config
 
@@ -57,10 +57,10 @@ write_files:
       Description=lbrycrd docker container
       After=snap.docker.dockerd.service
       Requires=snap.docker.dockerd.service
-      
+
       [Service]
       Environment=SERVICE=lbrycrd
-      Environment=IMAGE=lbry/lbry-docker:lbrycrd-production
+      Environment=IMAGE=lbry/lbrycrd:linux-x86-64-production
       TimeoutStartSec=0
       ExecStartPre=-/snap/bin/docker stop $SERVICE
       ExecStartPre=-/snap/bin/docker rm -f $SERVICE
@@ -77,14 +77,14 @@ write_files:
       ExecStop=/snap/bin/docker stop $SERVICE
       Restart=always
       RestartSec=60
-      
+
       [Install]
       WantedBy=multi-user.target
 
   - path: "/etc/mysql/conf.d/chainquery.cnf"
     content: |
       # Put mysql optimizations specific to chainquery here
-      
+
   - path: "/etc/systemd/system/mysql.service"
     content: |
       [Unit]
@@ -112,7 +112,7 @@ write_files:
       ExecStop=/snap/bin/docker stop $SERVICE
       Restart=always
       RestartSec=60
-      
+
       [Install]
       WantedBy=multi-user.target
 
@@ -122,7 +122,7 @@ write_files:
       lbrycrdurl="rpc://lbry:lbry@lbrycrd:9245"
       mysqldsn="chainquery:chainquery@tcp(mysql:3306)/chainquery"
       apimysqldsn="chainquery:chainquery@tcp(mysql:3306)/chainquery"
-      
+
   - path: "/etc/systemd/system/chainquery.service"
     content: |
       [Unit]
@@ -133,7 +133,7 @@ write_files:
 
       [Service]
       Environment=SERVICE=chainquery
-      Environment=IMAGE=lbry/lbry-docker:chainquery-production
+      Environment=IMAGE=lbry/chainquery:linux-x86-64-production
       TimeoutStartSec=0
       ExecStartPre=-/snap/bin/docker stop $SERVICE
       ExecStartPre=-/snap/bin/docker rm -f $SERVICE
@@ -149,7 +149,7 @@ write_files:
       ExecStop=/snap/bin/docker stop $SERVICE
       Restart=always
       RestartSec=60
-        
+
       [Install]
       WantedBy=multi-user.target
 
@@ -157,7 +157,7 @@ write_files:
   - path: "/root/.bash_aliases"
     content: |
       alias lbrycrd-cli="docker run --rm -it --link lbrycrd:lbrycrd --mount type=bind,source=/etc/lbry/lbrycrd.conf,target=/etc/lbry/lbrycrd.conf \
-          lbry/lbry-docker:lbrycrd-production lbrycrd-cli -conf=/etc/lbry/lbrycrd.conf -rpcconnect=lbrycrd"
+          lbry/lbrycrd:linux-x86-64-production lbrycrd-cli -conf=/etc/lbry/lbrycrd.conf -rpcconnect=lbrycrd"
       alias mysql="docker run --rm -it --link mysql:mysql mysql:5 mysql -hmysql -u chainquery --password=chainquery"
 
 runcmd:
@@ -169,7 +169,7 @@ runcmd:
   - /snap/bin/docker volume create mysql-data
   - systemctl enable --now lbrycrd
   - echo "Good to go."
-``` 
+```
  * You can leave everything above as it is, to use the default configuration, OR
    you may edit the config in the box to your own liking.
      * For instance, if you wanted to run in [regtest
@@ -199,7 +199,7 @@ startup.
 You can tail the log to monitor the install progress:
 
 ```
-tail -f /var/log/cloud-init-output.log 
+tail -f /var/log/cloud-init-output.log
 ```
 
 Wait for the final `Good to go` message to know that the installer has finished.
@@ -304,7 +304,7 @@ journalctl --unit chainquery
 
 (optionally use `-f` if you want to tail/follow the logs)
 
-##### Disabling chainquery service 
+##### Disabling chainquery service
 
 ```
 systemctl disable --now chainquery
@@ -319,4 +319,3 @@ In the future, this tutorial may replace the snap version of docker with the
 regular PPA version of docker-ce, which has a more predictable update strategy
 (apt-get) rather than auto-updates. More long term testing is needed to know
 which way is better.
-
