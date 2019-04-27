@@ -4,18 +4,18 @@ Contributing Author: [EnigmaCurry](https://www.enigmacurry.com)
 
 Last Update: April 18 2019
 
-This is meant to be easy instructions for running a lbrycrd and chainquery
+This tutorial meant to be easy instructions for running a lbrycrd and chainquery
 service on DigitalOcean. It's pretty much just copy-and-paste.
 
-This should also work on any host that supports
+This tutorial should also work on any host that supports
 [cloud-init](https://cloud-init.io/), but I've not tested it anywhere except for
 DigitalOcean.
 
 If you wish to use docker-compose, there is an [alternative
 configuration](https://github.com/lbryio/lbry-docker/tree/master/lbrycrd)
-for that. This tutorial will use cloud-init and systemd to control docker.
+for that. This tutorial uses cloud-init and systemd to control docker.
 
-## It's easy to run your own full lbrycrd node
+## It's easy to run your full lbrycrd node
 
 [![Video of creating lbrycrd droplet on DigitalOcean](https://spee.ch/@EnigmaCurry:d/lbrycrd-video-thumb.jpg)](https://spee.ch/@EnigmaCurry:d/lbrycrd-docker-cloud-init.mp4)
 
@@ -26,15 +26,15 @@ for that. This tutorial will use cloud-init and systemd to control docker.
  * Select a Standard droplet with 8GB of memory ($40 per month in 2019.)
  * Select whatever datacenter you want.
  * Mark the checkbox called `User data`, and paste the following into the box:
- 
+
 ```
 #cloud-config
 
 ## DigitalOcean user-data for Ubuntu 18.04 droplet
 ## Installs docker
 ## Setup systemd service for lbrycrd
-## (This config just runs docker on vanilla Ubuntu,
-##  it uses systemd inplace of docker-compose or kubernetes.)
+## (This config runs docker on vanilla Ubuntu,
+##  it uses systemd in place of docker-compose or kubernetes.)
 
 write_files:
   - path: "/etc/lbry/lbrycrd.conf"
@@ -57,10 +57,10 @@ write_files:
       Description=lbrycrd docker container
       After=snap.docker.dockerd.service
       Requires=snap.docker.dockerd.service
-      
+
       [Service]
       Environment=SERVICE=lbrycrd
-      Environment=IMAGE=lbry/lbry-docker:lbrycrd-production
+      Environment=IMAGE=lbry/lbrycrd:linux-x86-64-production
       TimeoutStartSec=0
       ExecStartPre=-/snap/bin/docker stop $SERVICE
       ExecStartPre=-/snap/bin/docker rm -f $SERVICE
@@ -77,14 +77,14 @@ write_files:
       ExecStop=/snap/bin/docker stop $SERVICE
       Restart=always
       RestartSec=60
-      
+
       [Install]
       WantedBy=multi-user.target
 
   - path: "/etc/mysql/conf.d/chainquery.cnf"
     content: |
-      # Put mysql optimizations specific to chainquery here
-      
+      # Put MySQL optimizations specific to chainquery here
+
   - path: "/etc/systemd/system/mysql.service"
     content: |
       [Unit]
@@ -112,7 +112,7 @@ write_files:
       ExecStop=/snap/bin/docker stop $SERVICE
       Restart=always
       RestartSec=60
-      
+
       [Install]
       WantedBy=multi-user.target
 
@@ -122,7 +122,7 @@ write_files:
       lbrycrdurl="rpc://lbry:lbry@lbrycrd:9245"
       mysqldsn="chainquery:chainquery@tcp(mysql:3306)/chainquery"
       apimysqldsn="chainquery:chainquery@tcp(mysql:3306)/chainquery"
-      
+
   - path: "/etc/systemd/system/chainquery.service"
     content: |
       [Unit]
@@ -133,7 +133,7 @@ write_files:
 
       [Service]
       Environment=SERVICE=chainquery
-      Environment=IMAGE=lbry/lbry-docker:chainquery-production
+      Environment=IMAGE=lbry/chainquery:linux-x86-64-production
       TimeoutStartSec=0
       ExecStartPre=-/snap/bin/docker stop $SERVICE
       ExecStartPre=-/snap/bin/docker rm -f $SERVICE
@@ -149,7 +149,7 @@ write_files:
       ExecStop=/snap/bin/docker stop $SERVICE
       Restart=always
       RestartSec=60
-        
+
       [Install]
       WantedBy=multi-user.target
 
@@ -157,7 +157,7 @@ write_files:
   - path: "/root/.bash_aliases"
     content: |
       alias lbrycrd-cli="docker run --rm -it --link lbrycrd:lbrycrd --mount type=bind,source=/etc/lbry/lbrycrd.conf,target=/etc/lbry/lbrycrd.conf \
-          lbry/lbry-docker:lbrycrd-production lbrycrd-cli -conf=/etc/lbry/lbrycrd.conf -rpcconnect=lbrycrd"
+          lbry/lbrycrd:linux-x86-64-production lbrycrd-cli -conf=/etc/lbry/lbrycrd.conf -rpcconnect=lbrycrd"
       alias mysql="docker run --rm -it --link mysql:mysql mysql:5 mysql -hmysql -u chainquery --password=chainquery"
 
 runcmd:
@@ -169,15 +169,15 @@ runcmd:
   - /snap/bin/docker volume create mysql-data
   - systemctl enable --now lbrycrd
   - echo "Good to go."
-``` 
+```
  * You can leave everything above as it is, to use the default configuration, OR
-   you may edit the config in the box to your own liking.
+   you may edit the config in the box to your liking.
      * For instance, if you wanted to run in [regtest
        mode](https://lbry.tech/resources/regtest-setup), you would set
        `regtest=1` in the first section under `write_files`.
      * You can also edit the config files at any later point in `/etc/lbry`,
        after you create the droplet.
- * Select your SSH key so you can login.
+ * Select your SSH key so you can log in.
  * Give it a good hostname.
  * Click Create.
 
@@ -186,7 +186,7 @@ runcmd:
 ### How to administer the system
 
 Copy the IP address from the droplet status page, SSH into the droplet as root
-using the same SSH key you configured for the droplet.
+using the same SSH key, you configured for the droplet.
 
 The config file is in `/etc/lbry/lbrycrd.conf` on the host.
 
@@ -199,7 +199,7 @@ startup.
 You can tail the log to monitor the install progress:
 
 ```
-tail -f /var/log/cloud-init-output.log 
+tail -f /var/log/cloud-init-output.log
 ```
 
 Wait for the final `Good to go` message to know that the installer has finished.
@@ -208,7 +208,7 @@ Wait for the final `Good to go` message to know that the installer has finished.
 #### Check the status of the systemd service
 
 You can interact with systemd using `systemctl` (status, start, stop, restart,
-etc.) and `journalctl` (logging) tools.
+and more.) and `journalctl` (logging) tools.
 
 ```
 systemctl status lbrycrd
@@ -235,7 +235,7 @@ docker logs lbrycrd
 
 ### Utilize lbrycrd-cli
 
-You can use lbrycrd-cli from the host console. A bash alias has been added to
+You can use lbrycrd-cli from the host console. A bash alias gets added to
 `/root/.bash_aliases` that invokes lbrycrd-cli in its own container.
 
 ```
@@ -261,28 +261,28 @@ $ lbrycrd-cli getinfo
 
 ### Chainquery (optional)
 
-The chainquery service is pre-installed, but it is not enabled by default.
+The chainquery service is pre-installed but not enabled by default.
 
-#### Enable and start the mysql service
+#### Enable and start the MySQL service
 
 ```
 systemctl enable --now mysql
 ```
 
-In case you need it, there is a bash alias called `mysql`
-(`/root/.bash_aliases`) for the mysql client that allows you to login to the
+In case you need it, there is a bash alias called `mysql`.
+(`/root/.bash_aliases`) for the MySQL client that allows you to log in to the
 chainquery database.
 
 #### Enable and start the chainquery service
 
-The chainquery config file is located on the host: `/etc/lbry/chainqueryconfig.toml`
+The chainquery config file located on the host at: `/etc/lbry/chainqueryconfig.toml`
 
 ```
 systemctl enable --now chainquery
 ```
 
-In systemd, when you enable a service, it means to always start the service at
-system boot. (`--now` just means you also want to start the service right away.)
+In systemd, when you enable a service, it means always to start the service at
+system boot. (`--now` means you also want to start the service right away.)
 
 As with any service, you can control chainquery with `systemctl` and get logs
 with `journalctl`:
@@ -304,7 +304,7 @@ journalctl --unit chainquery
 
 (optionally use `-f` if you want to tail/follow the logs)
 
-##### Disabling chainquery service 
+##### Disabling chainquery service
 
 ```
 systemctl disable --now chainquery
@@ -319,4 +319,3 @@ In the future, this tutorial may replace the snap version of docker with the
 regular PPA version of docker-ce, which has a more predictable update strategy
 (apt-get) rather than auto-updates. More long term testing is needed to know
 which way is better.
-
