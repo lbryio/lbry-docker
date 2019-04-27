@@ -4,18 +4,18 @@ Contributing Author: [EnigmaCurry](https://www.enigmacurry.com)
 
 Last Update: April 18 2019
 
-This is meant to be easy instructions for running a lbrycrd and chainquery
+This tutorial meant to be easy instructions for running a lbrycrd and chainquery
 service on DigitalOcean. It's pretty much just copy-and-paste.
 
-This should also work on any host that supports
+This tutorial should also work on any host that supports
 [cloud-init](https://cloud-init.io/), but I've not tested it anywhere except for
 DigitalOcean.
 
 If you wish to use docker-compose, there is an [alternative
 configuration](https://github.com/lbryio/lbry-docker/tree/master/lbrycrd)
-for that. This tutorial will use cloud-init and systemd to control docker.
+for that. This tutorial uses cloud-init and systemd to control docker.
 
-## It's easy to run your own full lbrycrd node
+## It's easy to run your full lbrycrd node
 
 [![Video of creating lbrycrd droplet on DigitalOcean](https://spee.ch/@EnigmaCurry:d/lbrycrd-video-thumb.jpg)](https://spee.ch/@EnigmaCurry:d/lbrycrd-docker-cloud-init.mp4)
 
@@ -33,8 +33,8 @@ for that. This tutorial will use cloud-init and systemd to control docker.
 ## DigitalOcean user-data for Ubuntu 18.04 droplet
 ## Installs docker
 ## Setup systemd service for lbrycrd
-## (This config just runs docker on vanilla Ubuntu,
-##  it uses systemd inplace of docker-compose or kubernetes.)
+## (This config runs docker on vanilla Ubuntu,
+##  it uses systemd in place of docker-compose or kubernetes.)
 
 write_files:
   - path: "/etc/lbry/lbrycrd.conf"
@@ -83,7 +83,7 @@ write_files:
 
   - path: "/etc/mysql/conf.d/chainquery.cnf"
     content: |
-      # Put mysql optimizations specific to chainquery here
+      # Put MySQL optimizations specific to chainquery here
 
   - path: "/etc/systemd/system/mysql.service"
     content: |
@@ -171,13 +171,13 @@ runcmd:
   - echo "Good to go."
 ```
  * You can leave everything above as it is, to use the default configuration, OR
-   you may edit the config in the box to your own liking.
+   you may edit the config in the box to your liking.
      * For instance, if you wanted to run in [regtest
        mode](https://lbry.tech/resources/regtest-setup), you would set
        `regtest=1` in the first section under `write_files`.
      * You can also edit the config files at any later point in `/etc/lbry`,
        after you create the droplet.
- * Select your SSH key so you can login.
+ * Select your SSH key so you can log in.
  * Give it a good hostname.
  * Click Create.
 
@@ -186,7 +186,7 @@ runcmd:
 ### How to administer the system
 
 Copy the IP address from the droplet status page, SSH into the droplet as root
-using the same SSH key you configured for the droplet.
+using the same SSH key, you configured for the droplet.
 
 The config file is in `/etc/lbry/lbrycrd.conf` on the host.
 
@@ -208,7 +208,7 @@ Wait for the final `Good to go` message to know that the installer has finished.
 #### Check the status of the systemd service
 
 You can interact with systemd using `systemctl` (status, start, stop, restart,
-etc.) and `journalctl` (logging) tools.
+and more.) and `journalctl` (logging) tools.
 
 ```
 systemctl status lbrycrd
@@ -235,7 +235,7 @@ docker logs lbrycrd
 
 ### Utilize lbrycrd-cli
 
-You can use lbrycrd-cli from the host console. A bash alias has been added to
+You can use lbrycrd-cli from the host console. A bash alias gets added to
 `/root/.bash_aliases` that invokes lbrycrd-cli in its own container.
 
 ```
@@ -261,28 +261,28 @@ $ lbrycrd-cli getinfo
 
 ### Chainquery (optional)
 
-The chainquery service is pre-installed, but it is not enabled by default.
+The chainquery service is pre-installed but not enabled by default.
 
-#### Enable and start the mysql service
+#### Enable and start the MySQL service
 
 ```
 systemctl enable --now mysql
 ```
 
-In case you need it, there is a bash alias called `mysql`
-(`/root/.bash_aliases`) for the mysql client that allows you to login to the
+In case you need it, there is a bash alias called `mysql`.
+(`/root/.bash_aliases`) for the MySQL client that allows you to log in to the
 chainquery database.
 
 #### Enable and start the chainquery service
 
-The chainquery config file is located on the host: `/etc/lbry/chainqueryconfig.toml`
+The chainquery config file located on the host at: `/etc/lbry/chainqueryconfig.toml`
 
 ```
 systemctl enable --now chainquery
 ```
 
-In systemd, when you enable a service, it means to always start the service at
-system boot. (`--now` just means you also want to start the service right away.)
+In systemd, when you enable a service, it means always to start the service at
+system boot. (`--now` means you also want to start the service right away.)
 
 As with any service, you can control chainquery with `systemctl` and get logs
 with `journalctl`:
