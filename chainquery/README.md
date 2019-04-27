@@ -1,6 +1,6 @@
 # Docker image tags
 `lbry/chainquery`
-`[linux-x86_64-production](Dockerfile-linux-x86_64-production)` (Latest release)
+`[linux-x86_64-production](https://github.com/lbryio/lbry-docker/blob/master/chainquery/Dockerfile-linux-x86_64-production)` (Latest release)
 
 # Installation instructions for Chainquery and dependencies
 ## Preface
