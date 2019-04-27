@@ -39,9 +39,11 @@ RUN apt-get update && \
 
 FROM dependencies as compile
 
+ARG VERSION=master
 RUN python3.7 -m pip install -U pyinstaller && \
-    git clone https://github.com/lbryio/lbry.git --depth 1 /lbry
-    WORKDIR /lbry
+    git clone https://github.com/lbryio/lbry.git /lbry && \
+    git -C /lbry checkout ${VERSION} 
+WORKDIR /lbry
 RUN git clone https://github.com/lbryio/torba.git --depth 1 /lbry/torba
 WORKDIR /lbry/torba
 RUN python3.7 -m pip install -e .
