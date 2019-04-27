@@ -1,4 +1,7 @@
 # lbrynet
+# Docker image tags
+`lbry/lbrycrd`
+`[linux-x86_64-production](Dockerfile-linux-x86_64-production)` (Latest release)
 
 ## Compiler container
 
@@ -44,7 +47,7 @@ docker build -t lbrynet:v0.36.0 --build-arg VERSION=v0.36.0 -f Dockerfile-linux-
 The container requires a home directory to be mounted at `/home/lbrynet`. This
 is to ensure that the wallet is backed up to a real storage device. You must run
 the container with the appropriate volume argument, or else lbrynet will refuse
-to run. 
+to run.
 
 If you compiled lbrynet as above, with the tag `lbrynet-x86`, you could run
 docker like so:
