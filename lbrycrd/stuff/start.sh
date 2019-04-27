@@ -57,7 +57,7 @@ case $RUN_MODE in
     echo "printtoconsole=1" >>      /data/.lbrycrd/lbrycrd.conf
 
     #nohup advance &>/dev/null &
-    su -c "lbrycrdd -conf=/data/.lbrycrd/lbrycrd.conf" lbrycrd
+    lbrycrdd -conf=/data/.lbrycrd/lbrycrd.conf
     ;;
   testnet )
     ## Set config params
@@ -73,7 +73,7 @@ case $RUN_MODE in
     echo "printtoconsole=1" >>      /data/.lbrycrd/lbrycrd.conf
 
     #nohup advance &>/dev/null &
-    su -c "lbrycrdd -conf=/data/.lbrycrd/lbrycrd.conf" lbrycrd
+    lbrycrdd -conf=/data/.lbrycrd/lbrycrd.conf
     ;;
   * )
     echo "Error, you must define a RUN_MODE environment variable."
