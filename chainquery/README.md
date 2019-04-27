@@ -1,3 +1,7 @@
+# Docker image tags
+`lbry/chainquery`
+`[linux-x86_64-production](Dockerfile-linux-x86_64-production)` (Latest release)
+
 # Installation instructions for Chainquery and dependencies
 ## Preface
 I have set up this tutorial so that you should be able to copy and paste the commands into your Linux console.  However, if you run into issues, please be sure to read the detailed expansions on the current and prior steps to ensure you didn't miss a detail.
