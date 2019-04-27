@@ -20,6 +20,8 @@ FROM ubuntu:18.04 as app
 COPY --from=prep /lbrycrdd /lbrycrd-cli /lbrycrd-tx /start /healthcheck /fix-permissions /advance /usr/bin/
 RUN addgroup --gid 1000 lbrycrd && \
   adduser lbrycrd --uid 1000 --gid 1000 --gecos GECOS --shell /bin/bash --disabled-password --home /data && \
+  mkdir /etc/lbry && \
+  chown lbrycrd /etc/lbry && \
   chmod a+s /usr/bin/fix-permissions
 VOLUME ["/data"]
 WORKDIR /data

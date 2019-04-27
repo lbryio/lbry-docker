@@ -9,7 +9,6 @@ function set_config() {
   else
       echo "Creating a fresh config file from environment variables."
       ## Set config params
-      mkdir -p `dirname $CONFIG_PATH`
       echo "rpcuser=$RPC_USER" > $CONFIG_PATH
       echo "rpcpassword=$RPC_PASSWORD" >> $CONFIG_PATH
       echo "rpcallowip=$RPC_ALLOW_IP" >> $CONFIG_PATH
@@ -48,35 +47,35 @@ case $RUN_MODE in
     ## Set config params
     ## TODO: Make this more automagic in the future.
     mkdir -p `dirname $CONFIG_PATH`
-    echo "rpcuser=lbry" >           /data/.lbrycrd/lbrycrd.conf
-    echo "rpcpassword=lbry" >>      /data/.lbrycrd/lbrycrd.conf
-    echo "rpcport=11337" >>         /data/.lbrycrd/lbrycrd.conf
-    echo "rpcbind=0.0.0.0" >>       /data/.lbrycrd/lbrycrd.conf
-    echo "rpcallowip=0.0.0.0/0" >>  /data/.lbrycrd/lbrycrd.conf
-    echo "regtest=1" >>             /data/.lbrycrd/lbrycrd.conf
-    echo "txindex=1" >>             /data/.lbrycrd/lbrycrd.conf
-    echo "server=1" >>              /data/.lbrycrd/lbrycrd.conf
-    echo "printtoconsole=1" >>      /data/.lbrycrd/lbrycrd.conf
+    echo "rpcuser=lbry" >           $CONFIG_PATH
+    echo "rpcpassword=lbry" >>      $CONFIG_PATH
+    echo "rpcport=11337" >>         $CONFIG_PATH
+    echo "rpcbind=0.0.0.0" >>       $CONFIG_PATH
+    echo "rpcallowip=0.0.0.0/0" >>  $CONFIG_PATH
+    echo "regtest=1" >>             $CONFIG_PATH
+    echo "txindex=1" >>             $CONFIG_PATH
+    echo "server=1" >>              $CONFIG_PATH
+    echo "printtoconsole=1" >>      $CONFIG_PATH
 
     #nohup advance &>/dev/null &
-    lbrycrdd -conf=/data/.lbrycrd/lbrycrd.conf $1
+    lbrycrdd -conf=$CONFIG_PATH $1
     ;;
   testnet )
     ## Set config params
     ## TODO: Make this more automagic in the future.
     mkdir -p `dirname $CONFIG_PATH`
-    echo "rpcuser=lbry" >           /data/.lbrycrd/lbrycrd.conf
-    echo "rpcpassword=lbry" >>      /data/.lbrycrd/lbrycrd.conf
-    echo "rpcport=11337" >>         /data/.lbrycrd/lbrycrd.conf
-    echo "rpcbind=0.0.0.0" >>       /data/.lbrycrd/lbrycrd.conf
-    echo "rpcallowip=0.0.0.0/0" >>  /data/.lbrycrd/lbrycrd.conf
-    echo "testnet=1" >>             /data/.lbrycrd/lbrycrd.conf
-    echo "txindex=1" >>             /data/.lbrycrd/lbrycrd.conf
-    echo "server=1" >>              /data/.lbrycrd/lbrycrd.conf
-    echo "printtoconsole=1" >>      /data/.lbrycrd/lbrycrd.conf
+    echo "rpcuser=lbry" >           $CONFIG_PATH
+    echo "rpcpassword=lbry" >>      $CONFIG_PATH
+    echo "rpcport=11337" >>         $CONFIG_PATH
+    echo "rpcbind=0.0.0.0" >>       $CONFIG_PATH
+    echo "rpcallowip=0.0.0.0/0" >>  $CONFIG_PATH
+    echo "testnet=1" >>             $CONFIG_PATH
+    echo "txindex=1" >>             $CONFIG_PATH
+    echo "server=1" >>              $CONFIG_PATH
+    echo "printtoconsole=1" >>      $CONFIG_PATH
 
     #nohup advance &>/dev/null &
-    lbrycrdd -conf=/data/.lbrycrd/lbrycrd.conf $1
+    lbrycrdd -conf=$CONFIG_PATH $1
     ;;
   * )
     echo "Error, you must define a RUN_MODE environment variable."
