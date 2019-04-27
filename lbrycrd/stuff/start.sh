@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+CONFIG_PATH=/etc/lbry/lbrycrd.conf
 
 function set_config() {
   CONFIG_PATH=/etc/lbry/lbrycrd.conf
@@ -46,6 +47,7 @@ case $RUN_MODE in
   regtest )
     ## Set config params
     ## TODO: Make this more automagic in the future.
+    mkdir -p `dirname $CONFIG_PATH`
     echo "rpcuser=lbry" >           /data/.lbrycrd/lbrycrd.conf
     echo "rpcpassword=lbry" >>      /data/.lbrycrd/lbrycrd.conf
     echo "rpcport=11337" >>         /data/.lbrycrd/lbrycrd.conf
@@ -57,11 +59,12 @@ case $RUN_MODE in
     echo "printtoconsole=1" >>      /data/.lbrycrd/lbrycrd.conf
 
     #nohup advance &>/dev/null &
-    lbrycrdd -conf=/data/.lbrycrd/lbrycrd.conf
+    lbrycrdd -conf=/data/.lbrycrd/lbrycrd.conf $1
     ;;
   testnet )
     ## Set config params
     ## TODO: Make this more automagic in the future.
+    mkdir -p `dirname $CONFIG_PATH`
     echo "rpcuser=lbry" >           /data/.lbrycrd/lbrycrd.conf
     echo "rpcpassword=lbry" >>      /data/.lbrycrd/lbrycrd.conf
     echo "rpcport=11337" >>         /data/.lbrycrd/lbrycrd.conf
@@ -73,7 +76,7 @@ case $RUN_MODE in
     echo "printtoconsole=1" >>      /data/.lbrycrd/lbrycrd.conf
 
     #nohup advance &>/dev/null &
-    lbrycrdd -conf=/data/.lbrycrd/lbrycrd.conf
+    lbrycrdd -conf=/data/.lbrycrd/lbrycrd.conf $1
     ;;
   * )
     echo "Error, you must define a RUN_MODE environment variable."
