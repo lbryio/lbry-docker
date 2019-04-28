@@ -1,7 +1,7 @@
 # lbry-Docker
 
 ## Tags
-Document tags and link to their Dockerfiles here.
+<!-- Document tags and link to their Dockerfiles here. -->
 
 ## Scope
 This repository aims to track and maintain most of the Dockerfiles within the LBRY Inc ecosystem.  
