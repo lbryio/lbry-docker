@@ -20,4 +20,5 @@ RUN adduser chainquery --gecos GECOS --shell /bin/bash --disabled-password --hom
 COPY --from=prep /chainquery /start /usr/bin/
 EXPOSE 6300
 USER chainquery
+STOPSIGNAL SIGINT
 CMD ["start"]
