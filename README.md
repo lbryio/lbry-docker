@@ -4,35 +4,61 @@
 Document tags and link to their Dockerfiles here.
 
 ## Scope
-This repository is in flux as it travels towards [version 1.0](https://github.com/lbryio/lbry-docker/projects/1); however its goal is to make development for and adoption of any of the LBRY appliances trivial.  You should be able to clone pull fork your way to a better LBRY without having to do much more than some light reading of a README to get started.
+This repository aims to track and maintain most of the Dockerfiles within the LBRY Inc ecosystem.  
 
-#### Documentation is WIP
-Currently, this repository is a WIP and is under heavy construction, use at your own risk make sure you keep regular backups of your wallets.  Your mileage may vary as to how far this will work for you be sure to file good and concise issues if you plan to and be mindful of we're allergic to regressions when filing PRs.
+Currently it supports the following in various form factors:
+* Lbrycrd
+* Lbrynet
+* Chainquery
+
+If you see an architecture that you have a use case for that you don't see in this list and it's stopping you from innovating on the LBRY blockchain search and bump an existing request or create a feature request ASAP on the issue tracker and we will do our best to support your architecture or build requirements.
+
+The goals here will be to create containers that can deploy across a number of technologies namely `docker-compose`, `docker` itself, and Kubernetes k8's.
+
+There will be a few edge cases where this repository will support installing these containers as a service on a machine using `cloud-init` however those come as a YMMV(your mileage may vary) warranty void if used.
+
+We may suggest the use of well commented **`Shell scripts`**, Dockerfiles, and Docker-Compose which is a template that is a baseline for many other container management services such as [RancherOS](https://rancher.com/rancher-os/) and [Kubernetes](https://kubernetes.io/).
 
 #### Goals
-This repository aims for [Docker Best Practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) minimalism, ephemerality, and statelessness.  It will use well commented **`Shell scripts`**, Dockerfiles, and Docker-Compose which is a template that is a baseline for many other container management services such as [RancherOS](https://rancher.com/rancher-os/) and [Kubernetes](https://kubernetes.io/).
+We have a number of priorities within this docker container repository.
+Loosely defined our priorities are in the order as follows ordered highest priority to lowest.
+
+1. Congruency - Containers should all behave similarly.
+2. Safety - Cautioning the user when they're in a danger zone when possible.
+3. Reliability - Only pushing functional tested containers to production allowing users to impose an update schema.
+4. Ephemerality/Statelessness - You should be able to define the entire state in a cross cloud platform way such that the container itself should contain no state and thus have no reason to rely on it's specific contents as best as possible.
+5. Works by default - As best as possible we will aim for these containers to work by default out of the box then if you wish you can find ways to improve upon what we've set out for the user on your own.
+6. Flexibility - Despite all of the above we want people to be able to utilize all of the functionalities of the appliances contained within these containers.  This means if you find that our system/implementation gets in your way this is one of our priorities to fix this.
+
+In summary, this repository aims for [Docker Best Practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) minimalism, ephemerality, and statelessness.
+
+
 
 #### Beautiful Screenshot/Gif
-Since there is nothing to see here just yet, I'll entertain you with the current state of affairs with this repository.
-![image](https://spee.ch/855d1958650b850b249b9ee592ba2f4c6fc7eeec/container-unloading-gone-wrong-151175.gif)
+Here's an example tutorial we have for how to get some of our appliances up and running in minutes on DigitalOcean all hosted on our very own platform https://spee.ch a link to the guide is [here](https://github.com/lbryio/lbry-docker/blob/master/contrib/systemd-cloud-init.md) it contains a few lines of information and some copy paste-able code!
+
+[![Video of creating lbrycrd droplet on DigitalOcean](https://spee.ch/@EnigmaCurry:d/lbrycrd-video-thumb.jpg)](https://spee.ch/@EnigmaCurry:d/lbrycrd-docker-cloud-init.mp4)
+
 
 ## Installation
 
-[This is currently WIP and Not Recommended for Production](https://github.com/lbryio/lbry-docker/projects/1)
-See [Running from source](##Running-from-source) for the current instructions on how to use this.
+There are a few methods we're planning on releasing over time however two notable options are our [cloud-init](https://github.com/lbryio/lbry-docker/blob/master/contrib/systemd-cloud-init.md) install of lbrycrd and optionally chainquery on DigitalOcean.
+
+Alternatively there is the [shell installer](https://github.com/lbryio/lbry-docker/blob/master/chainquery/README.md) that can run on any Ubuntu 18.04-LTS equipped machine to get you up and running with a database seed which can save you loads of time bootstrapping your instance.
+
 
 #### Currently supported platforms
 
 **X86_64 CPU architecture**
-Lbrynet, Lbrycrd, Chainqery are currently supported.
+Lbrynet production & compiler, Lbrycrd, Chainqery are currently supported.
 
 **Some arm architectures**
+Lbrynet armhf and arm64 compilers
 
 **More will be added on request and over time**
 
 ## Usage
-For now, I don't recommend using this container cluster however you're welcomed to [contribute](#contributing) if you feel up to the task.
-
+You may see above [the installation section above](https://github.com/lbryio/lbry-docker#installation) to obtain container specific instructions.
 
 ## Running from source
 Running this stuff from source should be possible if you have both [Docker](https://docs.docker.com/install/) and [docker-compose](https://docs.docker.com/compose/install/) both installed.  If these are both installed, you can proceed to run the following from within your development directory.
@@ -52,18 +78,7 @@ Keep in mind [I am](https://github.com/leopere/) preferential to receiving patch
 * Have an LBC wallet ready as we want you to have some for the help! Hell, why not post it in your Commit or Merge Request for all I care but take your tips!
 
 ## Getting Support
-
-<!-- #### Debugpaste [WIP]
-I'll be including a function to get a self destructing debugpaste of your LBRY appliances logs you'll be able to execute something similar to the following in all containers to export raw logs to a paste service where you can then either modify them removing sensitive data or just take that URL and create a new issue after you [(Use Issue Search)](https://github.com/lbryio/lbry-docker/issues?utf8=%E2%9C%93&q=is%3Aissue) to make sure there isn't already an open thread for your issue.
-
-#### Example debugpaste
-```
-cd chainquery/
-docker-compose exec chainquery debugpaste
-https://haste.nixc.us/ocatumatozaq.nginx
-```
-You can then take output given in the response from the debugpaste command and put that into your github issue (This may be automated at some point to some degree).
- -->
+Sometimes we just aren't omniscient omnipresent or even omnipotent. So since this is the case despite our constant striving for these goals we're aware that things are imperfect so when you find these imperfections please reach out to us!  You can become a contributor without even knowing how to code a damn thing!  Just open a Git Issue so long as it's not a duplicate its a huge help to us and often times it'll earn you some LBC if you're a part of our community.
 
 #### Creating an Issue
 Please be sure to fill out the [issue template](https://github.com/lbryio/lbry-docker/issues/new) as best as possible.  This will help us answer your questions faster and fix things quicker if we have quality reports.
