@@ -1,0 +1,34 @@
+{{- if .Values.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service }}
+spec:
+  ports:
+  - port: 80
+    targetPort: 5678
+  selector:
+    app: {{ .Values.service }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.service }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.service }}
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.service }}
+    spec:
+      containers:
+      - name: {{ template "echo-http-server.fullname" . }}
+        image: hashicorp/http-echo
+        args:
+        - "-text={{ .Values.service }}"
+        ports:
+        - containerPort: 5678
+{{- end }}

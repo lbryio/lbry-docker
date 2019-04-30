@@ -1,0 +1,78 @@
+{{- if .Values.enabled }}
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "lbrycrd.fullname" . }}
+  labels:
+    app: {{ template "lbrycrd.name" . }}
+    chart: {{ template "lbrycrd.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ template "lbrycrd.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "lbrycrd.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      securityContext:
+        fsGroup: 1000
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      {{- if .Values.configurationFile }}
+      initContainers:
+        - name: copy-lbrycrd-config
+          image: busybox
+          command: ['sh', '-c', 'cp /configmap/lbrycrd.conf /etc/lbry/lbrycrd.conf']
+          volumeMounts:
+            - name: configmap
+              mountPath: /configmap
+            - name: config
+              mountPath: /etc/lbry
+      {{- end }}
+      containers:
+        - name: {{ template "lbrycrd.fullname" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          env:
+          - name: RUN_MODE
+            value: "default"
+          - name: PORT
+            value: "{{ .Values.service.port }}"
+          - name: RPC_PORT
+            value: "{{ .Values.service.rpcPort }}"
+          resources: {{ toYaml .Values.resources | indent 10 }}
+          ports:
+            - name: port
+              containerPort: {{ .Values.service.port }}
+            - name: rpc
+              containerPort: {{ .Values.service.rpcPort }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            {{- if .Values.configurationFile }}
+            - name: config
+              mountPath: /etc/lbry/lbrycrd.conf
+              subPath: lbrycrd.conf
+            {{- end }}
+      volumes:
+        {{- if .Values.configurationFile }}
+        - name: config
+          emptyDir: {}
+        - name: configmap
+          configMap:
+            name: {{ template "lbrycrd.fullname" . }}
+        {{- end }}
+        - name: data
+        {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (include "lbrycrd.fullname" .) }}
+        {{- else }}
+          emptyDir: {}
+        {{- end -}}
+{{- end }}

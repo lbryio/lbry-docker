@@ -1,0 +1,11 @@
+apiVersion: v1
+appVersion: "1.0"
+description: LBRY on Kubernetes with Helm
+name: k8s-lbry
+version: 0.1.1
+maintainers:
+  - email: ryan@enigmacurry.com
+    name: EnigmaCurry
+  - email: leopere [at] nixc [dot] us 
+    name: Leopere
+home: https://github.com/lbryio/lbry-docker/tree/master/contrib/k8s-lbry

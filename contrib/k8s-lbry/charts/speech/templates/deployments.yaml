@@ -1,0 +1,68 @@
+{{- if .Values.enabled }}
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "speech.fullname" . }}
+  labels:
+    app: {{ template "speech.name" . }}
+    chart: {{ template "speech.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ template "speech.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "speech.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      securityContext:
+        fsGroup: 1000
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      initContainers:
+        - name: copy-lbrycrd-config
+          image: busybox
+          command: ['sh', '-c', 'cp /configmap/chainqueryConfig.json /configmap/lbryConfig.json /configmap/loggerConfig.json /configmap/mysqlConfig.json /configmap/siteConfig.json /configmap/slackConfig.json /config && cp /configmap/authConfig.json /private']
+          volumeMounts:
+            - name: configmap
+              mountPath: /configmap
+            - name: config
+              mountPath: /config
+            - name: private
+              mountPath: /private
+      containers:
+        - name: {{ template "speech.fullname" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          resources: {{ toYaml .Values.resources | indent 10 }}
+          ports:
+            - name: port
+              containerPort: {{ .Values.service.port }}
+          volumeMounts:
+            - name: configmap
+              mountPath: /spee.ch/site/config
+            - name: private
+              mountPath: /spee.ch/site/private
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: config
+          mountPath: /spee.ch/site/config
+        - name: private
+          mountPath: /spee.ch/site/private
+        - name: configmap
+          configMap:
+            name: {{ template "speech.fullname" . }}
+        - name: data
+        {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (include "speech.fullname" .) }}
+        {{- else }}
+          emptyDir: {}
+        {{- end -}}
+{{- end }}

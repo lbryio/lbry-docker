@@ -1,0 +1,76 @@
+{{- if .Values.enabled }}
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "lbrynet.fullname" . }}
+  labels:
+    app: {{ template "lbrynet.name" . }}
+    chart: {{ template "lbrynet.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: {{ template "lbrynet.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "lbrynet.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      securityContext:
+        fsGroup: 1000
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      {{- if .Values.daemon_settings }}
+      initContainers:
+        - name: copy-lbrynet-config
+          image: busybox
+          command: ['sh', '-c', 'cp /configmap/daemon_settings.yml /etc/lbry/daemon_settings.yml']
+          volumeMounts:
+            - name: configmap
+              mountPath: /configmap
+            - name: config
+              mountPath: /etc/lbry
+      {{- end }}
+      containers:
+        - name: {{ template "lbrynet.fullname" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          env:
+          - name: RUN_MODE
+            value: "default"
+          - name: PORT
+            value: "{{ .Values.service.port }}"
+          - name: RPC_PORT
+            value: "{{ .Values.service.rpcPort }}"
+          resources: {{ toYaml .Values.resources | indent 10 }}
+          ports:
+            - name: rpc
+              containerPort: {{ .Values.service.rpcPort }}
+          volumeMounts:
+            - name: lbrynet-home
+              mountPath: /home/lbrynet
+            {{- if .Values.daemon_settings }}
+            - name: config
+              mountPath: /etc/lbry/daemon_settings.yml
+              subPath: daemon_settings.yml
+            {{- end }}
+      volumes:
+        {{- if .Values.daemon_settings }}
+        - name: config
+          emptyDir: {}
+        - name: configmap
+          configMap:
+            name: {{ template "lbrynet.fullname" . }}
+        {{- end }}
+        - name: lbrynet-home
+        {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (include "lbrynet.fullname" .) }}
+        {{- else }}
+          emptyDir: {}
+        {{- end -}}
+{{- end }}

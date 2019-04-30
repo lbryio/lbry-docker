@@ -1,0 +1,19 @@
+{{- if .Values.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "chainquery.fullname" . }}
+  labels:
+    app: {{ template "chainquery.name" . }}
+    chart: {{ template "chainquery.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  ports:
+    - name: port
+      port: {{ .Values.service.port }}
+      targetPort: port
+  selector:
+    app: {{ template "chainquery.name" . }}
+    release: {{ .Release.Name }}
+{{- end }}

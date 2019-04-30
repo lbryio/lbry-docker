@@ -1,0 +1,24 @@
+{{- if .Values.enabled }}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Values.service }}
+  annotations:  
+    kubernetes.io/ingress.class: nginx
+    certmanager.k8s.io/issuer: {{ .Values.certificateIssuer }}
+    certmanager.k8s.io/acme-challenge-type: http01
+spec:
+  {{ if .Values.enableHttps }}
+  tls:
+  - hosts:
+    - {{ .Values.hostname }}
+    secretName: {{ .Values.service }}-tls
+  {{ end }}
+  rules:
+  - host: {{ .Values.hostname }}
+    http:
+      paths:
+      - backend:
+          serviceName: {{ .Values.service }}
+          servicePort: 80
+{{- end }}
