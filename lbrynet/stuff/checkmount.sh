@@ -8,5 +8,5 @@ if ! grep -qs ".* $mountpoint " /proc/mounts; then
     ## TODO: We should have documentation that this error references directly with a URL as to why it won't run without a volume.
     exit 1
 else
-    `$@`
+    bash -c "$*"
 fi
