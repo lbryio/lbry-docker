@@ -2,19 +2,8 @@ cert-manager-issuer:
   # Enter your email address to receive important notices from Let's Encrypt:
   email: "fred@example.com"
 
-echo-http-server:
-  enabled: false
-  # Enter your domain name for the echo test service:
-  hostname: "echo.example.com"
-  service: echo-http-server
-  enableHttps: true
-  certificateIssuer: letsencrypt-prod
-
-echo-socket-server:
-  enabled: false
-  service: echo-socket-server
-
 lbrycrd:
+  fullnameOverride: lbrycrd 
   enabled: true
   image:
     repository: lbry/lbrycrd
@@ -28,7 +17,9 @@ lbrycrd:
     accessMode: ReadWriteOnce
     size: 50Gi
     annotations:
-      "helm.sh/resource-policy": keep    
+      "helm.sh/resource-policy": keep
+    # If on AWS:
+    # storageClass: "ebs-gp2"
   configurationFile:
     lbrycrd.conf: |-
       datadir=/data
@@ -36,14 +27,14 @@ lbrycrd:
       rpcpassword=lbry
       regtest=0
       txindex=1
-      rpcallowip=10.244.0.0/16
+      rpcallowip=10.0.0.0/8
       server=1
       listen=1
       daemon=0
       externalip=
 
 chainquery-mysql:
-  nameOverride: chainquery-mysql
+  fullnameOverride: chainquery-mysql
   enabled: false
   mysqlUser: chainquery
   mysqlPassword: chainquery
@@ -54,8 +45,11 @@ chainquery-mysql:
     size: 100Gi
     annotations:
       "helm.sh/resource-policy": keep
+    # If on AWS:
+    # storageClass: "ebs-gp2"
 
 chainquery:
+  fullnameOverride: chainquery
   enabled: false
   image:
     repository: lbry/chainquery
@@ -65,17 +59,16 @@ chainquery:
     port: 6300
   configurationFile:
     chainqueryconfig.toml: |-
-      lbrycrdurl="rpc://lbry:lbry@k8s-lbry-lbrycrd:9245"
-      mysqldsn="chainquery:chainquery@tcp(k8s-lbry-chainquery-mysql:3306)/chainquery"
-      apimysqldsn="chainquery:chainquery@tcp(k8s-lbry-chainquery-mysql:3306)/chainquery"
+      lbrycrdurl="rpc://lbry:lbry@lbrycrd:9245"
+      mysqldsn="chainquery:chainquery@tcp(chainquery-mysql:3306)/chainquery"
+      apimysqldsn="chainquery:chainquery@tcp(chainquery-mysql:3306)/chainquery"
 
 lbrynet:
+  fullnameOverride: lbrynet
   enabled: false
   image:
-    # repository: lbry/lbrynet
-    # tag: linux-x86_64-production
-    repository: enigmacurry/dump
-    tag: lbrynet
+    repository: lbry/lbrynet
+    tag: linux-x86_64-production
     pullPolicy: Always
   service:
     rpcPort: 5279
@@ -85,15 +78,20 @@ lbrynet:
     size: 10Gi
     annotations:
       "helm.sh/resource-policy": keep
+    # If on AWS:
+    # storageClass: "ebs-gp2"
   daemon_settings:
     api: 0.0.0.0:5279
     use_upnp: false
     auto_re_reflect_interval: 0
     max_key_fee: {amount: 0, currency: LBC}
     run_reflector_server: false
+    save_files: false
 
 speech-mysql:
-  nameOverride: speech-mysql
+  fullnameOverride: speech-mysql
+  labels:
+    app: speech-mysql
   enabled: false
   mysqlUser: speech
   mysqlPassword: speech
@@ -104,11 +102,15 @@ speech-mysql:
     size: 100Gi
     annotations:
       "helm.sh/resource-policy": keep
+    # If on AWS:
+    # storageClass: "ebs-gp2"
+
 
 speech:
+  fullnameOverride: speech
   enabled: false
   service:
-    name: k8s-lbry-speech
+    name: speech
     hostname: "speech.example.com"
     port: 3000
     enableHttps: true
@@ -123,25 +125,48 @@ speech:
     size: 20Gi
     annotations:
       "helm.sh/resource-policy": keep
+    # If on AWS:
+    # storageClass: "ebs-gp2"
   auth:
     masterPassword: speech
-    sessionKey: mysecretkeyword
   mysql:
-    host: k8s-lbry-speech-mysql
+    host: speech-mysql
     database: speech
     username: speech
     password: speech
   chainquery:
-    host: k8s-lbry-chainquery-mysql
+    host: chainquery-mysql
     port: 3306
     timeout: 30
     database: chainquery
     username: chainquery
     password: chainquery
   lbrynet:
-    apiHost: k8s-lbry-lbrynet
+    enabled: true
+    apiHost: 127.0.0.1
     apiPort: 5279
     getTimeout: 30
+    image:
+      repository: enigmacurry/dump
+      tag: lbrynet-v0.33.0
+      pullPolicy: Always
+    service:
+      rpcPort: 5279
+    daemon_settings:
+      api: 0.0.0.0:5279
+      use_upnp: false
+      auto_re_reflect_interval: 0
+      max_key_fee: {amount: 0, currency: LBC}
+      run_reflector_server: false
+      download_dir: /data/Downloads
+    persistence:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 10Gi
+      annotations:
+        "helm.sh/resource-policy": keep
+      # If on AWS:
+      # storageClass: "ebs-gp2"
   logger:
     logLevel: verbose
   slack:
@@ -167,11 +192,11 @@ speech:
       primaryClaimAddress:
       additionalClaimAddresses: []
       approvedChannels: []
-      channelClaimBidAmount: 0.1
+      channelClaimBidAmount: "0.1"
       closedRegistration: false
       disabled: false
       disabledMessage: 'Default publishing disabled message'
-      fileClaimBidAmount: 0.01
+      fileClaimBidAmount: "0.01"
       fileSizeLimits:
         application: 50000000
         audio: 50000000
@@ -243,21 +268,14 @@ speech:
       performChecks: true
       performUpdates: true
 
-
-percona:
-  #### Prefer mysql over percona for now:
+echo-http-server:
   enabled: false
-  # mysqlUser: chainquery
-  # mysqlPassword: chainquery
-  # mysqlDatabase: chainquery
-  # persistence:
-  #   enabled: true
-  #   accessMode: ReadWriteOnce
-  #   size: 100Gi
-  # resources:
-  #   requests:
-  #     memory: 1Gi
-  #     cpu: 1
+  # Enter your domain name for the echo test service:
+  hostname: "echo.example.com"
+  service: echo-http-server
+  enableHttps: true
+  certificateIssuer: letsencrypt-prod
 
-
-  
+echo-socket-server:
+  enabled: false
+  service: echo-socket-server

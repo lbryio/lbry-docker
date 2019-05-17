@@ -27,7 +27,7 @@ spec:
       initContainers:
         - name: copy-lbrycrd-config
           image: busybox
-          command: ['sh', '-c', 'cp /configmap/chainqueryConfig.json /configmap/lbryConfig.json /configmap/loggerConfig.json /configmap/mysqlConfig.json /configmap/siteConfig.json /configmap/slackConfig.json /config && cp /configmap/authConfig.json /private']
+          command: ['sh', '-c', 'cp /configmap/chainqueryConfig.json /configmap/lbryConfig.json /configmap/loggerConfig.json /configmap/mysqlConfig.json /configmap/siteConfig.json /configmap/slackConfig.json /configmap/daemon_settings.yml /config && cp /configmap/authConfig.json /private']
           volumeMounts:
             - name: configmap
               mountPath: /configmap
@@ -48,21 +48,46 @@ spec:
               mountPath: /spee.ch/site/config
             - name: private
               mountPath: /spee.ch/site/private
-            - name: data
+            - name: speech-data
               mountPath: /data
+        {{- if .Values.lbrynet.enabled }}
+        - name: {{ template "speech.fullname" . }}-lbrynet
+          image: "{{ .Values.lbrynet.image.repository }}:{{ .Values.lbrynet.image.tag }}"
+          imagePullPolicy: {{ .Values.lbrynet.image.pullPolicy }}
+          resources: {{ toYaml .Values.resources | indent 10 }}
+          ports:
+            - name: rpc
+              containerPort: {{ .Values.lbrynet.service.rpcPort }}
+          volumeMounts:
+            - name: configmap
+              mountPath: /etc/lbry
+            - name: lbrynet-home
+              mountPath: /home/lbrynet
+            - name: speech-data
+              mountPath: /data
+        {{- end }}
       volumes:
         - name: config
-          mountPath: /spee.ch/site/config
         - name: private
-          mountPath: /spee.ch/site/private
         - name: configmap
           configMap:
             name: {{ template "speech.fullname" . }}
-        - name: data
+        - name: speech-data
         {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.existingClaim | default (include "speech.fullname" .) }}
         {{- else }}
           emptyDir: {}
-        {{- end -}}
+        {{- end }}
+        - name: lbrynet-home
+        {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            {{- if .Values.lbrynet.persistence.existingClaim }}
+            claimName: {{ .Values.lbrynet.persistence.existingClaim }} 
+            {{- else }}
+            claimName: {{ template "speech.fullname" .}}-lbrynet
+            {{- end }}
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
 {{- end }}

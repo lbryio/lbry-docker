@@ -30,4 +30,7 @@ data:
   {{- with .Values.slack  }}
   slackConfig.json: {{ toJson . | quote }}
   {{- end }}
+  {{- with .Values.lbrynet.daemon_settings }}
+  daemon_settings.yml: {{ toYaml . | quote }}
+  {{- end }}
 {{- end }}
