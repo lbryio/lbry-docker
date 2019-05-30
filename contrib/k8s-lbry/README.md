@@ -7,7 +7,7 @@ Last Update: May 30 2019
 Deploy lbrycrd, lbrynet, chainquery, mysql, and spee.ch on your Kubernetes
 cluster.
 
-[![asciicast](https://enigmacurry.github.io/kick-ascii/cast/k8s-lbry.png)](https://enigmacurry.github.io/kick-ascii/?cast=k8s-lbry&bg=lbry.png)
+[![asciicast](https://enigmacurry.github.io/lbry-docker/contrib/k8s-lbry/kick-ascii/cast/k8s-lbry.png)](https://enigmacurry.github.io/lbry-docker/contrib/k8s-lbry/kick-ascii/?cast=k8s-lbry&bg=lbry.png)
 
 <!-- Regenerate Table of contents with markdown-toc npm library -->
 <!-- run:   npx markdown-toc -i README.md                       -->
