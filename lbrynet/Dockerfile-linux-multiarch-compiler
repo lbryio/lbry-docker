@@ -51,7 +51,8 @@ RUN python3.7 -m pip install -e .
 WORKDIR /lbry/
 COPY stuff/start.sh /usr/local/bin/start
 COPY stuff/checkmount.sh /usr/local/bin/checkmount
-RUN python3.7 scripts/set_build.py && \
+RUN export TRAVIS_COMMIT=`git rev-parse HEAD` && \
+    python3.7 scripts/set_build.py && \
     python3.7 -m pip install -e . && \
     pyinstaller -F -n lbrynet lbrynet/extras/cli.py && \
     chmod +x /lbry/dist/lbrynet && \
