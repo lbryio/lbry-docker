@@ -2,12 +2,11 @@
 
 Contributing Author: [EnigmaCurry](https://www.enigmacurry.com)
 
-Last Update: May 30 2019
+Last Update: June 14 2019
 
-Deploy lbrycrd, lbrynet, chainquery, mysql, and spee.ch on your Kubernetes
-cluster.
+Deploy [lbrycrd](https://github.com/lbryio/lbrycrd), [lbrynet](https://github.com/lbryio/lbry), [chainquery](https://github.com/lbryio/chainquery), [mysql](https://www.mysql.com), and [spee.ch](https://github.com/lbryio/spee.ch) on your [Kubernetes](https://kubernetes.io/) cluster.
 
-[![asciicast](https://enigmacurry.github.io/lbry-docker/contrib/k8s-lbry/kick-ascii/cast/k8s-lbry.png)](https://enigmacurry.github.io/lbry-docker/contrib/k8s-lbry/kick-ascii/?cast=k8s-lbry&bg=lbry.png)
+[![asciicast](https://lbryio.github.io/lbry-docker/contrib/k8s-lbry/kick-ascii/cast/k8s-lbry.png)](https://lbryio.github.io/lbry-docker/contrib/k8s-lbry/kick-ascii/?cast=k8s-lbry&bg=lbry.png)
 
 <!-- Regenerate Table of contents with markdown-toc npm library -->
 <!-- run:   npx markdown-toc -i README.md                       -->
@@ -114,6 +113,14 @@ The Helm configuration file contains *all* of the configuration for the system,
 The lbrynet SDK wallets are individually stored unencrypted in their own
 persistent volumes.
 
+“We take security seriously. Please contact
+[security@lbry.io](mailto:security@lbry.io) regarding any security issues. Our
+PGP key is [here](https://keybase.io/lbry/key.asc) if you need it.” If you find
+vulnerabilites, especially any that might increase the risk of someone losing
+their crypto currency [Responsible
+Disclosure](https://en.wikipedia.org/wiki/Responsible_disclosure) is
+appreciated.
+
 ## Installation
 
 This system is installed via [Helm](https://helm.sh/docs/), the package manager
@@ -143,6 +150,9 @@ curl -Lo run.sh https://raw.githubusercontent.com/EnigmaCurry/lbry-docker/k8s-lb
 
 chmod a+x run.sh
 ```
+
+It's a good idea to always read any script you download from the internet,
+before running it.
 
 ### Setup alias and tab completion
 
@@ -217,11 +227,12 @@ k8s-lbry kubectl get svc nginx-ingress-controller -o wide
 
 If you find a hostname instead of an IP address, this means your load balancer
 has multiple IP addresses. In this case, you will need to resolve the domain
-name to find the IP addresses. If this affects you, [paste the hostname into
-this tool](https://toolbox.googleapps.com/apps/dig/). Look for the `;ANSWER`
-section and you should see two or more IP addresses listed. Since lbrycrd will
-only advertise one IP address, pick just one of the IP addresses to use for the
-purposes of this tutorial.
+name to find the IP addresses. If this affects you, run `dig` with the hostname
+as the second argument. If your system does not have `dig` installed, you can
+[paste the hostname into this tool](https://toolbox.googleapps.com/apps/dig/).
+Look for the `;ANSWER` section and you should see two or more IP addresses
+listed. Since lbrycrd will only advertise one IP address, pick just one of the
+IP addresses to use for the purposes of this tutorial.
 
 You must edit your own `values-dev.yaml`. (The setup procedure created an
 initial configuration in the same directory as `run.sh`.) To use a different
@@ -727,10 +738,13 @@ turned on out of the box. Setup is easy:
    * Change `echo-http-server.hostname` to a hostname you've configured the DNS
    for.
  
-Upgrade nginx-ingress, turning on HTTPs support:
+Upgrade nginx-ingress, turning on HTTPs support (copy the command **including the wrapping parentheses**):
 
 ```
-NGINX_ENABLE_HTTPS=true k8s-lbry upgrade-nginx-ingress
+(
+  NGINX_ENABLE_HTTPS=true 
+  k8s-lbry upgrade-nginx-ingress
+)
 ```
 
 And Upgrade `k8s-lbry`:
