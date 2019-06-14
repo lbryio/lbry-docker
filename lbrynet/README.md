@@ -38,8 +38,23 @@ docker build -t lbrynet-arm64 -f Dockerfile-linux-multiarch-compiler --build-arg
 
 Compile any version of lbrynet by specifying the git tag:
 
+VERSION can be any git reference. Examples:
+ 
+ * master
+ * v0.37.2
+ * 588568752b983f46f8f492d4bd5d76feeb74dfbf
+
 ```
 docker build -t lbrynet:v0.36.0 --build-arg VERSION=v0.36.0 -f Dockerfile-linux-multiarch-compiler .
+```
+
+### REPO
+
+Compile from any fork of lbrynet:
+
+```
+docker build -t lbrynet:v0.37.2-enigmacurry --build-arg VERSION=v0.37.2 \
+   --build-arg REPO=https://github.com/EnigmaCurry/lbry.git -f Dockerfile-linux-multiarch-compiler .
 ```
 
 ### Running from the compiler container directly
@@ -49,11 +64,11 @@ is to ensure that the wallet is backed up to a real storage device. You must run
 the container with the appropriate volume argument, or else lbrynet will refuse
 to run.
 
-If you compiled lbrynet as above, with the tag `lbrynet-x86`, you could run
+If you compiled lbrynet as above, with the tag `lbrynet-x86:v0.37.2`, you could run
 docker like so:
 
 ```
-docker run --rm -it -v wallet:/home/lbrynet lbrynet-x86 lbrynet start
+docker run --rm -it -v wallet:/home/lbrynet lbrynet-x86:v0.37.2 lbrynet start
 ```
 
 This automatically creates a docker volume called `wallet` and it will persist
@@ -64,7 +79,7 @@ If you would rather not use a docker volume, you can mount a directory
 from your host instead:
 
 ```
-docker run --rm -it -v /path/on/your/host:/home/lbrynet lbrynet-x86 lbrynet start
+docker run --rm -it -v /path/on/your/host:/home/lbrynet lbrynet-x86:v0.37.2 lbrynet start
 ```
 
 Either way, the container uses the configuration from `/home/lbrynet` inside the container.
