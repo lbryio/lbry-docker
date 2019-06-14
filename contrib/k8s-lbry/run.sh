@@ -539,10 +539,25 @@ EOF
         echo "## I only know how to do completion for the bash shell."
         echo "## Try '$0 completion bash' instead."
     fi
-
 }
 
 setup-alias() {
+    if [[ $SHELL != */bash ]]; then
+        echo "It looks like you are currently running $SHELL";
+        echo "This tool only supports bash."
+        echo ""
+        echo "You will need to setup an alias in your own shell called \"$RUN_ALIAS\" for $BASEDIR/run.sh"
+        echo ""
+        read -p "Would you like to setup the alias for bash anyway? (Y/n)" choice
+        case "$choice" in
+            y|Y )
+                echo "Note: You will need to run bash as a subshell before running $RUN_ALIAS"
+                ;;
+            * ) echo "Aborting" && exit 1
+                ;;
+        esac
+        echo ""
+    fi
     $(which kubectl) completion bash > "$BASEDIR"/completion.bash.inc
     $(which helm) completion bash >> "$BASEDIR"/completion.bash.inc
     completion bash >> "$BASEDIR"/completion.bash.inc
