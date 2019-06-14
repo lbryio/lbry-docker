@@ -59,3 +59,13 @@ docker run --rm -it -v wallet:/home/lbrynet lbrynet-x86 lbrynet start
 This automatically creates a docker volume called `wallet` and it will persist
 across container restarts. See more in the [Docker volume
 documentation](https://docs.docker.com/storage/volumes/)
+
+If you would rather not use a docker volume, you can mount a directory 
+from your host instead:
+
+```
+docker run --rm -it -v /path/on/your/host:/home/lbrynet lbrynet-x86 lbrynet start
+```
+
+Either way, the container uses the configuration from `/home/lbrynet` inside the container.
+
