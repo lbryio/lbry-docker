@@ -16,7 +16,7 @@ CHART=${CHART:-lbry/k8s-lbry}
 
 ## VALUES - The path to your configured helm values.yaml:
 VALUES=${VALUES:-$BASEDIR/values-dev.yaml}
-DEFAULT_VALUES_URL=${DEFAULT_VALUES_URL:-https://raw.githubusercontent.com/EnigmaCurry/lbry-docker/k8s-lbry/contrib/k8s-lbry/values.yaml}
+DEFAULT_VALUES_URL=${DEFAULT_VALUES_URL:-https://raw.githubusercontent.com/lbryio/lbry-docker/master/contrib/k8s-lbry/values.yaml}
 
 ## HELM_REPO - The stable helm chart repository for this chart:
 HELM_REPO=${HELM_REPO:-https://k8s-lbry.sfo2.digitaloceanspaces.com}

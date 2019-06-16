@@ -146,7 +146,7 @@ cd $HOME/k8s-lbry-test
 Download `run.sh` to this same directory:
 
 ```
-curl -Lo run.sh https://raw.githubusercontent.com/EnigmaCurry/lbry-docker/k8s-lbry/contrib/k8s-lbry/run.sh
+curl -Lo run.sh https://raw.githubusercontent.com/lbryio/lbry-docker/master/contrib/k8s-lbry/run.sh
 
 chmod a+x run.sh
 ```
