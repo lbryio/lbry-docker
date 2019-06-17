@@ -1,4 +1,3 @@
-index.yaml
 *.tgz
 values-dev.yaml
 values-staging.yaml

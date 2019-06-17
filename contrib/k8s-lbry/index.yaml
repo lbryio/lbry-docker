@@ -1,0 +1,44 @@
+apiVersion: v1
+entries:
+  k8s-lbry:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-06-16T20:45:37.131503885-04:00"
+    description: LBRY on Kubernetes with Helm
+    digest: 0e28fad6b25fcbf79ea30390a65340c50422e84408a86f6e366abdfb1c471cf0
+    home: https://github.com/lbryio/lbry-docker/tree/master/contrib/k8s-lbry
+    maintainers:
+    - email: ryan@enigmacurry.com
+      name: EnigmaCurry
+    - email: leopere [at] nixc [dot] us
+      name: Leopere
+    name: k8s-lbry
+    urls:
+    - https://github.com/lbryio/lbry-docker/releases/download/k8s-lbry-0.1.5/k8s-lbry-0.1.5.tgz
+    version: 0.1.5
+  mysql:
+  - appVersion: 5.7.14
+    created: "2019-06-16T20:45:37.133445969-04:00"
+    description: Fast, reliable, scalable, and easy to use open-source relational
+      database system.
+    digest: dacef52f53a395059131064cfdc7ae39ae2d7be2580440575d1532dfaa3fd2b8
+    engine: gotpl
+    home: https://www.mysql.com/
+    icon: https://www.mysql.com/common/logos/logo-mysql-170x115.png
+    keywords:
+    - mysql
+    - database
+    - sql
+    maintainers:
+    - email: o.with@sportradar.com
+      name: olemarkus
+    - email: viglesias@google.com
+      name: viglesiasce
+    name: mysql
+    sources:
+    - https://github.com/kubernetes/charts
+    - https://github.com/docker-library/mysql
+    urls:
+    - charts/mysql-0.19.0.tgz
+    version: 0.19.0
+generated: "2019-06-16T20:45:36.911335647-04:00"
