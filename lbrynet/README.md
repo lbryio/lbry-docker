@@ -70,7 +70,7 @@ If you compiled lbrynet as above, with the tag `lbrynet:v0.37.2`, you could run
 docker like so:
 
 ```
-docker run --rm -it -v wallet:/home/lbrynet -v /path/to/daemon_settings.yml:/etc/lbry/daemon_settings.yml lbrynet:v0.37.2 lbrynet start
+docker run --rm -it -v wallet:/home/lbrynet -v $(pwd)/stuff/daemon_settings_test.yml:/etc/lbry/daemon_settings.yml lbrynet:v0.37.2
 ```
 
 This automatically creates a docker volume called `wallet` and it will persist
@@ -81,7 +81,7 @@ If you would rather not use a docker volume, you can mount a directory
 from your host instead:
 
 ```
-docker run --rm -it -v /path/on/your/host:/home/lbrynet -v /path/to/daemon_settings.yml:/etc/lbry/daemon_settings.yml lbrynet:v0.37.2 lbrynet start
+docker run --rm -it -v /path/on/your/host:/home/lbrynet -v $(pwd)/stuff/daemon_settings_test.yml:/etc/lbry/daemon_settings.yml lbrynet:v0.37.2
 ```
 
 Either way, the container uses the configuration from `/home/lbrynet` inside the container.
