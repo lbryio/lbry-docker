@@ -36,7 +36,7 @@ Make sure that you're including the specific container your issue is in regards 
 
 <!-- Post your Unique LBC wallet RECEIVING address so that we can tip you ASAP -->
 ## This is my LBC wallet address for tips
-bQmvEEfu3TsfcVEPy3SCY1L38gcvXHBiEs
+{REPLACE ME WITH YOUR LBC RECIEVING ADDRESS}
 
 **Checklist**:
 <!-- Make sure you have completed the following steps (put an "X" between of brackets): -->
