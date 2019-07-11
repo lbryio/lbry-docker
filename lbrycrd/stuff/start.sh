@@ -79,7 +79,7 @@ case $RUN_MODE in
     mkdir -p `dirname $CONFIG_PATH`
     echo "rpcuser=lbry" >           $CONFIG_PATH
     echo "rpcpassword=lbry" >>      $CONFIG_PATH
-    echo "rpcport=11337" >>         $CONFIG_PATH
+    echo "rpcport=29245" >>         $CONFIG_PATH
     echo "rpcbind=0.0.0.0" >>       $CONFIG_PATH
     echo "rpcallowip=0.0.0.0/0" >>  $CONFIG_PATH
     echo "regtest=1" >>             $CONFIG_PATH
@@ -96,7 +96,7 @@ case $RUN_MODE in
     mkdir -p `dirname $CONFIG_PATH`
     echo "rpcuser=lbry" >           $CONFIG_PATH
     echo "rpcpassword=lbry" >>      $CONFIG_PATH
-    echo "rpcport=11337" >>         $CONFIG_PATH
+    echo "rpcport=29245" >>         $CONFIG_PATH
     echo "rpcbind=0.0.0.0" >>       $CONFIG_PATH
     echo "rpcallowip=0.0.0.0/0" >>  $CONFIG_PATH
     echo "testnet=1" >>             $CONFIG_PATH
