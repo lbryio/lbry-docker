@@ -40,8 +40,8 @@ bQmvEEfu3TsfcVEPy3SCY1L38gcvXHBiEs
 
 **Checklist**:
 <!-- Make sure you have completed the following steps (put an "X" between of brackets): -->
-~~- [] I included a `debugpaste` link debugpastes only last 90 days from last time they were loaded in a browser.[Inclusion of debugpaste is WIP]~~
-- [] I made sure there are no duplicates of this report [(Use Search)](https://github.com/lbryio/lbry-docker/issues?utf8=%E2%9C%93&q=is%3Aissue)
-- [] I made sure I am using an up-to-date version of the container.
-- [] I Made sure the bug/error is not caused by any other application.
-- [] I have updated the wallet address in this issue from the one included to my own as I like getting paid for doing good and fun things in this world such as contributing to LBRY.
+
+ - [ ] I made sure there are no duplicates of this report [(Use Search)](https://github.com/lbryio/lbry-docker/issues?utf8=%E2%9C%93&q=is%3Aissue)
+ - [ ] I made sure I am using an up-to-date version of the container.
+ - [ ] I Made sure the bug/error is not caused by any other application.
+ - [ ] I have updated the wallet address in this issue from the one included to my own as I like getting paid for doing good and fun things in this world such as contributing to LBRY.
