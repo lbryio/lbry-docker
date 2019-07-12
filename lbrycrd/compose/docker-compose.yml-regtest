@@ -8,8 +8,8 @@ services:
     image: lbry/lbrycrd:linux-x86_64-production
     restart: always
     ports:
-      - "11336:9246"
-      - "11337:11337"
+      - "11336:29246"
+      - "11337:29245"
     ## host volumes for persistent data such as wallet private keys.
     volumes:
       - "../persist/data:/data"
