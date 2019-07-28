@@ -5,7 +5,7 @@ RUN apt-get update && apt-get -y install unzip curl
 
 ## Add lbrynet
 ARG VERSION=latest
-RUN URL=$(curl -s https://api.github.com/repos/lbryio/lbry-sdk/releases/$(if [ "${VERSION}" = 'latest' ]; then echo "latest"; else echo "tags/${VERSION}"; fi) | grep browser_download_url | grep lbrynet-linux.zip | cut -d'"' -f4) && echo $URL && curl -L -o /lbrynet.linux.zip $URL
+RUN URL=$(curl -Ls https://api.github.com/repos/lbryio/lbry-sdk/releases/$(if [ "${VERSION}" = 'latest' ]; then echo "latest"; else echo "tags/${VERSION}"; fi) | grep browser_download_url | grep lbrynet-linux.zip | cut -d'"' -f4) && echo $URL && curl -L -o /lbrynet.linux.zip $URL
 
 COPY stuff/start.sh /usr/bin/start
 COPY stuff/checkmount.sh /usr/bin/checkmount
