@@ -1,8 +1,4 @@
 #!/bin/bash
-CONFIG_PATH=/etc/lbry/daemon_settings.yml
-
-echo "Config: "
-cat $CONFIG_PATH
-
-lbrynet start --config $CONFIG_PATH
-
+"lbrynet start \
+  --api "${API_BIND_IP:-0.0.0.0}":"${API_PORT:-5179}" \
+  --config ${CONFIG_PATH:-/etc/lbry/daemon_settings.yml}"
