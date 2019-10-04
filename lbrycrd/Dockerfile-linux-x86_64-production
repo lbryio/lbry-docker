@@ -25,8 +25,7 @@ RUN addgroup --gid 1000 lbrycrd && \
   chmod a+s /usr/bin/fix-permissions
 VOLUME ["/data"]
 WORKDIR /data
-## TODO: Implement healthcheck.
-# HEALTHCHECK ["healthcheck"]
+HEALTHCHECK CMD /usr/bin/healthcheck
 EXPOSE 9246 9245 11337 29245
 
 USER lbrycrd
