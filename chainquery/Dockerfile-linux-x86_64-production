@@ -10,11 +10,8 @@ WORKDIR /
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 COPY ./stuff/start.sh start
 COPY ./stuff/healthcheck.sh healthcheck
-RUN curl --progress-bar -L -o /chainquery.zip \
-        $(curl -s https://api.github.com/repos/lbryio/chainquery/releases | \
-            grep -F 'Linux_x86_64.zip' | grep download | head -n 1 | cut -d'"' -f4) && \
-  unzip /chainquery.zip && \
-  rm /chainquery.zip
+RUN curl --progress-bar -L -o /chainquery https://build.lbry.io/chainquery/branch-master/chainquery && \
+    chmod +x /chainquery /start /healthcheck
 
 FROM ubuntu:18.04 as app
 ADD https://raw.githubusercontent.com/lbryio/chainquery/master/config/default/chainqueryconfig.toml /etc/lbry/chainqueryconfig.toml.orig
