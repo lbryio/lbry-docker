@@ -56,7 +56,7 @@ function set_config() {
 case $RUN_MODE in
   default )
     set_config
-    lbrycrdd -server -conf=$CONFIG_PATH -printtoconsole
+    exec lbrycrdd -server -conf=$CONFIG_PATH -printtoconsole
     ;;
   ## If it's a first run you need to do a full index including all transactions
   ## tx index creates an index of every single transaction in the block history if
@@ -65,13 +65,13 @@ case $RUN_MODE in
   reindex )
     ## Apply this RUN_MODE in the case you need to update a dataset.  NOTE: you do not need to use `RUN_MODE reindex` for more than one complete run.
     set_config
-    lbrycrdd -server -txindex -reindex -conf=$CONFIG_PATH -printtoconsole
+    exec lbrycrdd -server -txindex -reindex -conf=$CONFIG_PATH -printtoconsole
     ;;
   chainquery )
     ## If your only goal is to run Chainquery against this instance of lbrycrd and you're starting a
     ## fresh local dataset use this run mode.
     set_config
-    lbrycrdd -server -txindex -conf=$CONFIG_PATH -printtoconsole
+    exec lbrycrdd -server -txindex -conf=$CONFIG_PATH -printtoconsole
     ;;
   regtest )
     ## Set config params
@@ -87,8 +87,9 @@ case $RUN_MODE in
     echo "server=1" >>              $CONFIG_PATH
     echo "printtoconsole=1" >>      $CONFIG_PATH
 
-    #nohup advance &>/dev/null &
-    lbrycrdd -conf=$CONFIG_PATH $1
+    [ "${AUTO_ADVANCE:-0}" == "1" ] && nohup advance &>/dev/null &
+
+    exec lbrycrdd -conf=$CONFIG_PATH $1
     ;;
   testnet )
     ## Set config params
@@ -105,7 +106,7 @@ case $RUN_MODE in
     echo "printtoconsole=1" >>      $CONFIG_PATH
 
     #nohup advance &>/dev/null &
-    lbrycrdd -conf=$CONFIG_PATH $1
+    exec lbrycrdd -conf=$CONFIG_PATH $1
     ;;
   * )
     echo "Error, you must define a RUN_MODE environment variable."

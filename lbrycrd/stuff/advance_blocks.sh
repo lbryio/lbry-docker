@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-while true; do
-        lbrycrd-cli -conf=/data/.lbrycrd/lbrycrd.conf generate 1 >> /tmp/output.log
-        sleep 2
+while sleep 2; do
+    lbrycrd-cli -conf=/etc/lbry/lbrycrd.conf generate 1
 done

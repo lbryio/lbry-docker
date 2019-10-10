@@ -1,11 +1,17 @@
 version: '3.4'
 
+networks:
+  lbry-network:
+    external: true
+
 services:
 #############
 ## Lbrycrd ##
 #############
   lbrycrd:
-    image: lbry/lbrycrd:linux-x86_64-production
+    build:
+      context: .
+      dockerfile: Dockerfile-linux-x86_64-production
     restart: always
     ports:
       - "11336:29246"
@@ -13,5 +19,10 @@ services:
     ## host volumes for persistent data such as wallet private keys.
     volumes:
       - "../persist/data:/data"
+    networks:
+      lbry-network:
+        ipv4_address: 10.6.1.2
     environment:
       - RUN_MODE=regtest
+      - PORT=29245
+      - AUTO_ADVANCE=1
