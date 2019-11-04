@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+
 CONFIG_PATH=/etc/lbry/lbrycrd.conf
+
 
 function override_config_option() {
     # Remove existing config line from a config file
@@ -17,6 +19,7 @@ function override_config_option() {
     fi
 }
 
+
 function set_config() {
   if [ -d "$CONFIG_PATH" ]; then
       echo "$CONFIG_PATH is a directory when it should be a file."
@@ -24,7 +27,7 @@ function set_config() {
   elif [ -f "$CONFIG_PATH" ]; then
       echo "Merging the mounted config file with environment variables."
       local MERGED_CONFIG=/tmp/lbrycrd_merged.conf
-      cat $CONFIG_PATH > $MERGED_CONFIG
+      cp $CONFIG_PATH $MERGED_CONFIG
       echo "" >> $MERGED_CONFIG
       override_config_option PORT port $MERGED_CONFIG
       override_config_option RPC_USER rpcuser $MERGED_CONFIG
@@ -32,31 +35,58 @@ function set_config() {
       override_config_option RPC_ALLOW_IP rpcallowip $MERGED_CONFIG
       override_config_option RPC_PORT rpcport $MERGED_CONFIG
       override_config_option RPC_BIND rpcbind $MERGED_CONFIG
+      override_config_option TX_INDEX txindex $MERGED_CONFIG
+      override_config_option MAX_TX_FEE maxtxfee $MERGED_CONFIG
+      override_config_option DUST_RELAY_FEE dustrelayfee $MERGED_CONFIG
       # Make the new merged config file the new CONFIG_PATH
       # This ensures that the original file the user mounted remains unmodified
       CONFIG_PATH=$MERGED_CONFIG
   else
       echo "Creating a fresh config file from environment variables."
-      ## Set config params
-      echo "port=${PORT=9246}" > $CONFIG_PATH
-      echo "rpcuser=${RPC_USER=lbry}" >> $CONFIG_PATH
-      echo "rpcpassword=${RPC_PASSWORD=lbry}" >> $CONFIG_PATH
-      echo "rpcallowip=${RPC_ALLOW_IP=127.0.0.1/24}" >> $CONFIG_PATH
-      echo "rpcport=${RPC_PORT=9245}" >> $CONFIG_PATH
-      echo "rpcbind=${RPC_BIND=0.0.0.0}" >> $CONFIG_PATH
+      cat << EOF > $CONFIG_PATH
+server=1
+printtoconsole=1
+
+port=${PORT:-9246}
+rpcuser=${RPC_USER:-lbry}
+rpcpassword=${RPC_PASSWORD:-lbry}
+rpcallowip=${RPC_ALLOW_IP:-127.0.0.1}
+rpcport=${RPC_PORT:-9245}
+rpcbind=${RPC_BIND:-"0.0.0.0"}
+
+txindex=${TX_INDEX:-"1"}
+maxtxfee=${MAX_TX_FEE:-"0.5"}
+dustrelayfee=${DUST_RELAY_FEE:-"0.00000001"}
+EOF
   fi
   echo "Config: "
   cat $CONFIG_PATH
 }
 
+
+function download_snapshot() {
+  local url="${SNAPSHOT_URL:-}" #off by default. latest snapshot at https://lbry.com/snapshot/blockchain
+  if [[ -n "$url" ]] && [[ ! -d ./.lbrycrd/blocks ]]; then
+    echo "Downloading blockchain snapshot from $url"
+    wget -O snapshot.tar.bz2 "$url"
+    echo "Extracting snapshot..."
+    mkdir -p ./.lbrycrd
+    tar xvjf snapshot.tar.bz2 --directory ./.lbrycrd
+    rm snapshot.tar.bz2
+  fi
+}
+
+
 ## Ensure perms are correct prior to running main binary
 /usr/bin/fix-permissions
+
 
 ## You can optionally specify a run mode if you want to use lbry defined presets for compatibility.
 case $RUN_MODE in
   default )
     set_config
-    exec lbrycrdd -server -conf=$CONFIG_PATH -printtoconsole
+    download_snapshot
+    exec lbrycrdd -conf=$CONFIG_PATH
     ;;
   ## If it's a first run you need to do a full index including all transactions
   ## tx index creates an index of every single transaction in the block history if
@@ -65,13 +95,7 @@ case $RUN_MODE in
   reindex )
     ## Apply this RUN_MODE in the case you need to update a dataset.  NOTE: you do not need to use `RUN_MODE reindex` for more than one complete run.
     set_config
-    exec lbrycrdd -server -txindex -reindex -conf=$CONFIG_PATH -printtoconsole
-    ;;
-  chainquery )
-    ## If your only goal is to run Chainquery against this instance of lbrycrd and you're starting a
-    ## fresh local dataset use this run mode.
-    set_config
-    exec lbrycrdd -server -txindex -conf=$CONFIG_PATH -printtoconsole
+    exec lbrycrdd -conf=$CONFIG_PATH -reindex
     ;;
   regtest )
     ## Set config params

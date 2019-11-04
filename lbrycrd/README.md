@@ -31,7 +31,7 @@ mounted config file exists, these variables are used to create a fresh config.
 Running the default configuration:
 
 ```
-docker run --rm -it -e RUN_MODE=default lbry/lbrycrd:linux-x86_64-production
+docker run --rm -it -e RUN_MODE=default -e SNAPSHOT_URL="https://lbry.com/snapshot/blockchain" lbry/lbrycrd:linux-x86_64-production
 ```
 
 Running with RPC password changed:
