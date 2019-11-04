@@ -5,7 +5,7 @@ services:
 ## Lbrycrd ##
 #############
   lbrycrd:
-    image: lbry/lbrycrd:linux-x86_64-production
+    image: lbry/lbrycrd:latest-release
     restart: always
     ports:
       - "11336:9246"

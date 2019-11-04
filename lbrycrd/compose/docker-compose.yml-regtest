@@ -11,7 +11,7 @@ services:
   lbrycrd:
     build:
       context: .
-      dockerfile: Dockerfile-linux-x86_64-production
+      dockerfile: Dockerfile
     restart: always
     ports:
       - "11336:29246"

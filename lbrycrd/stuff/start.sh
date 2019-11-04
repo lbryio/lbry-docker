@@ -68,7 +68,7 @@ function download_snapshot() {
   local url="${SNAPSHOT_URL:-}" #off by default. latest snapshot at https://lbry.com/snapshot/blockchain
   if [[ -n "$url" ]] && [[ ! -d ./.lbrycrd/blocks ]]; then
     echo "Downloading blockchain snapshot from $url"
-    wget -O snapshot.tar.bz2 "$url"
+    wget --no-verbose -O snapshot.tar.bz2 "$url"
     echo "Extracting snapshot..."
     mkdir -p ./.lbrycrd
     tar xvjf snapshot.tar.bz2 --directory ./.lbrycrd

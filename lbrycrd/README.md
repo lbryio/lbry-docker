@@ -1,8 +1,5 @@
-# lbrycrd
-# Docker image tags
-`lbry/lbrycrd`
-`[linux-x86_64-production](https://github.com/lbryio/lbry-docker/blob/master/lbrycrd/Dockerfile-linux-x86_64-production)` (Latest release)
-
+# lbrycrd Docker image
+`
 
 ## Configuration
 
@@ -31,18 +28,18 @@ mounted config file exists, these variables are used to create a fresh config.
 Running the default configuration:
 
 ```
-docker run --rm -it -e RUN_MODE=default -e SNAPSHOT_URL="https://lbry.com/snapshot/blockchain" lbry/lbrycrd:linux-x86_64-production
+docker run --rm -it -e RUN_MODE=default -e SNAPSHOT_URL="https://lbry.com/snapshot/blockchain" lbry/lbrycrd:latest-release
 ```
 
 Running with RPC password changed:
 
 ```
-docker run --rm -it -e RUN_MODE=default -e RPC_PASSWORD=hunter2 lbry/lbrycrd:linux-x86_64-production
+docker run --rm -it -e RUN_MODE=default -e RPC_PASSWORD=hunter2 lbry/lbrycrd:latest-release
 ```
 
 Running with a config file but with the RPC password still overridden:
 
 ```
-docker run --rm -it -v /path/to/lbrycrd.conf:/etc/lbry/lbrycrd.conf -e RUN_MODE=default -e RPC_PASSWORD=hunter2 lbry/lbrycrd:linux-x86_64-production
+docker run --rm -it -v /path/to/lbrycrd.conf:/etc/lbry/lbrycrd.conf -e RUN_MODE=default -e RPC_PASSWORD=hunter2 lbry/lbrycrd:latest-release
 ```
 

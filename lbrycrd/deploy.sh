@@ -27,5 +27,7 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-docker build -t "lbry/lbrycrd:${docker_tag}" -f Dockerfile-linux-x86_64-production "$DIR"
+release_url=$(curl -s https://api.github.com/repos/lbryio/lbrycrd/releases | grep -F 'lbrycrd-linux' | grep download | head -n 1 | cut -d'"' -f4)
+
+docker build --build-arg "release_url=$release_url" --tag "lbry/lbrycrd:${docker_tag}" -f Dockerfile "$DIR"
 docker push "lbry/lbrycrd:${docker_tag}"

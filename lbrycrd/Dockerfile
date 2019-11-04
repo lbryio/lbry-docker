@@ -11,7 +11,10 @@ COPY ./stuff/start.sh start
 COPY ./stuff/healthcheck.sh healthcheck
 COPY ./stuff/advance_blocks.sh advance
 COPY ./stuff/fix-permissions.c fix-permissions.c
-RUN curl --progress-bar -L -o ./lbrycrd-linux.zip $(curl -s https://api.github.com/repos/lbryio/lbrycrd/releases | grep -F 'lbrycrd-linux' | grep download | head -n 1 | cut -d'"' -f4) && \
+ARG release_url
+# require that release_url is set
+RUN test -n "$release_url"
+RUN curl --progress-bar -L -o ./lbrycrd-linux.zip "$release_url" && \
   unzip ./lbrycrd-linux.zip && \
   gcc fix-permissions.c -o fix-permissions && \
   chmod +x ./lbrycrdd ./lbrycrd-cli ./lbrycrd-tx ./start ./healthcheck ./fix-permissions ./advance
